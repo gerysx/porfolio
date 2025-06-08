@@ -13,6 +13,9 @@ import Capacitor from "./icons/Capacitor.astro"
 import Firebase from "./icons/Firebase.astro"
 import Ionic from "./icons/Ionic.astro"
 import VerMas from "./VerMas.astro"
+import Springboot from "./icons/Springboot.astro"
+import Mysql from "./icons/Mysql.astro"
+import Thymeleaf from "./icons/Thymeleaf.astro"
 
 const TAGS = {
   ANGULAR: {
@@ -59,6 +62,21 @@ const TAGS = {
     name: "Firebase",
     class: "bg-[#FFCA28] text-black",
     icon: Firebase,
+  },
+   SPRINGBOOT: {
+    name: "Springboot",
+    class: "bg-red-600 text-white",
+    icon: Springboot,
+  },
+  THYMELEAF: {
+    name: "Thymeleaf",
+    class: "bg-red-600 text-white",
+    icon: Thymeleaf,
+  },
+  MYSQL: {
+    name: "MySQL",
+    class: "bg-red-600 text-white",
+    icon: Mysql,
   }
 };
 const PROJECTS = [
@@ -75,10 +93,18 @@ const PROJECTS = [
 title: "App híbrida para microemprendimientos",
   description:
     "Aplicación móvil desarrollada con Angular, Ionic y Firebase para ayudar a pequeños emprendedores a gestionar productos, subir fotos y otras funciones nativas de disferente sistemas. Incluye autenticación, Firestore, almacenamiento en la nube y despliegue multiplataforma con Capacitor.",
-  link: "https://tfg-app-ionic.firebaseapp.com", 
+  //link: "https://tfg-app-ionic.firebaseapp.com", 
   github: "https://github.com/gerysx/product-admin/",
   image: "/projects/vista_pc.webp",
   tags: [TAGS.ANGULAR, TAGS.IONIC, TAGS.FIREBASE],
+  },
+  {
+title: "MyEcommerce",
+  description: "Aplicación web eCommerce desarrollada con Spring Boot, Thymeleaf y MySQL para gestionar productos, carritos de compra y pedidos. Incluye autenticación de usuarios, integración con API REST, renderizado dinámico de vistas y almacenamiento persistente. Ofrece una interfaz intuitiva para clientes y panel de administración para gestionar inventario y compras.",
+  //link: "https://github.com/gerysx/spring-ecommerce", 
+  github: "https://github.com/gerysx/spring-ecommerce",
+  image: "/projects/ecommerce.png",
+  tags: [TAGS.SPRINGBOOT, TAGS.MYSQL, TAGS.THYMELEAF],
   }
 ]
 ---
