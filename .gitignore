@@ -1,25 +1,28 @@
-# build output
+# Build output
 dist/
-
-# generated types
 .astro/
 
-# dependencies
+# Dependency directories
 node_modules/
 
-# logs
+# Logs
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 
-# environment variables
+# Env files
 .env
-.env.production
+.env.*     # ignora .env.production, .env.development, etc.
 
-# macOS-specific files
+# OS generated files
 .DS_Store
+
+# Bun (si no usas Bun, puedes quitarlo)
+bun.lockb
 bun.*
 
+# Package manager lock files (elige solo uno según el gestor que uses)
 package-lock.json
 pnpm-lock.yaml
+yarn.lock

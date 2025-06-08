@@ -1,40 +1,85 @@
 ---
 import GitHub from "./icons/GitHub.astro"
-import NextJS from "./icons/NextJS.astro"
-import Tailwind from "./icons/Tailwind.astro"
 import Link from "./icons/Link.astro"
 import LinkButton from "./LinkButton.astro"
+import Angular from "./icons/Angular.astro"
+import NodeJS from "./icons/NodeJS.astro"
+import Express from "./Experience.astro";
+import Sequelize from "./icons/Sequelize.astro";
+import JWT from "./icons/JWT.astro";
+import Tailwind from "./icons/Tailwind.astro";
+import PostgreSQL from "./icons/PostgreSQL.astro";
+import Capacitor from "./icons/Capacitor.astro"
+import Firebase from "./icons/Firebase.astro"
+import Ionic from "./icons/Ionic.astro"
+import VerMas from "./VerMas.astro"
 
 const TAGS = {
-  NEXT: {
-    name: "Next.js",
-    class: "bg-black text-white",
-    icon: NextJS,
+  ANGULAR: {
+    name: "Angular",
+    class: "bg-red-600 text-white",
+    icon: Angular,
+  },
+  NODE: {
+    name: "NodeJS",
+    class: "bg-green-700 text-white",
+    icon: NodeJS,
+  },
+  EXPRESS: {
+    name: "Express",
+    class: "bg-gray-800 text-white",
+    icon: Express,
+  },
+  SEQUELIZE: {
+    name: "Sequelize",
+    class: "bg-blue-700 text-white",
+    icon: Sequelize,
+  },
+  JWT: {
+    name: "JWT",
+    class: "bg-purple-600 text-white",
+    icon: JWT,
   },
   TAILWIND: {
     name: "Tailwind CSS",
     class: "bg-[#003159] text-white",
     icon: Tailwind,
   },
-}
+  POSTGRESQL: {
+    name: "PostgreSQL",
+    class: "bg-blue-900 text-white",
+    icon: PostgreSQL,
+  },
+  IONIC: {
+    name: "Ionic",
+    class: "bg-[#3880FF] text-white",
+    icon: Ionic,
+  },
+  FIREBASE: {
+    name: "Firebase",
+    class: "bg-[#FFCA28] text-black",
+    icon: Firebase,
+  }
+};
 const PROJECTS = [
   {
-    title: "SVGL - A beautiful library with SVG logos",
+    title: "ERP de Ventas - Gestión de productos, clientes y facturas",
     description:
-      "Biblioteca de logos SVG de las marcas más populares. +10k visitas al mes. +2K svgs descargados. Creado desde cero con Next.js, React y Tailwind CSS.",
-    link: "https://svgl.vercel.app/",
-    github: "https://github.com/pheralb/svgl",
-    image: "/projects/svgl.webp",
-    tags: [TAGS.NEXT, TAGS.TAILWIND],
+      "Sistema ERP desarrollado desde cero para la gestión de ventas, clientes y facturación. Incluye autenticación con JWT, control de roles, generación de PDFs y despliegue completo en Render. Frontend en Angular, backend en Node.js con Express y PostgreSQL.",
+    link: "https://erp-ventas-frontend.onrender.com/",
+    github: "https://github.com/gerysx/erp-ventas-frontend",
+    image: "/public/projects/svgl.webp",
+    tags: [TAGS.ANGULAR, TAGS.NODE, TAGS.POSTGRESQL],
   },
   {
-    title: "AdventJS - Retos de programación con JavaScript y TypeScript",
-    description:
-      "Plataforma gratuita con retos de programación. Más de 1 millón de visitas en un mes. +50K retos completados. Creada desde cero con Next.js, React y Tailwind CSS.",
-    link: "https://adventjs.dev",
-    image: "/projects/adventjs.webp",
-    tags: [TAGS.NEXT, TAGS.TAILWIND],
-  },
+title: "App híbrida para microemprendimientos",
+  description:
+    "Aplicación móvil desarrollada con Angular, Ionic y Firebase para ayudar a pequeños emprendedores a gestionar productos, subir fotos y otras funciones nativas de disferente sistemas. Incluye autenticación, Firestore, almacenamiento en la nube y despliegue multiplataforma con Capacitor.",
+  link: "https://tfg-app-ionic.firebaseapp.com", 
+  github: "https://github.com/gerysx/product-admin/",
+  image: "/public/projects/vista_pc.webp",
+  tags: [TAGS.ANGULAR, TAGS.IONIC, TAGS.FIREBASE],
+  }
 ]
 ---
 
@@ -44,7 +89,7 @@ const PROJECTS = [
     <article class="flex flex-col space-x-0 space-y-8 group md:flex-row md:space-x-8 md:space-y-0">
   <div class="w-full md:w-1/2">
     <div class="relative flex flex-col items-center col-span-6 row-span-5 gap-8 transition duration-500 ease-in-out transform shadow-xl overflow-clip rounded-xl sm:rounded-xl md:group-hover:-translate-y-1 md:group-hover:shadow-2xl lg:border lg:border-gray-800 lg:hover:border-gray-700 lg:hover:bg-gray-800/50">
-      <img alt="Recién llegado vs 5 años en Nueva Zelanda" class="object-cover object-top w-full h-56 transition duration-500 sm:h-full md:scale-110 md:group-hover:scale-105" loading="lazy" src={image} />
+      <img alt="Imagen del proyecto " class="object-cover object-top w-full aspect-[16/9] h-56 transition duration-500 sm:h-full md:scale-110 md:group-hover:scale-105" loading="lazy" src={image} />
     </div>
   </div>
 
@@ -71,14 +116,14 @@ const PROJECTS = [
           {github && (
             <LinkButton href={github}>
               <GitHub class="size-6" />
-              Code
+              Código
               
             </LinkButton>
           )}
           {link && (
             <LinkButton href={link}>
               <Link class="size-4" />
-              Preview
+              Visitar
             </LinkButton>
           )}
         </footer>
@@ -87,6 +132,14 @@ const PROJECTS = [
 </article>
     ))
   }
+
+  <div class="mt-4 flex justify-center">
+  <VerMas href="https://github.com/gerysx" target="_blank">
+    <GitHub class="size-5" />
+    Ver más proyectos en GitHub
+  </VerMas>
+</div>
+
 </div>
 
 
