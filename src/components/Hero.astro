@@ -1,12 +1,12 @@
 ---
-const personalImageAlt = "Germán Álvarez"
-import Badge from "@/components/Badge.astro"
-import LinkedInIcon from "@/components/icons/LinkedIn.astro"
-import MailIcon from "@/components/icons/Mail.astro"
-import SocialPill from "@/components/SocialPill.astro"
+const personalImageAlt = "Germán Álvarez";
+import Badge from "@/components/Badge.astro";
+import LinkedInIcon from "@/components/icons/LinkedIn.astro";
+import MailIcon from "@/components/icons/Mail.astro";
+import SocialPill from "@/components/SocialPill.astro";
 ---
 
-<div class="max-w-xl">
+<div class="w-full max-w-4xl px-4 sm:px-6 lg:px-8">
   <div class="flex gap-4 mb-4">
     <img
       class="rounded-full shadow-lg size-16"
@@ -23,13 +23,32 @@ import SocialPill from "@/components/SocialPill.astro"
     </a>
   </div>
 
-  <h1 class="text-4xl font-bold tracking-tight text-gray-800 sm:text-5xl dark:text-white">
+  <h1
+    class="text-4xl font-bold tracking-tight text-gray-800 sm:text-5xl dark:text-white"
+  >
     Hey, soy Germán Álvarez
   </h1>
 
-  <p class="mt-6 text-xl text-gray-800 dark:[&>strong]:text-yellow-200 [&>strong]:text-yellow-500 [&>strong]:font-semibold dark:text-gray-300">
-    Desarrollador de software. <strong>
-    Apasionado por crear soluciones web y móviles usando Angular, Node.js, Ionic, Spring Boot y Firebase</strong>. He desarrollado proyectos reales como un ERP de ventas y una app híbrida para microemprendimientos, integrando tecnologías modernas y desplegándolos en Render y Firebase.
+  <p
+    class="mt-6 text-xl text-justify text-gray-800 dark:[&>strong]:text-yellow-200 [&>strong]:text-yellow-500 [&>strong]:font-semibold dark:text-gray-300"
+  >
+    Desarrollador de software. <strong
+      >Apasionado por crear soluciones web y móviles
+    </strong> usando Angular, Node.js, Ionic, Spring Boot y Firebase. He desarrollado
+    proyectos reales como un <strong
+      >ERP de ventas con autenticación JWT
+    </strong> y gestión de productos y clientes, una <strong
+      >app híbrida</strong> para microemprendimientos con
+     <strong> Angular, Ionic y Firebase</strong>, y un <strong
+      >eCommerce</strong> desarrollado con <strong>Spring Boot y Thymeleaf</strong
+    >. Trabajo desarrollando <strong
+      >APIs REST </strong>robustas con <strong> Node.js y Spring Boot</strong
+    >, integrando bases de datos relacionales como <strong
+      > PostgreSQL y MySQL</strong
+    >, y no relacionales como <strong>MongoDB</strong>. Además, utilizo <strong
+      >contenedores Docker</strong
+    > para facilitar el despliegue de mis aplicaciones en plataformas como Render
+    y Vercel.
   </p>
 
   <nav class="flex flex-wrap gap-4 mt-8">
@@ -42,8 +61,8 @@ import SocialPill from "@/components/SocialPill.astro"
       LinkedIn
     </SocialPill>
     <SocialPill href="/German Alvarez - CV_ JUN_25.pdf" download>
-  <LinkedInIcon class="size-4" />
-  Descargar CV
-</SocialPill>
+      <LinkedInIcon class="size-4" />
+      Descargar CV
+    </SocialPill>
   </nav>
 </div>
