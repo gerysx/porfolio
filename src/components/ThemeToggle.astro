@@ -19,12 +19,12 @@ const THEMES = ["Light", "Dark"]
 
 <style>
   .theme-toggle-icon {
-    /* Inicio: ocultas todas */
+    
     scale: 0;
     transition: scale 0.2s ease-in-out;
   }
   .theme-toggle-icon.active {
-    /* Icono activo */
+    
     scale: 1;
   }
 </style>
@@ -36,26 +36,26 @@ const THEMES = ["Light", "Dark"]
     dark: document.getElementById("dark"),
   }
 
-  // Si no hay nada en localStorage, el modo por defecto es 'dark'
+  
   function getThemePreference() {
     const stored = localStorage.getItem("theme")
     return (stored === "light" || stored === "dark") ? stored : "dark"
   }
 
   function applyTheme(pref) {
-    // Aplica la clase 'dark' al <html> si es modo oscuro
+    
     document.documentElement.classList[pref === "dark" ? "add" : "remove"]("dark")
-    // Actualiza el icono activo
+    
     Object.entries(icons).forEach(([key, el]) => {
       el.classList.toggle("active", key === pref)
     })
   }
 
-  // Inicializa al cargar
+
   let current = getThemePreference()
   applyTheme(current)
 
-  // Al pulsar, alterna entre light/dark y guarda en localStorage
+
   btn.addEventListener("click", () => {
     current = current === "dark" ? "light" : "dark"
     localStorage.setItem("theme", current)
