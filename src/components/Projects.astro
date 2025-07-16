@@ -16,6 +16,7 @@ import VerMas from "./VerMas.astro"
 import Springboot from "./icons/Springboot.astro"
 import Mysql from "./icons/Mysql.astro"
 import Thymeleaf from "./icons/Thymeleaf.astro"
+import Apirest from "./icons/Apirest.astro"
 
 const TAGS = {
   ANGULAR: {
@@ -77,6 +78,11 @@ const TAGS = {
     name: "MySQL",
     class: "bg-red-600 text-white",
     icon: Mysql,
+  },
+  APIREST: {
+    name: "ApiRest",
+    class: "bg-red-600 text-white",
+    icon: Apirest,
   }
 };
 const PROJECTS = [
@@ -105,6 +111,14 @@ title: "MyEcommerce",
   github: "https://github.com/gerysx/spring-ecommerce",
   image: "/projects/ecommerce.png",
   tags: [TAGS.SPRINGBOOT, TAGS.MYSQL, TAGS.THYMELEAF],
+  },
+  {
+title: "Country-App",
+  description: "Aplicación SPA, responsive, desarrollada con Angular, Tailwind CSS y DaisyUI. Se conecta a una API REST pública para ofrecer datos curiosos de cualquier país del mundo —capital, población, código internacional, bandera y más— de forma eficiente y asíncrona",
+  link: "https://countries-78scb.ondigitalocean.app/", 
+  github: "https://github.com/gerysx/country-app",
+  image: "/projects/screenshot_home.webp",
+  tags: [TAGS.ANGULAR, TAGS.TAILWIND, TAGS.APIREST],
   }
 ]
 ---
