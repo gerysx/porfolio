@@ -4,10 +4,10 @@ const personalImageAlt = "Germán Álvarez"
 ---
 
 <article
-  class="flex flex-col md:flex-row items-center justify-center gap-8 text-gray-800 dark:text-gray-300"
+  class="text-justify flex flex-col items-center justify-center gap-8 text-gray-800 dark:text-gray-300 md:flex-row"
 >
   <div
-    class="mt-6 text-xl text-justify [&>strong]:text-yellow-500 dark:[&>strong]:text-yellow-200 [&>strong]:font-semibold"
+    class="[&>p]:mb-4 [&>p>strong]:text-yellow-500 dark:[&>p>strong]:text-yellow-200 [&>p>strong]:font-semibold text-xl order-2 md:order-1"
   >
     <p>
       Me llamo Germán Álvarez, tengo 29 años y vivo en Madrid. 
@@ -27,10 +27,11 @@ const personalImageAlt = "Germán Álvarez"
   <img
     src="/projects/foto_mapamundo.PNG"
     alt="Imagen representativa de Germán Álvarez"
-    class="order-1 md:order-2 w-64 h-64 object-cover rounded-2xl bg-black/20 dark:bg-yellow-500/5 ring-1 ring-black/70 dark:ring-white/20"
+    class="order-1 md:order-2 object-cover w-64 h-full p-1 rotate-3 lg:p-2 lg:w-64 aspect-square rounded-2xl bg-black/20 dark:bg-yellow-500/5 ring-1 ring-black/70 dark:ring-white/20"
     style="object-position: 50% 50%"
   />
 </article>
+
 
 
 
