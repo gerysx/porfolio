@@ -13,7 +13,7 @@ import TitleSection from "@/components/TitleSection.astro"
 ---
 
 <Layout
-  title="Porfolio Germán - Desarrollador de software junior"
+  title="Porfolio Germán - Desarrollador backend"
   description="Desarrollador de software junior con experiencia en proyectos reales usando Angular, Node.js, Spring Boot e Ionic. Apasionado por crear soluciones prácticas, escalables y accesibles para personas y microemprendimientos. Disponible para trabajar en aplicaciones web o móviles."
 >
   <main class="px-4">
@@ -24,6 +24,14 @@ import TitleSection from "@/components/TitleSection.astro"
     </SectionContainer>
     
     <div class="space-y-24">
+
+            <SectionContainer id="experiencia">
+        <TitleSection>
+          <Briefcase class="size-8" />
+          Experiencia laboral
+        </TitleSection>
+        <Experience />
+      </SectionContainer>
       
 
       <SectionContainer id="proyectos">
@@ -34,14 +42,6 @@ import TitleSection from "@/components/TitleSection.astro"
         <Projects />
       </SectionContainer>
       
-    
-      <SectionContainer id="experiencia">
-        <TitleSection>
-          <Briefcase class="size-8" />
-          Experiencia laboral
-        </TitleSection>
-        <Experience />
-      </SectionContainer>
 
       <SectionContainer id="sobre-mi">
         <TitleSection>
