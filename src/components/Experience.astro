@@ -3,6 +3,7 @@ import { EXPERIENCE } from "@/data/profile"
 ---
 
 <ol class="relative">
+  <span data-progress aria-hidden="true" class="pointer-events-none absolute left-0 top-0 h-full w-px origin-top bg-gradient-to-b from-accent via-accent/60 to-transparent md:left-[260px]"></span>
   {
     EXPERIENCE.map((job) => (
       <li class="reveal group relative grid gap-4 border-l border-line/10 pb-14 pl-8 last:pb-0 md:grid-cols-[220px_1fr] md:gap-10 md:border-l-0 md:pl-0">

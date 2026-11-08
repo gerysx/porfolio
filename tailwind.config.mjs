@@ -14,9 +14,8 @@ export default {
         "accent-fg": "rgb(var(--accent-fg) / <alpha-value>)",
       },
       fontFamily: {
-        sans: ['"Onest Variable"', "system-ui", "sans-serif"],
-        mono: ['"JetBrains Mono"', "ui-monospace", "SFMono-Regular", "monospace"],
-        serif: ['"Instrument Serif"', "Georgia", "serif"],
+        sans: ['"Geist Variable"', "system-ui", "sans-serif"],
+        mono: ['"Geist Mono Variable"', "ui-monospace", "SFMono-Regular", "monospace"],
       },
       keyframes: {
         marquee: { to: { transform: "translateX(-50%)" } },

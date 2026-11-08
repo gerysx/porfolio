@@ -2,13 +2,13 @@
 import { PROFILE } from "@/data/profile"
 
 // Escena completa: desarrollo → CI/CD → clúster (gateway, servicios Spring,
-// eventos Kafka) → datos. Coordenadas en un lienzo de 1200x360.
+// mensajería de eventos) → datos. Coordenadas en un lienzo de 1200x360.
 const W = 1200
 const H = 360
 
 type N = { id: string; x: number; y: number; label: string; w: number; kind?: "accent" | "data" | "infra" }
 const PIPE: N[] = [
-  { id: "dev", x: 70, y: 30, label: "IDE · Java 21", w: 112 },
+  { id: "dev", x: 70, y: 30, label: "IDE · código", w: 112 },
   { id: "git", x: 180, y: 30, label: "git push", w: 80 },
   { id: "ci", x: 285, y: 30, label: "GitHub Actions", w: 118 },
   { id: "qa", x: 405, y: 30, label: "Sonar · Trivy", w: 108 },
@@ -25,8 +25,8 @@ const NODES: N[] = [
   { id: "redis", x: 548, y: 200, label: "redis", w: 76, kind: "data" },
   { id: "mongo", x: 548, y: 272, label: "mongodb", w: 88, kind: "data" },
 ]
-const KAFKA = { x: 360, y: 104, w: 92, h: 192 }
-const KX = KAFKA.x + KAFKA.w / 2
+const BROKER = { x: 360, y: 104, w: 92, h: 192 }
+const KX = BROKER.x + BROKER.w / 2
 const all = Object.fromEntries([...PIPE, ...NODES].map((n) => [n.id, n]))
 const right = (n: N) => n.x + n.w / 2
 const left = (n: N) => n.x - n.w / 2
@@ -39,10 +39,10 @@ const EDGES = [
   link("gw", "orders"),
   link("gw", "users"),
   link("gw", "payments"),
-  curve(right(all.orders), all.orders.y, KAFKA.x, 150),
-  curve(right(all.payments), all.payments.y, KAFKA.x, 250),
-  curve(KAFKA.x + KAFKA.w, 150, left(all.pg), all.pg.y),
-  curve(KAFKA.x + KAFKA.w, 250, left(all.mongo), all.mongo.y),
+  curve(right(all.orders), all.orders.y, BROKER.x, 150),
+  curve(right(all.payments), all.payments.y, BROKER.x, 250),
+  curve(BROKER.x + BROKER.w, 150, left(all.pg), all.pg.y),
+  curve(BROKER.x + BROKER.w, 250, left(all.mongo), all.mongo.y),
   curve(right(all.users), all.users.y, left(all.redis), all.redis.y),
 ]
 const CFG = [all.orders, all.users, all.payments].map((n) => curve(right(all.cfg), all.cfg.y, left(n), n.y))
@@ -56,9 +56,10 @@ const color = (k?: N["kind"]) =>
   <svg
     viewBox={`0 0 ${W} ${H}`}
     preserveAspectRatio="xMinYMid slice"
-    class="block h-[240px] w-full sm:h-[300px] md:h-[340px]"
+    data-banner-scene
+    class="block h-[240px] w-full origin-left sm:h-[300px] md:h-[340px]"
     role="img"
-    aria-label="Ilustración del ciclo completo: desarrollo, pipeline CI/CD, clúster Kubernetes/OpenShift con gateway, microservicios Spring, Kafka y bases de datos"
+    aria-label="Ilustración del ciclo completo: desarrollo, pipeline CI/CD, clúster Kubernetes/OpenShift con gateway, microservicios, mensajería de eventos y bases de datos"
   >
     <defs>
       <linearGradient id="bn-bg" x1="0" y1="0" x2="1" y2="1">
@@ -90,8 +91,8 @@ const color = (k?: N["kind"]) =>
     <g transform="translate(14 22) scale(0.86)">
     <!-- Clúster -->
     <rect x="22" y="76" width="640" height="270" rx="18" fill="#0a1335" fill-opacity=".45" stroke="#a78bfa" stroke-opacity=".45" stroke-dasharray="6 6" />
-    <text x="40" y="98" font-family="JetBrains Mono, monospace" font-size="11" fill="#c4b5fd" opacity=".85">☸ kubernetes · openshift  —  namespace: prod</text>
-    <text x={KX} y="320" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="10" fill="#9db7ff" opacity=".6">spring cloud · eventos · datos</text>
+    <text x="40" y="98" font-family="Geist Mono Variable, ui-monospace, monospace" font-size="11" fill="#c4b5fd" opacity=".85">☸ kubernetes · openshift  —  namespace: prod</text>
+    <text x={KX} y="320" text-anchor="middle" font-family="Geist Mono Variable, ui-monospace, monospace" font-size="10" fill="#9db7ff" opacity=".6">service mesh · eventos · datos</text>
 
     <!-- Pipeline CI/CD -->
     <g fill="none" stroke="#5b8cff" stroke-opacity=".6" stroke-width="1.3">
@@ -103,20 +104,20 @@ const color = (k?: N["kind"]) =>
       {CFG.map((d) => <path d={d} />)}
     </g>
 
-    <!-- Kafka -->
-    <g font-family="JetBrains Mono, monospace">
-      <rect x={KAFKA.x - 4} y={KAFKA.y - 4} width={KAFKA.w + 8} height={KAFKA.h + 8} rx="14" fill="#fcd34d" opacity=".18" filter="url(#bn-blur)" />
-      <rect x={KAFKA.x} y={KAFKA.y} width={KAFKA.w} height={KAFKA.h} rx="12" fill="#0a1335" stroke="#fcd34d" stroke-opacity=".9" />
-      <text x={KX} y={KAFKA.y + 20} text-anchor="middle" font-size="13" fill="#fde68a">kafka</text>
+    <!-- Broker de eventos -->
+    <g font-family="Geist Mono Variable, ui-monospace, monospace">
+      <rect x={BROKER.x - 4} y={BROKER.y - 4} width={BROKER.w + 8} height={BROKER.h + 8} rx="14" fill="#fcd34d" opacity=".18" filter="url(#bn-blur)" />
+      <rect x={BROKER.x} y={BROKER.y} width={BROKER.w} height={BROKER.h} rx="12" fill="#0a1335" stroke="#fcd34d" stroke-opacity=".9" />
+      <text x={KX} y={BROKER.y + 20} text-anchor="middle" font-size="11" fill="#fde68a">event broker</text>
       {[0, 1, 2].map((i) => (
         <g>
-          <rect x={KAFKA.x + 12} y={KAFKA.y + 38 + i * 48} width={KAFKA.w - 24} height="34" rx="6" fill="#fcd34d" fill-opacity=".06" stroke="#fcd34d" stroke-opacity=".35" />
+          <rect x={BROKER.x + 12} y={BROKER.y + 38 + i * 48} width={BROKER.w - 24} height="34" rx="6" fill="#fcd34d" fill-opacity=".06" stroke="#fcd34d" stroke-opacity=".35" />
           {[0, 1, 2, 3, 4].map((j) => (
-            <rect x={KAFKA.x + 18 + j * 12} y={KAFKA.y + 48 + i * 48} width="8" height="14" rx="2" fill="#fcd34d" fill-opacity={0.25 + j * 0.12} />
+            <rect x={BROKER.x + 18 + j * 12} y={BROKER.y + 48 + i * 48} width="8" height="14" rx="2" fill="#fcd34d" fill-opacity={0.25 + j * 0.12} />
           ))}
         </g>
       ))}
-      <text x={KX} y={KAFKA.y + KAFKA.h - 8} text-anchor="middle" font-size="9" fill="#fde68a" opacity=".7">3 partitions</text>
+      <text x={KX} y={BROKER.y + BROKER.h - 8} text-anchor="middle" font-size="9" fill="#fde68a" opacity=".7">topics · colas</text>
     </g>
 
     <!-- Conexiones con mensajes en vuelo -->
@@ -135,7 +136,7 @@ const color = (k?: N["kind"]) =>
     </g>
 
     <!-- Nodos -->
-    <g font-family="JetBrains Mono, monospace" font-size="12" text-anchor="middle">
+    <g font-family="Geist Mono Variable, ui-monospace, monospace" font-size="12" text-anchor="middle">
       {[...PIPE, ...NODES].map((n) => {
         const c = color(n.kind)
         const pipe = PIPE.includes(n)
@@ -161,7 +162,7 @@ const color = (k?: N["kind"]) =>
   <!-- Texto, como una portada de perfil -->
   <div class="absolute inset-0 flex items-end justify-end bg-gradient-to-t from-[#03050f]/85 via-[#03050f]/30 to-transparent p-4 pl-28 sm:items-center sm:bg-none sm:p-10 sm:pl-10 md:p-14">
     <div class="text-right text-white">
-      <h1 class="text-2xl font-semibold tracking-tight drop-shadow-[0_2px_20px_rgb(0_0_0/0.6)] sm:text-4xl lg:text-6xl">{PROFILE.name}</h1>
+      <h1 data-split class="text-2xl font-semibold tracking-[-0.03em] drop-shadow-[0_2px_20px_rgb(0_0_0/0.6)] sm:text-4xl lg:text-6xl">{PROFILE.name}</h1>
       <p class="mt-2 inline-flex items-center gap-2 whitespace-nowrap rounded-full border border-white/40 bg-[#03050f]/40 px-3 py-1 text-[11px] backdrop-blur sm:mt-3 sm:px-4 sm:text-base">
         <span class="size-1.5 rounded-full bg-[#fcd34d]"></span>
         {PROFILE.role} · {PROFILE.company}

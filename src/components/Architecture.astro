@@ -17,16 +17,16 @@ const RUNTIME = [
   {
     id: "service",
     label: "Microservicio",
-    sub: "Spring Boot · API First",
+    sub: "Contrato · Dominio",
     detail:
-      "Servicios pequeños con una sola responsabilidad, contrato OpenAPI y patrón Delegate. Arquitectura hexagonal para aislar el dominio de la infraestructura.",
+      "Servicios con una sola responsabilidad y límites de dominio claros. Contrato OpenAPI, patrón Delegate y arquitectura hexagonal para que la tecnología se pueda cambiar sin tocar el negocio.",
   },
   {
     id: "broker",
     label: "Eventos",
-    sub: "Kafka · RabbitMQ",
+    sub: "Broker · Colas · Pub/Sub",
     detail:
-      "Comunicación asíncrona y desacoplada: los servicios publican hechos de negocio y otros reaccionan sin depender de su disponibilidad.",
+      "Mensajería de eventos y colas: los servicios publican hechos de negocio y otros reaccionan sin depender de su disponibilidad. Reintentos, idempotencia y dead letters para no perder nada.",
   },
   {
     id: "data",
@@ -39,7 +39,7 @@ const RUNTIME = [
 
 const PIPELINE = [
   { label: "Commit", sub: "Git · PR" },
-  { label: "Build y tests", sub: "Maven · JUnit" },
+  { label: "Build y tests", sub: "Pruebas automáticas" },
   { label: "Calidad", sub: "SonarQube" },
   { label: "Seguridad", sub: "Fortify · Trivy" },
   { label: "Despliegue", sub: "OpenShift · K8s" },

@@ -6,6 +6,7 @@
   --line: 17 17 19;
   --accent: 180 120 0;
   --accent-fg: 17 17 19;
+  --accent-2: 214 72 24;
   color-scheme: light;
 }
 :root.dark {
@@ -16,17 +17,19 @@
   --line: 255 255 255;
   --accent: 252 211 77;
   --accent-fg: 17 17 19;
+  --accent-2: 251 133 60;
   color-scheme: dark;
 }
 
 html {
   scroll-behavior: smooth;
+  font-feature-settings: "ss01", "cv11";
   -webkit-font-smoothing: antialiased;
 }
 body {
   background: rgb(var(--bg));
   color: rgb(var(--fg));
-  font-family: "Onest Variable", system-ui, sans-serif;
+  font-family: "Geist Variable", system-ui, sans-serif;
 }
 ::selection {
   background: rgb(var(--accent) / 0.35);
@@ -62,17 +65,29 @@ body {
   opacity: 1;
 }
 
-/* Aparición al hacer scroll */
-.reveal {
-  opacity: 0;
-  transform: translateY(16px);
-  transition:
-    opacity 0.7s ease,
-    transform 0.7s ease;
+/* Estado inicial de las animaciones (solo con JS y sin movimiento reducido).
+   GSAP las lleva a su estado final; sin JS todo queda visible. */
+.motion .reveal,
+.motion [data-hero-banner],
+.motion [data-hero-avatar],
+.motion [data-hero-item],
+.motion [data-hero-terminal] {
+  visibility: hidden;
 }
-.reveal.is-visible {
-  opacity: 1;
-  transform: none;
+
+/* Texto con degradado para los acentos de los titulares */
+.text-gradient {
+  background: linear-gradient(100deg, rgb(var(--accent)) 0%, rgb(var(--accent-2)) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  padding-right: 0.04em;
+}
+.text-gradient .split-word {
+  background: linear-gradient(100deg, rgb(var(--accent)) 0%, rgb(var(--accent-2)) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
 
 /* Paquetes que viajan por el diagrama */
@@ -87,6 +102,10 @@ body {
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  .reveal { opacity: 1; transform: none; transition: none; }
   .packet, .animate-marquee, .animate-blink { animation: none !important; }
 }
+
+/* Lenis */
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+.lenis.lenis-stopped { overflow: hidden; }

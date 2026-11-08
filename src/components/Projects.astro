@@ -7,10 +7,10 @@ import { PROJECTS, PROFILE } from "@/data/profile"
     PROJECTS.map((p, i) => (
       <article
         class:list={[
-          "reveal spotlight group flex flex-col overflow-hidden rounded-2xl border border-line/10 bg-surface/60 transition hover:border-line/25",
+          "reveal spotlight group flex flex-col overflow-hidden rounded-2xl border border-line/10 bg-surface/60 transition-colors hover:border-line/25",
           p.featured && "md:col-span-2 md:flex-row",
         ]}
-        style={`transition-delay:${(i % 2) * 80}ms`}
+        data-tilt
       >
         <div class:list={["relative overflow-hidden border-line/10 bg-bg", p.featured ? "md:w-3/5 md:border-r" : "border-b"]}>
           <img
