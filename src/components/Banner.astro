@@ -1,52 +1,55 @@
 ---
 import { PROFILE } from "@/data/profile"
 
-// Escena: topología de microservicios sobre una rejilla en perspectiva.
+// Escena completa: desarrollo → CI/CD → clúster (gateway, servicios Spring,
+// eventos Kafka) → datos. Coordenadas en un lienzo de 1200x360.
 const W = 1200
 const H = 360
-const VP = { x: 241, y: 150 } // punto de fuga
-const floorY = [170, 182, 198, 220, 250, 290, 345, 410]
-const rays = Array.from({ length: 19 }, (_, i) => -600 + i * 150)
 
-const NODES = [
-  { id: "gw", x: 96, y: 92, label: "api-gateway", w: 128 },
-  { id: "orders", x: 241, y: 52, label: "orders-svc", w: 120 },
-  { id: "users", x: 241, y: 150, label: "users-svc", w: 112 },
-  { id: "kafka", x: 342, y: 100, label: "kafka", w: 92, accent: true },
-  { id: "billing", x: 438, y: 52, label: "billing-svc", w: 124 },
-  { id: "redis", x: 336, y: 210, label: "redis", w: 84 },
-  { id: "db", x: 444, y: 168, label: "postgres", w: 104 },
+type N = { id: string; x: number; y: number; label: string; w: number; kind?: "accent" | "data" | "infra" }
+const PIPE: N[] = [
+  { id: "dev", x: 70, y: 30, label: "IDE · Java 21", w: 112 },
+  { id: "git", x: 180, y: 30, label: "git push", w: 80 },
+  { id: "ci", x: 285, y: 30, label: "GitHub Actions", w: 118 },
+  { id: "qa", x: 405, y: 30, label: "Sonar · Trivy", w: 108 },
+  { id: "img", x: 510, y: 30, label: "registry", w: 82 },
+  { id: "deploy", x: 605, y: 30, label: "deploy", w: 74, kind: "accent" },
 ]
-const byId = Object.fromEntries(NODES.map((n) => [n.id, n]))
-const EDGES: [string, string][] = [
-  ["gw", "orders"],
-  ["gw", "users"],
-  ["orders", "kafka"],
-  ["users", "kafka"],
-  ["kafka", "billing"],
-  ["users", "redis"],
-  ["billing", "db"],
-  ["kafka", "db"],
+const NODES: N[] = [
+  { id: "gw", x: 92, y: 200, label: "api-gateway", w: 112, kind: "infra" },
+  { id: "cfg", x: 92, y: 128, label: "config-server", w: 116, kind: "infra" },
+  { id: "orders", x: 238, y: 128, label: "orders-svc", w: 104 },
+  { id: "users", x: 238, y: 200, label: "users-svc", w: 96 },
+  { id: "payments", x: 238, y: 272, label: "payments-svc", w: 112 },
+  { id: "pg", x: 548, y: 128, label: "postgres", w: 92, kind: "data" },
+  { id: "redis", x: 548, y: 200, label: "redis", w: 76, kind: "data" },
+  { id: "mongo", x: 548, y: 272, label: "mongodb", w: 88, kind: "data" },
 ]
-const wide = new Set(["redis", "db"]) // solo en pantallas grandes
-const path = (a: string, b: string) => {
-  const p = byId[a]
-  const q = byId[b]
-  const mx = (p.x + q.x) / 2
-  return `M${p.x} ${p.y} C${mx} ${p.y} ${mx} ${q.y} ${q.x} ${q.y}`
+const KAFKA = { x: 360, y: 104, w: 92, h: 192 }
+const KX = KAFKA.x + KAFKA.w / 2
+const all = Object.fromEntries([...PIPE, ...NODES].map((n) => [n.id, n]))
+const right = (n: N) => n.x + n.w / 2
+const left = (n: N) => n.x - n.w / 2
+const curve = (x1: number, y1: number, x2: number, y2: number) => {
+  const mx = (x1 + x2) / 2
+  return `M${x1} ${y1} C${mx} ${y1} ${mx} ${y2} ${x2} ${y2}`
 }
-const code = [
-  "@RestController",
-  '@RequestMapping("/api/v1/orders")',
-  "public class OrderController implements OrdersApi {",
-  "  private final OrderDelegate delegate;",
-  "  @Override",
-  "  public ResponseEntity<Order> create(OrderRequest req) {",
-  '    kafka.send("orders.created", event(req));',
-  "    return ResponseEntity.status(CREATED).body(order);",
-  "  }",
-  "}",
+const link = (a: string, b: string) => curve(right(all[a]), all[a].y, left(all[b]), all[b].y)
+const EDGES = [
+  link("gw", "orders"),
+  link("gw", "users"),
+  link("gw", "payments"),
+  curve(right(all.orders), all.orders.y, KAFKA.x, 150),
+  curve(right(all.payments), all.payments.y, KAFKA.x, 250),
+  curve(KAFKA.x + KAFKA.w, 150, left(all.pg), all.pg.y),
+  curve(KAFKA.x + KAFKA.w, 250, left(all.mongo), all.mongo.y),
+  curve(right(all.users), all.users.y, left(all.redis), all.redis.y),
 ]
+const CFG = [all.orders, all.users, all.payments].map((n) => curve(right(all.cfg), all.cfg.y, left(n), n.y))
+const PIPE_EDGES = PIPE.slice(0, -1).map((n, i) => `M${right(n)} ${n.y} L${left(PIPE[i + 1])} ${PIPE[i + 1].y}`)
+const DEPLOY = `M${all.deploy.x} ${all.deploy.y + 13} C${all.deploy.x} 70 ${all.deploy.x - 10} 70 ${all.deploy.x - 30} 76`
+const color = (k?: N["kind"]) =>
+  k === "accent" ? "#fcd34d" : k === "data" ? "#34d399" : k === "infra" ? "#a78bfa" : "#5b8cff"
 ---
 
 <div class="relative overflow-hidden rounded-3xl border border-line/10 bg-[#050816] shadow-2xl shadow-blue-950/30">
@@ -55,7 +58,7 @@ const code = [
     preserveAspectRatio="xMinYMid slice"
     class="block h-[240px] w-full sm:h-[300px] md:h-[340px]"
     role="img"
-    aria-label="Ilustración de una arquitectura de microservicios: gateway, servicios, Kafka, Redis y PostgreSQL conectados"
+    aria-label="Ilustración del ciclo completo: desarrollo, pipeline CI/CD, clúster Kubernetes/OpenShift con gateway, microservicios Spring, Kafka y bases de datos"
   >
     <defs>
       <linearGradient id="bn-bg" x1="0" y1="0" x2="1" y2="1">
@@ -63,59 +66,95 @@ const code = [
         <stop offset=".45" stop-color="#0a1f63" />
         <stop offset="1" stop-color="#03050f" />
       </linearGradient>
-      <radialGradient id="bn-glow" cx=".35" cy=".35" r=".55">
-        <stop offset="0" stop-color="#2f6bff" stop-opacity=".55" />
+      <radialGradient id="bn-glow" cx=".3" cy=".45" r=".55">
+        <stop offset="0" stop-color="#2f6bff" stop-opacity=".5" />
         <stop offset="1" stop-color="#2f6bff" stop-opacity="0" />
       </radialGradient>
       <linearGradient id="bn-fade" x1="0" x2="1">
-        <stop offset=".5" stop-color="#03050f" stop-opacity="0" />
+        <stop offset=".54" stop-color="#03050f" stop-opacity="0" />
         <stop offset="1" stop-color="#03050f" stop-opacity=".92" />
       </linearGradient>
-      <linearGradient id="bn-floor" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0" stop-color="#5b8cff" stop-opacity="0" />
-        <stop offset="1" stop-color="#5b8cff" stop-opacity=".35" />
-      </linearGradient>
+      <pattern id="bn-grid" width="24" height="24" patternUnits="userSpaceOnUse">
+        <path d="M24 0H0V24" fill="none" stroke="#5b8cff" stroke-opacity=".08" />
+      </pattern>
+      <marker id="bn-arrow" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="6" markerHeight="6" orient="auto">
+        <path d="M0 0L8 4L0 8z" fill="#5b8cff" fill-opacity=".7" />
+      </marker>
       <filter id="bn-blur"><feGaussianBlur stdDeviation="6" /></filter>
     </defs>
 
     <rect width={W} height={H} fill="url(#bn-bg)" />
+    <rect width={W} height={H} fill="url(#bn-grid)" />
     <rect width={W} height={H} fill="url(#bn-glow)" />
 
-    <!-- Código de fondo -->
-    <g font-family="JetBrains Mono, monospace" font-size="13" fill="#9db7ff" opacity=".16">
-      {code.map((l, i) => <text x="40" y={34 + i * 22} xml:space="preserve">{l}</text>)}
+    <g transform="translate(14 22) scale(0.86)">
+    <!-- Clúster -->
+    <rect x="22" y="76" width="640" height="270" rx="18" fill="#0a1335" fill-opacity=".45" stroke="#a78bfa" stroke-opacity=".45" stroke-dasharray="6 6" />
+    <text x="40" y="98" font-family="JetBrains Mono, monospace" font-size="11" fill="#c4b5fd" opacity=".85">☸ kubernetes · openshift  —  namespace: prod</text>
+    <text x={KX} y="320" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="10" fill="#9db7ff" opacity=".6">spring cloud · eventos · datos</text>
+
+    <!-- Pipeline CI/CD -->
+    <g fill="none" stroke="#5b8cff" stroke-opacity=".6" stroke-width="1.3">
+      {PIPE_EDGES.map((d) => <path d={d} marker-end="url(#bn-arrow)" />)}
+      <path d={DEPLOY} stroke="#fcd34d" stroke-dasharray="3 4" marker-end="url(#bn-arrow)" />
     </g>
 
-    <!-- Suelo en perspectiva -->
-    <g stroke="url(#bn-floor)" stroke-width="1">
-      {floorY.map((y) => <line x1="0" y1={y + 40} x2={W} y2={y + 40} />)}
-      {rays.map((x) => <line x1={VP.x} y1={VP.y + 40} x2={x * 2.2 + VP.x} y2={H + 120} />)}
+    <g fill="none" stroke="#a78bfa" stroke-opacity=".35" stroke-dasharray="2 4">
+      {CFG.map((d) => <path d={d} />)}
     </g>
 
-    <!-- Conexiones -->
+    <!-- Kafka -->
+    <g font-family="JetBrains Mono, monospace">
+      <rect x={KAFKA.x - 4} y={KAFKA.y - 4} width={KAFKA.w + 8} height={KAFKA.h + 8} rx="14" fill="#fcd34d" opacity=".18" filter="url(#bn-blur)" />
+      <rect x={KAFKA.x} y={KAFKA.y} width={KAFKA.w} height={KAFKA.h} rx="12" fill="#0a1335" stroke="#fcd34d" stroke-opacity=".9" />
+      <text x={KX} y={KAFKA.y + 20} text-anchor="middle" font-size="13" fill="#fde68a">kafka</text>
+      {[0, 1, 2].map((i) => (
+        <g>
+          <rect x={KAFKA.x + 12} y={KAFKA.y + 38 + i * 48} width={KAFKA.w - 24} height="34" rx="6" fill="#fcd34d" fill-opacity=".06" stroke="#fcd34d" stroke-opacity=".35" />
+          {[0, 1, 2, 3, 4].map((j) => (
+            <rect x={KAFKA.x + 18 + j * 12} y={KAFKA.y + 48 + i * 48} width="8" height="14" rx="2" fill="#fcd34d" fill-opacity={0.25 + j * 0.12} />
+          ))}
+        </g>
+      ))}
+      <text x={KX} y={KAFKA.y + KAFKA.h - 8} text-anchor="middle" font-size="9" fill="#fde68a" opacity=".7">3 partitions</text>
+    </g>
+
+    <!-- Conexiones con mensajes en vuelo -->
     <g fill="none" stroke-width="1.5">
-      {EDGES.map(([a, b], i) => (
-        <g class:list={[(wide.has(a) || wide.has(b)) && "hidden lg:inline"]}>
-          <path d={path(a, b)} stroke="#4f7dff" stroke-opacity=".45" />
-          <circle r="3.5" fill={i % 3 === 0 ? "#fcd34d" : "#9fc0ff"}>
-            <animateMotion dur={`${2.4 + (i % 4) * 0.5}s`} begin={`${i * 0.3}s`} repeatCount="indefinite" path={path(a, b)} />
+      {EDGES.map((d, i) => (
+        <g>
+          <path d={d} stroke="#4f7dff" stroke-opacity=".5" />
+          <circle r="3.2" fill={i >= 3 && i <= 6 ? "#fcd34d" : "#9fc0ff"}>
+            <animateMotion dur={`${2.2 + (i % 4) * 0.45}s`} begin={`${i * 0.27}s`} repeatCount="indefinite" path={d} />
           </circle>
         </g>
       ))}
+      <circle r="3" fill="#fcd34d">
+        <animateMotion dur="6s" repeatCount="indefinite" path={`M${left(PIPE[0])} 30 L${right(PIPE[PIPE.length - 1])} 30`} />
+      </circle>
     </g>
 
     <!-- Nodos -->
-    <g font-family="JetBrains Mono, monospace" font-size="13" text-anchor="middle">
-      {NODES.map((n) => (
-        <g class:list={[wide.has(n.id) && "hidden lg:inline"]}>
-          <rect x={n.x - n.w / 2 - 4} y={n.y - 20} width={n.w + 8} height="40" rx="12" fill={n.accent ? "#fcd34d" : "#3f6dff"} opacity=".25" filter="url(#bn-blur)" />
-          <rect x={n.x - n.w / 2} y={n.y - 16} width={n.w} height="32" rx="9" fill="#0a1335" stroke={n.accent ? "#fcd34d" : "#5b8cff"} stroke-opacity=".9" />
-          <circle cx={n.x - n.w / 2 + 12} cy={n.y} r="3" fill={n.accent ? "#fcd34d" : "#34d399"} />
-          <text x={n.x + 6} y={n.y + 4.5} fill="#dbe6ff">{n.label}</text>
-        </g>
-      ))}
+    <g font-family="JetBrains Mono, monospace" font-size="12" text-anchor="middle">
+      {[...PIPE, ...NODES].map((n) => {
+        const c = color(n.kind)
+        const pipe = PIPE.includes(n)
+        return (
+          <g>
+            {!pipe && <rect x={n.x - n.w / 2 - 4} y={n.y - 19} width={n.w + 8} height="38" rx="12" fill={c} opacity=".22" filter="url(#bn-blur)" />}
+            <rect x={n.x - n.w / 2} y={n.y - (pipe ? 12 : 15)} width={n.w} height={pipe ? 24 : 30} rx={pipe ? 12 : 9} fill="#0a1335" stroke={c} stroke-opacity={pipe ? 0.7 : 0.9} />
+            {n.kind === "data" ? (
+              <ellipse cx={n.x - n.w / 2 + 12} cy={n.y} rx="4" ry="5" fill="none" stroke={c} />
+            ) : (
+              <circle cx={n.x - n.w / 2 + 11} cy={n.y} r="2.6" fill={c} />
+            )}
+            <text x={n.x + 6} y={n.y + 4} font-size={pipe ? 10.5 : 12} fill="#dbe6ff">{n.label}</text>
+          </g>
+        )
+      })}
     </g>
 
+    </g>
     <rect width={W} height={H} fill="url(#bn-fade)" />
   </svg>
 

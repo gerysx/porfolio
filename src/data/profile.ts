@@ -51,18 +51,14 @@ export interface Job {
   summary: string
   points: string[]
   stack: string[]
-  /** Ruta a /public/logos/... Si falta, se muestra un monograma. */
+  /** Logo oficial en /public/logos/... Si falta, no se muestra nada. */
   logo?: string
-  monogram: string
-  brand: string
 }
 
 export const EXPERIENCE: Job[] = [
   {
     role: "Arquitecto de Software",
     company: "NTT DATA",
-    monogram: "NTT",
-    brand: "#0072bc",
     start: "May 2026",
     end: "Actualidad",
     current: true,
@@ -92,8 +88,6 @@ export const EXPERIENCE: Job[] = [
   {
     role: "Desarrollador de Software Backend",
     company: "Delogica",
-    monogram: "D",
-    brand: "#e4572e",
     context: "Proyecto Santander Bank USA",
     start: "Oct 2025",
     end: "Abr 2026",
@@ -124,8 +118,6 @@ export const EXPERIENCE: Job[] = [
   {
     role: "Desarrollador de Software Backend",
     company: "Adviser Cloud",
-    monogram: "AC",
-    brand: "#14b8a6",
     context: "Prácticas",
     start: "Feb 2025",
     end: "Jul 2025",
@@ -142,7 +134,7 @@ export const EXPERIENCE: Job[] = [
 ]
 
 export const STACK = [
-  { group: "Backend", items: ["Java", "Spring Boot", "SQL"] },
+  { group: "Backend", items: ["Java", "Spring Boot", "Spring Cloud", "SQL"] },
   {
     group: "Arquitectura empresarial",
     items: ["Microservicios", "Event-Driven", "API First · OpenAPI 3.0", "DDD", "Arquitectura hexagonal", "Patrón Delegate"],
