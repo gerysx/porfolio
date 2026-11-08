@@ -1,0 +1,115 @@
+---
+import { PROFILE } from "@/data/profile"
+
+const COMMANDS = [
+  { group: "Ir a", label: "Inicio", action: "nav", value: "#inicio" },
+  { group: "Ir a", label: "Experiencia", action: "nav", value: "#experiencia" },
+  { group: "Ir a", label: "Arquitectura", action: "nav", value: "#arquitectura" },
+  { group: "Ir a", label: "Stack", action: "nav", value: "#stack" },
+  { group: "Ir a", label: "Proyectos", action: "nav", value: "#proyectos" },
+  { group: "Ir a", label: "Sobre mí", action: "nav", value: "#sobre-mi" },
+  { group: "Ir a", label: "Contacto", action: "nav", value: "#contacto" },
+  { group: "Acciones", label: "Copiar email", action: "copy", value: PROFILE.email },
+  { group: "Acciones", label: "Descargar CV", action: "link", value: PROFILE.cv },
+  { group: "Acciones", label: "Cambiar tema claro / oscuro", action: "theme", value: "" },
+  { group: "Enlaces", label: "LinkedIn", action: "external", value: PROFILE.linkedin },
+  { group: "Enlaces", label: "GitHub", action: "external", value: PROFILE.github },
+]
+---
+
+<dialog
+  id="palette"
+  aria-label="Paleta de comandos"
+  class="m-0 mx-auto mt-[12vh] w-[min(560px,calc(100vw-32px))] overflow-hidden rounded-2xl border border-line/15 bg-surface p-0 text-fg shadow-2xl backdrop:bg-black/50 backdrop:backdrop-blur-sm"
+>
+  <div class="flex items-center gap-3 border-b border-line/10 px-4">
+    <svg class="size-4 text-muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-3.5-3.5"></path></svg>
+    <input
+      id="palette-input"
+      type="text"
+      autocomplete="off"
+      placeholder="¿A dónde quieres ir?"
+      aria-label="Buscar comando"
+      class="h-14 flex-1 bg-transparent text-base outline-none placeholder:text-muted"
+    />
+    <kbd class="rounded border border-line/15 px-1.5 font-mono text-[11px] text-muted">ESC</kbd>
+  </div>
+  <ul id="palette-list" role="listbox" class="max-h-[50vh] overflow-y-auto p-2">
+    {
+      COMMANDS.map((c) => (
+        <li
+          role="option"
+          data-cmd={c.action}
+          data-value={c.value}
+          data-label={`${c.group} ${c.label}`.toLowerCase()}
+          class="flex cursor-pointer items-center justify-between rounded-lg px-3 py-2.5 text-sm aria-selected:bg-line/5"
+        >
+          <span>{c.label}</span>
+          <span class="font-mono text-[11px] text-muted">{c.group}</span>
+        </li>
+      ))
+    }
+    <li id="palette-empty" class="hidden px-3 py-6 text-center text-sm text-muted">Sin resultados</li>
+  </ul>
+</dialog>
+
+<script>
+  import { toggleTheme } from "@/lib/theme"
+
+  const dialog = document.getElementById("palette") as HTMLDialogElement
+  const input = document.getElementById("palette-input") as HTMLInputElement
+  const items = [...document.querySelectorAll<HTMLLIElement>("#palette-list [data-cmd]")]
+  const empty = document.getElementById("palette-empty")!
+  let active = 0
+
+  const visible = () => items.filter((i) => !i.hidden)
+  const paint = () => {
+    const v = visible()
+    v.forEach((i, idx) => i.setAttribute("aria-selected", String(idx === active)))
+    v[active]?.scrollIntoView({ block: "nearest" })
+    empty.classList.toggle("hidden", v.length > 0)
+  }
+  const open = () => {
+    input.value = ""
+    items.forEach((i) => (i.hidden = false))
+    active = 0
+    paint()
+    dialog.showModal()
+    input.focus()
+  }
+  const run = (el?: HTMLLIElement) => {
+    if (!el) return
+    const { cmd, value = "" } = el.dataset
+    dialog.close()
+    if (cmd === "nav") document.querySelector(value)?.scrollIntoView({ behavior: "smooth" })
+    if (cmd === "copy") navigator.clipboard?.writeText(value)
+    if (cmd === "link") location.href = value
+    if (cmd === "external") window.open(value, "_blank", "noopener")
+    if (cmd === "theme") toggleTheme()
+  }
+
+  document.querySelectorAll("[data-open-palette]").forEach((b) => b.addEventListener("click", open))
+  document.addEventListener("keydown", (e) => {
+    if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") {
+      e.preventDefault()
+      dialog.open ? dialog.close() : open()
+    }
+  })
+  input.addEventListener("input", () => {
+    const q = input.value.trim().toLowerCase()
+    items.forEach((i) => (i.hidden = !i.dataset.label!.includes(q)))
+    active = 0
+    paint()
+  })
+  input.addEventListener("keydown", (e) => {
+    const v = visible()
+    if (e.key === "ArrowDown") { e.preventDefault(); active = (active + 1) % Math.max(v.length, 1); paint() }
+    if (e.key === "ArrowUp") { e.preventDefault(); active = (active - 1 + v.length) % Math.max(v.length, 1); paint() }
+    if (e.key === "Enter") { e.preventDefault(); run(v[active]) }
+  })
+  items.forEach((i) => {
+    i.addEventListener("click", () => run(i))
+    i.addEventListener("mousemove", () => { active = visible().indexOf(i); paint() })
+  })
+  dialog.addEventListener("click", (e) => { if (e.target === dialog) dialog.close() })
+</script>

@@ -1,55 +1,57 @@
 ---
 import Layout from "@/layouts/Layout.astro"
-
-import AboutMe from "@/components/AboutMe.astro"
-import Briefcase from "@/components/icons/Briefcase.astro"
-import CodeIcon from "@/components/icons/Code.astro"
-import Experience from "@/components/Experience.astro"
-import ProfileCheck from "@/components/icons/ProfileCheck.astro"
-import Projects from "@/components/Projects.astro"
-import SectionContainer from "@/components/SectionContainer.astro"
 import Hero from "@/components/Hero.astro"
-import TitleSection from "@/components/TitleSection.astro"
+import Highlights from "@/components/Highlights.astro"
+import Section from "@/components/Section.astro"
+import Experience from "@/components/Experience.astro"
+import Architecture from "@/components/Architecture.astro"
+import Stack from "@/components/Stack.astro"
+import Projects from "@/components/Projects.astro"
+import About from "@/components/About.astro"
+import Contact from "@/components/Contact.astro"
 ---
 
-<Layout
-  title="Porfolio Germán - Desarrollador backend"
-  description="Desarrollador de software junior con experiencia en proyectos reales usando Angular, Node.js, Spring Boot e Ionic. Apasionado por crear soluciones prácticas, escalables y accesibles para personas y microemprendimientos. Disponible para trabajar en aplicaciones web o móviles."
->
-  <main class="px-4">
-    <SectionContainer class="py-16 md:py-36">
-      <Hero>
-      </slot>
-    </Hero>
-    </SectionContainer>
-    
-    <div class="space-y-24">
+<Layout>
+  <Hero />
+  <Highlights />
 
-            <SectionContainer id="experiencia">
-        <TitleSection>
-          <Briefcase class="size-8" />
-          Experiencia laboral
-        </TitleSection>
-        <Experience />
-      </SectionContainer>
-      
+  <Section
+    id="experiencia"
+    index="01"
+    eyebrow="Experiencia"
+    title="Del código a la <span class='font-serif font-normal italic text-accent'>arquitectura</span>."
+    intro="Desarrollo backend en banca internacional y, hoy, diseño de arquitecturas enterprise en NTT DATA."
+  >
+    <Experience />
+  </Section>
 
-      <SectionContainer id="proyectos">
-        <TitleSection>
-          <CodeIcon class="size-7" />
-          Proyectos
-        </TitleSection>
-        <Projects />
-      </SectionContainer>
-      
+  <Section
+    id="arquitectura"
+    index="02"
+    eyebrow="Cómo construyo"
+    title="Así viaja una petición por los sistemas que diseño."
+    intro="Pulsa cada pieza para ver qué decisión hay detrás. Debajo, las puertas de calidad por las que pasa cada cambio antes de llegar a producción."
+  >
+    <Architecture />
+  </Section>
 
-      <SectionContainer id="sobre-mi">
-        <TitleSection>
-          <ProfileCheck class="size-8" />
-          Sobre mí
-        </TitleSection>
-        <AboutMe />
-      </SectionContainer>
-    </div>
-  </main>
+  <Section id="stack" index="03" eyebrow="Stack" title="Herramientas con las que trabajo a diario.">
+    <Stack />
+  </Section>
+
+  <Section
+    id="proyectos"
+    index="04"
+    eyebrow="Proyectos"
+    title="Cosas que he construido por mi cuenta."
+    intro="Proyectos personales full stack, con demo en vivo y código abierto."
+  >
+    <Projects />
+  </Section>
+
+  <Section id="sobre-mi" index="05" eyebrow="Sobre mí" title="Más allá del CV.">
+    <About />
+  </Section>
+
+  <Contact />
 </Layout>

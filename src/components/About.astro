@@ -1,0 +1,51 @@
+---
+import { EDUCATION, LANGUAGES, PROFILE } from "@/data/profile"
+---
+
+<div class="grid gap-10 md:grid-cols-[1fr_300px] md:gap-14">
+  <div class="reveal space-y-5 text-lg leading-relaxed text-muted">
+    <p>
+      Soy <span class="text-fg">Germán</span>, vivo en Madrid y me dedico al backend. Empecé construyendo APIs y microservicios, pasé por la banca internacional y hoy, como
+      <span class="text-fg">Arquitecto de Software en NTT DATA</span>, me toca decidir cómo se construyen los sistemas
+      para que aguanten carga, cambios y años en producción.
+    </p>
+    <p>
+      Me gustan los problemas con muchas piezas: integrar sistemas que no se conocen, migrar sin parar el servicio y
+      encontrar el cuello de botella antes que el usuario. También exploro cómo la
+      <span class="text-fg">IA aplicada</span> puede quitarnos trabajo repetitivo, y he construido agentes para
+      automatizar flujos reales.
+    </p>
+    <p>
+      Fuera del código: deporte, viajes y probar cualquier herramienta nueva que salga. Trabajo mejor en equipo,
+      compartiendo ideas y con buena comunicación.
+    </p>
+  </div>
+
+  <aside class="reveal space-y-4">
+    <img
+      src="/projects/german.webp"
+      alt={PROFILE.fullName}
+      width="300"
+      height="300"
+      loading="lazy"
+      class="aspect-square w-full rounded-2xl border border-line/10 object-cover grayscale transition duration-500 hover:grayscale-0"
+    />
+    <div class="rounded-2xl border border-line/10 bg-surface/60 p-5">
+      <h3 class="font-mono text-xs uppercase tracking-[0.2em] text-muted">Formación</h3>
+      <ul class="mt-3 space-y-3">
+        {EDUCATION.map((e) => (
+          <li>
+            <p class="text-sm font-medium">{e.title}</p>
+            <p class="text-xs text-muted">{e.school}</p>
+          </li>
+        ))}
+      </ul>
+      <h3 class="mt-5 font-mono text-xs uppercase tracking-[0.2em] text-muted">Idiomas</h3>
+      <ul class="mt-3 space-y-1.5 text-sm">
+        {LANGUAGES.map((l) => (
+          <li class="flex justify-between"><span>{l.name}</span><span class="text-muted">{l.level}</span></li>
+        ))}
+      </ul>
+    </div>
+  </aside>
+</div>

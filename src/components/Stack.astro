@@ -1,0 +1,24 @@
+---
+import { STACK } from "@/data/profile"
+---
+
+<div class="grid grid-flow-row-dense gap-4 sm:grid-cols-2 lg:grid-cols-3">
+  {
+    STACK.map((g, i) => (
+      <article
+        class:list={[
+          "reveal spotlight rounded-2xl border border-line/10 bg-surface/60 p-5",
+          (i === 2 || i === 9) && "lg:col-span-2",
+        ]}
+        style={`transition-delay:${(i % 3) * 70}ms`}
+      >
+        <h3 class="font-mono text-xs uppercase tracking-[0.2em] text-muted">{g.group}</h3>
+        <ul class="mt-4 flex flex-wrap gap-2">
+          {g.items.map((t) => (
+            <li class="rounded-lg border border-line/10 bg-bg px-2.5 py-1 text-sm">{t}</li>
+          ))}
+        </ul>
+      </article>
+    ))
+  }
+</div>

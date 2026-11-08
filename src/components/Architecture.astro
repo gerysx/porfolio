@@ -1,0 +1,143 @@
+---
+const RUNTIME = [
+  {
+    id: "client",
+    label: "Cliente",
+    sub: "Web · Móvil · Partners",
+    detail:
+      "Todo empieza en un contrato. Los consumidores conocen la API antes de que exista una línea de código gracias a la especificación OpenAPI.",
+  },
+  {
+    id: "gateway",
+    label: "API Gateway",
+    sub: "Seguridad · Rate limit",
+    detail:
+      "Punto único de entrada: autenticación, cuotas, versionado y exposición segura de los servicios (IBM API Connect o equivalentes).",
+  },
+  {
+    id: "service",
+    label: "Microservicio",
+    sub: "Spring Boot · API First",
+    detail:
+      "Servicios pequeños con una sola responsabilidad, contrato OpenAPI y patrón Delegate. Arquitectura hexagonal para aislar el dominio de la infraestructura.",
+  },
+  {
+    id: "broker",
+    label: "Eventos",
+    sub: "Kafka · RabbitMQ",
+    detail:
+      "Comunicación asíncrona y desacoplada: los servicios publican hechos de negocio y otros reaccionan sin depender de su disponibilidad.",
+  },
+  {
+    id: "data",
+    label: "Datos",
+    sub: "SQL · NoSQL · Redis",
+    detail:
+      "Cada servicio es dueño de sus datos. Caché distribuida con Redis para latencias bajas y menos carga sobre las bases de datos.",
+  },
+]
+
+const PIPELINE = [
+  { label: "Commit", sub: "Git · PR" },
+  { label: "Build y tests", sub: "Maven · JUnit" },
+  { label: "Calidad", sub: "SonarQube" },
+  { label: "Seguridad", sub: "Fortify · Trivy" },
+  { label: "Despliegue", sub: "OpenShift · K8s" },
+  { label: "Observabilidad", sub: "Dynatrace" },
+]
+---
+
+<div class="reveal overflow-hidden rounded-2xl border border-line/10 bg-surface/60">
+  <!-- Flujo en tiempo de ejecución -->
+  <div class="border-b border-line/10 p-5 md:p-8">
+    <p class="mb-6 font-mono text-xs uppercase tracking-[0.2em] text-muted">Runtime · una petición de principio a fin</p>
+    <ol class="flex flex-col gap-0 md:flex-row md:items-stretch" role="tablist" aria-label="Componentes de la arquitectura">
+      {
+        RUNTIME.map((n, i) => (
+          <li class="flex flex-col md:flex-1 md:flex-row md:items-center">
+            <button
+              type="button"
+              role="tab"
+              data-arch={n.id}
+              aria-selected={i === 2 ? "true" : "false"}
+              class="arch-node w-full rounded-xl border border-line/10 bg-bg px-4 py-3 text-left transition hover:border-accent/50 aria-selected:border-accent aria-selected:shadow-[0_0_0_4px_rgb(var(--accent)/0.12)] md:min-h-[92px]"
+            >
+              <span class="block font-mono text-[10px] text-accent">0{i + 1}</span>
+              <span class="block font-semibold">{n.label}</span>
+              <span class="block text-xs text-muted">{n.sub}</span>
+            </button>
+            {i < RUNTIME.length - 1 && (
+              <span class="wire relative mx-auto h-8 w-px bg-line/15 md:mx-0 md:h-px md:w-8 md:shrink-0" aria-hidden="true">
+                <span class="dot absolute size-1.5 rounded-full bg-accent shadow-[0_0_8px_rgb(var(--accent))]" style={`animation-delay:${i * 0.35}s`} />
+              </span>
+            )}
+          </li>
+        ))
+      }
+    </ol>
+    <div class="mt-6 rounded-xl border border-dashed border-line/15 p-4 text-sm leading-relaxed text-muted" aria-live="polite">
+      {RUNTIME.map((n, i) => (
+        <p data-arch-detail={n.id} class:list={[i !== 2 && "hidden"]}>
+          <strong class="font-semibold text-fg">{n.label}.</strong> {n.detail}
+        </p>
+      ))}
+    </div>
+  </div>
+
+  <!-- Pipeline CI/CD -->
+  <div class="p-5 md:p-8">
+    <p class="mb-6 font-mono text-xs uppercase tracking-[0.2em] text-muted">Delivery · cada cambio pasa por estas puertas</p>
+    <ol class="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
+      {
+        PIPELINE.map((s, i) => (
+          <li class="relative rounded-xl border border-line/10 bg-bg p-3">
+            <span class="flex items-center gap-2 font-mono text-[10px] text-emerald-600 dark:text-emerald-400">
+              <svg class="size-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><path d="m5 12 5 5L20 7" /></svg>
+              paso {i + 1}
+            </span>
+            <span class="mt-1 block text-sm font-semibold">{s.label}</span>
+            <span class="block text-xs text-muted">{s.sub}</span>
+          </li>
+        ))
+      }
+    </ol>
+  </div>
+</div>
+
+<style>
+  .dot {
+    left: -2.5px;
+    animation: down 2.4s ease-in-out infinite;
+  }
+  @keyframes down {
+    0% { top: 0; opacity: 0; }
+    20%, 80% { opacity: 1; }
+    100% { top: calc(100% - 6px); opacity: 0; }
+  }
+  @media (min-width: 768px) {
+    .dot {
+      top: -2.5px;
+      left: 0;
+      animation-name: right;
+    }
+    @keyframes right {
+      0% { left: 0; opacity: 0; }
+      20%, 80% { opacity: 1; }
+      100% { left: calc(100% - 6px); opacity: 0; }
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .dot { animation: none; display: none; }
+  }
+</style>
+
+<script>
+  const nodes = document.querySelectorAll<HTMLButtonElement>("[data-arch]")
+  const details = document.querySelectorAll<HTMLElement>("[data-arch-detail]")
+  nodes.forEach((n) =>
+    n.addEventListener("click", () => {
+      nodes.forEach((o) => o.setAttribute("aria-selected", String(o === n)))
+      details.forEach((d) => d.classList.toggle("hidden", d.dataset.archDetail !== n.dataset.arch))
+    })
+  )
+</script>
