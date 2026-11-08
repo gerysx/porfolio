@@ -142,31 +142,15 @@ export const EXPERIENCE: Job[] = [
 ]
 
 export const STACK = [
-  { group: "Lenguajes", items: ["Java", "TypeScript", "JavaScript", "SQL"] },
-  { group: "Frameworks", items: ["Spring Boot", "Angular", "Astro", "Ionic"] },
+  { group: "Backend", items: ["Java", "Spring Boot", "SQL"] },
   {
-    group: "Arquitectura",
-    items: ["Microservicios", "Event-Driven", "API First", "OpenAPI 3.0", "DDD", "Hexagonal", "REST"],
+    group: "Arquitectura empresarial",
+    items: ["Microservicios", "Event-Driven", "API First · OpenAPI 3.0", "DDD", "Arquitectura hexagonal", "Patrón Delegate"],
   },
-  { group: "Mensajería y caché", items: ["Kafka", "RabbitMQ", "Redis"] },
-  {
-    group: "Cloud y DevOps",
-    items: ["Kubernetes", "OpenShift", "Docker", "GitHub Actions", "CI/CD", "AWS"],
-  },
-  { group: "Integración", items: ["IBM API Connect", "MuleSoft"] },
-  {
-    group: "Calidad y observabilidad",
-    items: ["SonarQube", "JUnit", "Fortify", "Trivy", "Dynatrace", "Postman"],
-  },
-  {
-    group: "Datos",
-    items: ["PostgreSQL", "MySQL", "NoSQL", "Mapstruct", "JSON · XML · CSV"],
-  },
-  { group: "IA", items: ["Agentes de IA", "Automatización de flujos"] },
-  {
-    group: "Forma de trabajo",
-    items: ["Scrum", "Kanban", "Clean Code", "Programación funcional", "UML", "Jira", "Confluence"],
-  },
+  { group: "Integración y mensajería", items: ["Kafka", "RabbitMQ", "IBM API Connect", "MuleSoft"] },
+  { group: "Cloud y despliegue", items: ["Kubernetes", "OpenShift", "Docker", "AWS"] },
+  { group: "CI/CD y calidad", items: ["GitHub Actions", "SonarQube", "Fortify", "Trivy", "JUnit"] },
+  { group: "Datos y rendimiento", items: ["PostgreSQL", "Redis", "NoSQL", "Dynatrace"] },
 ]
 
 export interface Project {
