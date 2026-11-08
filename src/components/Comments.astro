@@ -1,0 +1,48 @@
+---
+import { GISCUS } from "@/data/profile"
+const ready = Boolean(GISCUS.repoId && GISCUS.categoryId)
+---
+
+<section class="mt-12 border-t border-line/10 pt-10" aria-labelledby="comentarios">
+  <h2 id="comentarios" class="text-xl font-semibold">Comentarios</h2>
+  {
+    ready ? (
+      <div
+        class="giscus mt-6"
+        data-repo={GISCUS.repo}
+        data-repo-id={GISCUS.repoId}
+        data-category={GISCUS.category}
+        data-category-id={GISCUS.categoryId}
+      />
+    ) : (
+      <p class="mt-4 rounded-xl border border-dashed border-line/15 p-4 text-sm text-muted">
+        Los comentarios se activarán muy pronto. Mientras tanto, puedes escribirme por LinkedIn o email.
+      </p>
+    )
+  }
+</section>
+
+<script>
+  const el = document.querySelector<HTMLElement>(".giscus")
+  if (el) {
+    const s = document.createElement("script")
+    s.src = "https://giscus.app/client.js"
+    s.async = true
+    s.crossOrigin = "anonymous"
+    const attrs: Record<string, string> = {
+      "data-repo": el.dataset.repo!,
+      "data-repo-id": el.dataset.repoId!,
+      "data-category": el.dataset.category!,
+      "data-category-id": el.dataset.categoryId!,
+      "data-mapping": "pathname",
+      "data-strict": "1",
+      "data-reactions-enabled": "1",
+      "data-input-position": "top",
+      "data-lang": "es",
+      "data-loading": "lazy",
+      "data-theme": document.documentElement.classList.contains("dark") ? "dark_dimmed" : "light",
+    }
+    Object.entries(attrs).forEach(([k, v]) => s.setAttribute(k, v))
+    el.appendChild(s)
+  }
+</script>

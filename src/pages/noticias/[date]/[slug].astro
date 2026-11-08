@@ -1,0 +1,38 @@
+---
+import Layout from "@/layouts/Layout.astro"
+import Comments from "@/components/Comments.astro"
+import { NEWS_DAYS, TAG_STYLES, formatDate, type NewsItem } from "@/lib/news"
+
+export function getStaticPaths() {
+  return NEWS_DAYS.flatMap((day) =>
+    day.items.map((item) => ({ params: { date: day.date, slug: item.slug }, props: { item, date: day.date } }))
+  )
+}
+const { item, date } = Astro.props as { item: NewsItem; date: string }
+---
+
+<Layout title={`${item.title} · Noticias`} description={item.summary}>
+  <article class="mx-auto w-full max-w-3xl px-4 pb-24 pt-32 md:pt-40">
+    <a href="/noticias" class="font-mono text-sm text-muted hover:text-fg">← Noticias</a>
+    <div class="mt-8 flex items-center gap-3 text-sm">
+      <span class={`rounded-md px-2 py-0.5 font-mono text-xs font-medium ${TAG_STYLES[item.tag] ?? "bg-line/5 text-muted"}`}>{item.tag}</span>
+      <time datetime={date} class="text-muted first-letter:uppercase">{formatDate(date, { dateStyle: "long" })}</time>
+      <span class="text-muted">· {item.source}</span>
+    </div>
+    <h1 class="mt-4 text-3xl font-semibold leading-tight tracking-tight md:text-5xl">{item.title}</h1>
+    <p class="mt-6 text-lg leading-relaxed text-muted">{item.summary}</p>
+    <div class="mt-8 rounded-2xl border border-line/10 bg-surface/60 p-6">
+      <p class="font-mono text-[11px] uppercase tracking-wider text-accent">Por qué importa</p>
+      <p class="mt-2 text-lg leading-relaxed">{item.take}</p>
+    </div>
+    <a
+      href={item.url}
+      target="_blank"
+      rel="noopener noreferrer"
+      class="mt-8 inline-flex items-center gap-2 rounded-xl bg-fg px-5 py-3 text-sm font-medium text-bg transition hover:bg-accent hover:text-accent-fg"
+    >
+      Leer la noticia completa en {item.source.split(" · ")[0]} ↗
+    </a>
+    <Comments />
+  </article>
+</Layout>

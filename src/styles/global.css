@@ -1,0 +1,111 @@
+:root {
+  --bg: 250 250 247;
+  --surface: 255 255 255;
+  --fg: 17 17 19;
+  --muted: 92 94 102;
+  --line: 17 17 19;
+  --accent: 180 120 0;
+  --accent-fg: 17 17 19;
+  --accent-2: 214 72 24;
+  color-scheme: light;
+}
+:root.dark {
+  --bg: 8 9 12;
+  --surface: 17 18 23;
+  --fg: 238 238 240;
+  --muted: 150 152 162;
+  --line: 255 255 255;
+  --accent: 252 211 77;
+  --accent-fg: 17 17 19;
+  --accent-2: 251 133 60;
+  color-scheme: dark;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-feature-settings: "ss01", "cv11";
+  -webkit-font-smoothing: antialiased;
+}
+body {
+  background: rgb(var(--bg));
+  color: rgb(var(--fg));
+  font-family: "Geist Variable", system-ui, sans-serif;
+}
+::selection {
+  background: rgb(var(--accent) / 0.35);
+}
+
+/* Fondo: rejilla de puntos con máscara radial */
+.bg-grid {
+  background-image: radial-gradient(rgb(var(--line) / 0.12) 1px, transparent 1px);
+  background-size: 24px 24px;
+  mask-image: radial-gradient(ellipse 70% 60% at 50% 0%, #000 40%, transparent 100%);
+}
+
+/* Tarjetas con foco que sigue al cursor */
+.spotlight {
+  position: relative;
+  isolation: isolate;
+}
+.spotlight::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 0.3s;
+  background: radial-gradient(
+    400px circle at var(--mx, 50%) var(--my, 50%),
+    rgb(var(--accent) / 0.12),
+    transparent 40%
+  );
+}
+.spotlight:hover::before {
+  opacity: 1;
+}
+
+/* Estado inicial de las animaciones (solo con JS y sin movimiento reducido).
+   GSAP las lleva a su estado final; sin JS todo queda visible. */
+.motion .reveal,
+.motion [data-hero-banner],
+.motion [data-hero-avatar],
+.motion [data-hero-item],
+.motion [data-hero-terminal] {
+  visibility: hidden;
+}
+
+/* Texto con degradado para los acentos de los titulares */
+.text-gradient {
+  background: linear-gradient(100deg, rgb(var(--accent)) 0%, rgb(var(--accent-2)) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  padding-right: 0.04em;
+}
+.text-gradient .split-word {
+  background: linear-gradient(100deg, rgb(var(--accent)) 0%, rgb(var(--accent-2)) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Paquetes que viajan por el diagrama */
+.packet {
+  offset-rotate: 0deg;
+  animation: packet 3.2s linear infinite;
+}
+@keyframes packet {
+  from { offset-distance: 0%; }
+  to { offset-distance: 100%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .packet, .animate-marquee, .animate-blink { animation: none !important; }
+}
+
+/* Lenis */
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+.lenis.lenis-stopped { overflow: hidden; }

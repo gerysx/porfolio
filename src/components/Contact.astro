@@ -1,0 +1,57 @@
+---
+import { PROFILE } from "@/data/profile"
+---
+
+<section id="contacto" class="mx-auto w-full max-w-5xl scroll-mt-24 px-4 py-20 md:py-28">
+  <div class="reveal relative overflow-hidden rounded-3xl border border-line/10 bg-surface px-6 py-14 text-center md:px-16 md:py-20">
+    <div class="bg-grid absolute inset-0 -z-0 opacity-60" aria-hidden="true"></div>
+    <div class="relative">
+      <p class="font-mono text-xs uppercase tracking-[0.2em] text-accent">Contacto</p>
+      <h2 data-split class="mx-auto mt-4 max-w-2xl text-4xl font-semibold tracking-[-0.03em] md:text-6xl">
+        ¿Construimos algo <span class="text-gradient">sólido</span>?
+      </h2>
+      <p class="mx-auto mt-5 max-w-lg text-lg text-muted">
+        Arquitectura, microservicios o un sistema que necesita escalar. Escríbeme y te respondo pronto.
+      </p>
+      <div class="mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row">
+        <a
+          href={`mailto:${PROFILE.email}`}
+          class="inline-flex items-center gap-2 rounded-xl bg-fg px-5 py-3 font-medium text-bg transition hover:bg-accent hover:text-accent-fg"
+        >
+          Escríbeme un email
+        </a>
+        <button
+          type="button"
+          data-copy-email={PROFILE.email}
+          class="inline-flex items-center gap-2 rounded-xl border border-line/15 bg-bg px-5 py-3 font-mono text-sm transition hover:border-line/30"
+        >
+          <span data-copy-label>{PROFILE.email}</span>
+          <svg class="size-4 text-muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="9" y="9" width="12" height="12" rx="2" /><path d="M5 15V5a2 2 0 0 1 2-2h10" /></svg>
+        </button>
+      </div>
+      <div class="mt-6 flex justify-center gap-5 text-sm text-muted">
+        <a href={PROFILE.linkedin} target="_blank" rel="noopener noreferrer" class="hover:text-fg">LinkedIn</a>
+        <a href={PROFILE.github} target="_blank" rel="noopener noreferrer" class="hover:text-fg">GitHub</a>
+        <a href={PROFILE.cv} download class="hover:text-fg">CV (PDF)</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  document.querySelectorAll<HTMLButtonElement>("[data-copy-email]").forEach((btn) => {
+    btn.addEventListener("click", async () => {
+      const label = btn.querySelector<HTMLElement>("[data-copy-label]")
+      try {
+        await navigator.clipboard.writeText(btn.dataset.copyEmail!)
+        if (label) {
+          const prev = label.textContent
+          label.textContent = "¡Copiado!"
+          setTimeout(() => (label.textContent = prev), 1600)
+        }
+      } catch (_) {
+        location.href = `mailto:${btn.dataset.copyEmail}`
+      }
+    })
+  })
+</script>

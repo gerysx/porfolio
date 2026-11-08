@@ -1,0 +1,175 @@
+---
+import { PROFILE } from "@/data/profile"
+
+// Escena completa: desarrollo → CI/CD → clúster (gateway, servicios Spring,
+// mensajería de eventos) → datos. Coordenadas en un lienzo de 1200x360.
+const W = 1200
+const H = 360
+
+type N = { id: string; x: number; y: number; label: string; w: number; kind?: "accent" | "data" | "infra" }
+const PIPE: N[] = [
+  { id: "dev", x: 70, y: 30, label: "IDE · código", w: 112 },
+  { id: "git", x: 180, y: 30, label: "git push", w: 80 },
+  { id: "ci", x: 285, y: 30, label: "GitHub Actions", w: 118 },
+  { id: "qa", x: 405, y: 30, label: "Sonar · Trivy", w: 108 },
+  { id: "img", x: 510, y: 30, label: "registry", w: 82 },
+  { id: "deploy", x: 605, y: 30, label: "deploy", w: 74, kind: "accent" },
+]
+const NODES: N[] = [
+  { id: "gw", x: 92, y: 200, label: "api-gateway", w: 112, kind: "infra" },
+  { id: "cfg", x: 92, y: 128, label: "config-server", w: 116, kind: "infra" },
+  { id: "orders", x: 238, y: 128, label: "orders-svc", w: 104 },
+  { id: "users", x: 238, y: 200, label: "users-svc", w: 96 },
+  { id: "payments", x: 238, y: 272, label: "payments-svc", w: 112 },
+  { id: "pg", x: 548, y: 128, label: "postgres", w: 92, kind: "data" },
+  { id: "redis", x: 548, y: 200, label: "redis", w: 76, kind: "data" },
+  { id: "mongo", x: 548, y: 272, label: "mongodb", w: 88, kind: "data" },
+]
+const BROKER = { x: 360, y: 104, w: 92, h: 192 }
+const KX = BROKER.x + BROKER.w / 2
+const all = Object.fromEntries([...PIPE, ...NODES].map((n) => [n.id, n]))
+const right = (n: N) => n.x + n.w / 2
+const left = (n: N) => n.x - n.w / 2
+const curve = (x1: number, y1: number, x2: number, y2: number) => {
+  const mx = (x1 + x2) / 2
+  return `M${x1} ${y1} C${mx} ${y1} ${mx} ${y2} ${x2} ${y2}`
+}
+const link = (a: string, b: string) => curve(right(all[a]), all[a].y, left(all[b]), all[b].y)
+const EDGES = [
+  link("gw", "orders"),
+  link("gw", "users"),
+  link("gw", "payments"),
+  curve(right(all.orders), all.orders.y, BROKER.x, 150),
+  curve(right(all.payments), all.payments.y, BROKER.x, 250),
+  curve(BROKER.x + BROKER.w, 150, left(all.pg), all.pg.y),
+  curve(BROKER.x + BROKER.w, 250, left(all.mongo), all.mongo.y),
+  curve(right(all.users), all.users.y, left(all.redis), all.redis.y),
+]
+const CFG = [all.orders, all.users, all.payments].map((n) => curve(right(all.cfg), all.cfg.y, left(n), n.y))
+const PIPE_EDGES = PIPE.slice(0, -1).map((n, i) => `M${right(n)} ${n.y} L${left(PIPE[i + 1])} ${PIPE[i + 1].y}`)
+const DEPLOY = `M${all.deploy.x} ${all.deploy.y + 13} C${all.deploy.x} 70 ${all.deploy.x - 10} 70 ${all.deploy.x - 30} 76`
+const color = (k?: N["kind"]) =>
+  k === "accent" ? "#fcd34d" : k === "data" ? "#34d399" : k === "infra" ? "#a78bfa" : "#5b8cff"
+---
+
+<div class="relative overflow-hidden rounded-3xl border border-line/10 bg-[#050816] shadow-2xl shadow-blue-950/30">
+  <svg
+    viewBox={`0 0 ${W} ${H}`}
+    preserveAspectRatio="xMinYMid slice"
+    data-banner-scene
+    class="block h-[240px] w-full origin-left sm:h-[300px] md:h-[340px]"
+    role="img"
+    aria-label="Ilustración del ciclo completo: desarrollo, pipeline CI/CD, clúster Kubernetes/OpenShift con gateway, microservicios, mensajería de eventos y bases de datos"
+  >
+    <defs>
+      <linearGradient id="bn-bg" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="#050a24" />
+        <stop offset=".45" stop-color="#0a1f63" />
+        <stop offset="1" stop-color="#03050f" />
+      </linearGradient>
+      <radialGradient id="bn-glow" cx=".3" cy=".45" r=".55">
+        <stop offset="0" stop-color="#2f6bff" stop-opacity=".5" />
+        <stop offset="1" stop-color="#2f6bff" stop-opacity="0" />
+      </radialGradient>
+      <linearGradient id="bn-fade" x1="0" x2="1">
+        <stop offset=".54" stop-color="#03050f" stop-opacity="0" />
+        <stop offset="1" stop-color="#03050f" stop-opacity=".92" />
+      </linearGradient>
+      <pattern id="bn-grid" width="24" height="24" patternUnits="userSpaceOnUse">
+        <path d="M24 0H0V24" fill="none" stroke="#5b8cff" stroke-opacity=".08" />
+      </pattern>
+      <marker id="bn-arrow" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="6" markerHeight="6" orient="auto">
+        <path d="M0 0L8 4L0 8z" fill="#5b8cff" fill-opacity=".7" />
+      </marker>
+      <filter id="bn-blur"><feGaussianBlur stdDeviation="6" /></filter>
+    </defs>
+
+    <rect width={W} height={H} fill="url(#bn-bg)" />
+    <rect width={W} height={H} fill="url(#bn-grid)" />
+    <rect width={W} height={H} fill="url(#bn-glow)" />
+
+    <g transform="translate(14 22) scale(0.86)">
+    <!-- Clúster -->
+    <rect x="22" y="76" width="640" height="270" rx="18" fill="#0a1335" fill-opacity=".45" stroke="#a78bfa" stroke-opacity=".45" stroke-dasharray="6 6" />
+    <text x="40" y="98" font-family="Geist Mono Variable, ui-monospace, monospace" font-size="11" fill="#c4b5fd" opacity=".85">☸ kubernetes · openshift  —  namespace: prod</text>
+    <text x={KX} y="320" text-anchor="middle" font-family="Geist Mono Variable, ui-monospace, monospace" font-size="10" fill="#9db7ff" opacity=".6">service mesh · eventos · datos</text>
+
+    <!-- Pipeline CI/CD -->
+    <g fill="none" stroke="#5b8cff" stroke-opacity=".6" stroke-width="1.3">
+      {PIPE_EDGES.map((d) => <path d={d} marker-end="url(#bn-arrow)" />)}
+      <path d={DEPLOY} stroke="#fcd34d" stroke-dasharray="3 4" marker-end="url(#bn-arrow)" />
+    </g>
+
+    <g fill="none" stroke="#a78bfa" stroke-opacity=".35" stroke-dasharray="2 4">
+      {CFG.map((d) => <path d={d} />)}
+    </g>
+
+    <!-- Broker de eventos -->
+    <g font-family="Geist Mono Variable, ui-monospace, monospace">
+      <rect x={BROKER.x - 4} y={BROKER.y - 4} width={BROKER.w + 8} height={BROKER.h + 8} rx="14" fill="#fcd34d" opacity=".18" filter="url(#bn-blur)" />
+      <rect x={BROKER.x} y={BROKER.y} width={BROKER.w} height={BROKER.h} rx="12" fill="#0a1335" stroke="#fcd34d" stroke-opacity=".9" />
+      <text x={KX} y={BROKER.y + 20} text-anchor="middle" font-size="11" fill="#fde68a">event broker</text>
+      {[0, 1, 2].map((i) => (
+        <g>
+          <rect x={BROKER.x + 12} y={BROKER.y + 38 + i * 48} width={BROKER.w - 24} height="34" rx="6" fill="#fcd34d" fill-opacity=".06" stroke="#fcd34d" stroke-opacity=".35" />
+          {[0, 1, 2, 3, 4].map((j) => (
+            <rect x={BROKER.x + 18 + j * 12} y={BROKER.y + 48 + i * 48} width="8" height="14" rx="2" fill="#fcd34d" fill-opacity={0.25 + j * 0.12} />
+          ))}
+        </g>
+      ))}
+      <text x={KX} y={BROKER.y + BROKER.h - 8} text-anchor="middle" font-size="9" fill="#fde68a" opacity=".7">topics · colas</text>
+    </g>
+
+    <!-- Conexiones con mensajes en vuelo -->
+    <g fill="none" stroke-width="1.5">
+      {EDGES.map((d, i) => (
+        <g>
+          <path d={d} stroke="#4f7dff" stroke-opacity=".5" />
+          <circle r="3.2" fill={i >= 3 && i <= 6 ? "#fcd34d" : "#9fc0ff"}>
+            <animateMotion dur={`${2.2 + (i % 4) * 0.45}s`} begin={`${i * 0.27}s`} repeatCount="indefinite" path={d} />
+          </circle>
+        </g>
+      ))}
+      <circle r="3" fill="#fcd34d">
+        <animateMotion dur="6s" repeatCount="indefinite" path={`M${left(PIPE[0])} 30 L${right(PIPE[PIPE.length - 1])} 30`} />
+      </circle>
+    </g>
+
+    <!-- Nodos -->
+    <g font-family="Geist Mono Variable, ui-monospace, monospace" font-size="12" text-anchor="middle">
+      {[...PIPE, ...NODES].map((n) => {
+        const c = color(n.kind)
+        const pipe = PIPE.includes(n)
+        return (
+          <g>
+            {!pipe && <rect x={n.x - n.w / 2 - 4} y={n.y - 19} width={n.w + 8} height="38" rx="12" fill={c} opacity=".22" filter="url(#bn-blur)" />}
+            <rect x={n.x - n.w / 2} y={n.y - (pipe ? 12 : 15)} width={n.w} height={pipe ? 24 : 30} rx={pipe ? 12 : 9} fill="#0a1335" stroke={c} stroke-opacity={pipe ? 0.7 : 0.9} />
+            {n.kind === "data" ? (
+              <ellipse cx={n.x - n.w / 2 + 12} cy={n.y} rx="4" ry="5" fill="none" stroke={c} />
+            ) : (
+              <circle cx={n.x - n.w / 2 + 11} cy={n.y} r="2.6" fill={c} />
+            )}
+            <text x={n.x + 6} y={n.y + 4} font-size={pipe ? 10.5 : 12} fill="#dbe6ff">{n.label}</text>
+          </g>
+        )
+      })}
+    </g>
+
+    </g>
+    <rect width={W} height={H} fill="url(#bn-fade)" />
+  </svg>
+
+  <!-- Texto, como una portada de perfil -->
+  <div class="absolute inset-0 flex items-end justify-end bg-gradient-to-t from-[#03050f]/85 via-[#03050f]/30 to-transparent p-4 pl-28 sm:items-center sm:bg-none sm:p-10 sm:pl-10 md:p-14">
+    <div class="text-right text-white">
+      <h1 data-split class="text-2xl font-semibold tracking-[-0.03em] drop-shadow-[0_2px_20px_rgb(0_0_0/0.6)] sm:text-4xl lg:text-6xl">{PROFILE.name}</h1>
+      <p class="mt-2 inline-flex items-center gap-2 whitespace-nowrap rounded-full border border-white/40 bg-[#03050f]/40 px-3 py-1 text-[11px] backdrop-blur sm:mt-3 sm:px-4 sm:text-base">
+        <span class="size-1.5 rounded-full bg-[#fcd34d]"></span>
+        {PROFILE.role} · {PROFILE.company}
+      </p>
+      <p class="mt-2 font-mono text-[11px] text-white/75 sm:mt-3 sm:text-sm">
+        {PROFILE.location} <span class="mx-2 text-white/40">|</span> gerysdev.es
+      </p>
+    </div>
+  </div>
+</div>

@@ -4,10 +4,29 @@ export default {
   darkMode: "class",
   theme: {
     extend: {
+      colors: {
+        bg: "rgb(var(--bg) / <alpha-value>)",
+        surface: "rgb(var(--surface) / <alpha-value>)",
+        fg: "rgb(var(--fg) / <alpha-value>)",
+        muted: "rgb(var(--muted) / <alpha-value>)",
+        line: "rgb(var(--line) / <alpha-value>)",
+        accent: "rgb(var(--accent) / <alpha-value>)",
+        "accent-fg": "rgb(var(--accent-fg) / <alpha-value>)",
+      },
       fontFamily: {
-        handwriting: ['"Shadows Into Light"', "cursive"],
+        sans: ['"Geist Variable"', "system-ui", "sans-serif"],
+        mono: ['"Geist Mono Variable"', "ui-monospace", "SFMono-Regular", "monospace"],
+      },
+      keyframes: {
+        marquee: { to: { transform: "translateX(-50%)" } },
+        flow: { "0%": { offsetDistance: "0%" }, "100%": { offsetDistance: "100%" } },
+        blink: { "50%": { opacity: "0" } },
+      },
+      animation: {
+        marquee: "marquee 40s linear infinite",
+        blink: "blink 1s step-end infinite",
       },
     },
   },
   plugins: [],
-};
+}

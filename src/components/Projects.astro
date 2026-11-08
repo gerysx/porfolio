@@ -1,198 +1,73 @@
 ---
-import GitHub from "./icons/GitHub.astro"
-import Link from "./icons/Link.astro"
-import LinkButton from "./LinkButton.astro"
-import Angular from "./icons/Angular.astro"
-import NodeJS from "./icons/NodeJS.astro"
-import Express from "./Experience.astro";
-import Sequelize from "./icons/Sequelize.astro";
-import JWT from "./icons/JWT.astro";
-import Tailwind from "./icons/Tailwind.astro";
-import PostgreSQL from "./icons/PostgreSQL.astro";
-import Capacitor from "./icons/Capacitor.astro"
-import Firebase from "./icons/Firebase.astro"
-import Ionic from "./icons/Ionic.astro"
-import VerMas from "./VerMas.astro"
-import Springboot from "./icons/Springboot.astro"
-import Mysql from "./icons/Mysql.astro"
-import Thymeleaf from "./icons/Thymeleaf.astro"
-import Apirest from "./icons/Apirest.astro"
-
-const TAGS = {
-  ANGULAR: {
-    name: "Angular",
-    class: "bg-red-600 text-white",
-    icon: Angular,
-  },
-  NODE: {
-    name: "NodeJS",
-    class: "bg-green-700 text-white",
-    icon: NodeJS,
-  },
-  EXPRESS: {
-    name: "Express",
-    class: "bg-gray-800 text-white",
-    icon: Express,
-  },
-  SEQUELIZE: {
-    name: "Sequelize",
-    class: "bg-blue-700 text-white",
-    icon: Sequelize,
-  },
-  JWT: {
-    name: "JWT",
-    class: "bg-purple-600 text-white",
-    icon: JWT,
-  },
-  TAILWIND: {
-    name: "Tailwind CSS",
-    class: "bg-[#003159] text-white",
-    icon: Tailwind,
-  },
-  POSTGRESQL: {
-    name: "PostgreSQL",
-    class: "bg-blue-900 text-white",
-    icon: PostgreSQL,
-  },
-  IONIC: {
-    name: "Ionic",
-    class: "bg-[#3880FF] text-white",
-    icon: Ionic,
-  },
-  FIREBASE: {
-    name: "Firebase",
-    class: "bg-[#FFCA28] text-black",
-    icon: Firebase,
-  },
-   SPRINGBOOT: {
-    name: "Springboot",
-    class: "bg-red-600 text-white",
-    icon: Springboot,
-  },
-  THYMELEAF: {
-    name: "Thymeleaf",
-    class: "bg-red-600 text-white",
-    icon: Thymeleaf,
-  },
-  MYSQL: {
-    name: "MySQL",
-    class: "bg-red-600 text-white",
-    icon: Mysql,
-  },
-  APIREST: {
-    name: "ApiRest",
-    class: "bg-red-600 text-white",
-    icon: Apirest,
-  }
-};
-const PROJECTS = [
-  {
-    title: "ERP de Ventas - Gestión de productos, clientes y facturas",
-    description:
-      "Sistema ERP Full Stack para la gestión integral de ventas, clientes y facturación. Incluye autenticación JWT, control de roles, generación de PDFs y despliegue en Render. Frontend desarrollado con Angular; backend con Node.js (Express) y PostgreSQL.",
-    link: "https://erp-ventas-frontend.onrender.com/",
-    github: "https://github.com/gerysx/erp-ventas-frontend",
-    image: "/projects/foto_erp.webp",
-    tags: [TAGS.ANGULAR, TAGS.NODE, TAGS.POSTGRESQL],
-  },
-  {
-    title: "App híbrida para microemprendimientos",
-    description:
-      "Aplicación móvil multiplataforma para gestión de productos, desarrollada con Angular, Ionic y Firebase. Incluye autenticación, base de datos en tiempo real (Firestore), almacenamiento en la nube y despliegue con Capacitor.",
-    link: "https://product-admin-app-3cd73.web.app/auth/",
-    github: "https://github.com/gerysx/product-admin/",
-    image: "/projects/vista_pc.webp",
-    tags: [TAGS.ANGULAR, TAGS.IONIC, TAGS.FIREBASE],
-  },
-  {
-    title: "Country-App",
-    description:
-      "Aplicación SPA responsiva desarrollada con Angular, Tailwind CSS y DaisyUI. Consume una API REST pública para mostrar datos de países (capital, población, bandera, etc.) de forma eficiente y asíncrona.",
-    link: "https://countries-78scb.ondigitalocean.app/",
-    github: "https://github.com/gerysx/country-app",
-    image: "/projects/screenshot_home.webp",
-    tags: [TAGS.ANGULAR, TAGS.TAILWIND, TAGS.APIREST],
-  },
-  {
-    title: "Mapas interactivos",
-    description:
-      "Aplicación híbrida adaptada a todo tipo de dispositivos usando las versiones más modernas de Angular (v20), trabajando con señales y componentes reutilizables y, añadiendo líbrerías para añadir los recursos necesarios (MapBox)-",
-    link: "https://mapasinteractivos.netlify.app/",
-    github: "https://github.com/gerysx/maps-app",
-    image: "/projects/mapbox.png",
-    tags: [TAGS.ANGULAR, TAGS.TAILWIND, TAGS.APIREST],
-  },
-  {
-    title: "MyEcommerce",
-    description:
-      "Plataforma eCommerce creada con Spring Boot, Thymeleaf y MySQL. Implementa autenticación de usuarios, integración con APIs REST, renderizado dinámico de vistas y gestión completa de pedidos, carritos e inventario.",
-    //link: "",
-    github: "https://github.com/gerysx/spring-ecommerce",
-    image: "/projects/ecommerce.png",
-    tags: [TAGS.SPRINGBOOT, TAGS.MYSQL, TAGS.THYMELEAF],
-  },
-];
-
+import { PROJECTS, PROFILE } from "@/data/profile"
 ---
 
-<div class="  flex flex-col gap-y-16">
+<div class="grid gap-5 md:grid-cols-2">
   {
-    PROJECTS.map(({ image, title, description, tags, link, github }) => (
-    <article class="flex flex-col space-x-0 space-y-8 group md:flex-row md:space-x-8 md:space-y-0">
-  <div class="w-full md:w-1/2">
-    <div class="relative flex flex-col items-center col-span-6 row-span-5 gap-8 transition duration-500 ease-in-out transform shadow-xl overflow-clip rounded-xl sm:rounded-xl md:group-hover:-translate-y-1 md:group-hover:shadow-2xl lg:border lg:border-gray-800 lg:hover:border-gray-700 lg:hover:bg-gray-800/50">
-      <img alt="Imagen del proyecto " class="object-cover object-top w-full aspect-[16/9] h-56 transition duration-500 sm:h-full md:scale-110 md:group-hover:scale-105" loading="lazy" src={image} />
-    </div>
-  </div>
-
-  <div class="w-full md:w-1/2 md:max-w-lg">
-    <h3 class="text-2xl font-bold text-gray-800 dark:text-gray-100">
-      {title}
-    </h3>
-    <div class="flex flex-wrap mt-2">
-      <ul class="flex flex-row mb-2 gap-x-2">
-          {tags.map((tag) => (
-            <li>
-              <span
-                class={`flex gap-x-2 rounded-full text-xs ${tag.class} py-1 px-2 `}
+    PROJECTS.map((p, i) => (
+      <article
+        class:list={[
+          "reveal spotlight group flex flex-col overflow-hidden rounded-2xl border border-line/10 bg-surface/60 transition-colors hover:border-line/25",
+          p.featured && "md:col-span-2 md:flex-row",
+        ]}
+        data-tilt
+      >
+        <div class:list={["relative overflow-hidden border-line/10 bg-bg", p.featured ? "md:w-3/5 md:border-r" : "border-b"]}>
+          <img
+            src={p.image}
+            alt={`Captura del proyecto ${p.title}`}
+            loading="lazy"
+            decoding="async"
+            class:list={[
+              "w-full object-cover object-top transition duration-700 group-hover:scale-[1.03]",
+              p.featured ? "aspect-[16/10] md:h-full" : "aspect-[16/9]",
+            ]}
+          />
+          {p.featured && (
+            <span class="absolute left-4 top-4 rounded-full bg-bg/80 px-2.5 py-1 font-mono text-[11px] uppercase tracking-wider text-accent backdrop-blur">
+              Destacado
+            </span>
+          )}
+        </div>
+        <div class:list={["flex flex-1 flex-col p-6", p.featured && "md:justify-center md:p-8"]}>
+          <h3 class:list={["font-semibold tracking-tight", p.featured ? "text-2xl" : "text-xl"]}>{p.title}</h3>
+          <p class="mt-3 leading-relaxed text-muted">{p.description}</p>
+          <ul class="mt-5 flex flex-wrap gap-2">
+            {p.tags.map((t) => (
+              <li class="rounded-md border border-line/10 bg-bg px-2 py-1 font-mono text-xs text-muted">{t}</li>
+            ))}
+          </ul>
+          <div class="mt-auto flex gap-2 pt-6">
+            {p.link && (
+              <a
+                href={p.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="inline-flex items-center gap-1.5 rounded-lg bg-fg px-3 py-2 text-sm font-medium text-bg transition hover:bg-accent hover:text-accent-fg"
               >
-                <tag.icon class="size-4" />
-                {tag.name}
-              </span>
-            </li>
-          ))}
-        </ul>
-
-      <div class="text-justify mt-2 text-gray-700 dark:text-gray-400">{description}</div>
-      <footer class="flex items-end justify-start mt-4 gap-x-4">
-          {github && (
-            <LinkButton href={github}>
-              <GitHub class="size-6" />
-              Código
-              
-            </LinkButton>
-          )}
-          {link && (
-            <LinkButton href={link}>
-              <Link class="size-4" />
-              Visitar
-            </LinkButton>
-          )}
-        </footer>
-    </div>
-  </div>
-</article>
+                Ver demo
+                <svg class="size-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9" /></svg>
+              </a>
+            )}
+            {p.github && (
+              <a
+                href={p.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="inline-flex items-center gap-1.5 rounded-lg border border-line/15 px-3 py-2 text-sm font-medium transition hover:bg-line/5"
+              >
+                Código
+              </a>
+            )}
+          </div>
+        </div>
+      </article>
     ))
   }
-
-  <div class="mt-4 flex justify-center">
-  <VerMas href="https://github.com/gerysx" target="_blank">
-    <GitHub class="size-5" />
-    Ver más proyectos en GitHub
-  </VerMas>
 </div>
 
+<div class="mt-10 text-center">
+  <a href={PROFILE.github} target="_blank" rel="noopener noreferrer" class="font-mono text-sm text-muted underline decoration-line/20 underline-offset-4 transition hover:text-fg hover:decoration-accent">
+    Más proyectos en github.com/gerysx →
+  </a>
 </div>
-
-
-

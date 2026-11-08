@@ -1,0 +1,210 @@
+---
+import { QUESTIONS, RANKS } from "@/data/quiz"
+const data = JSON.stringify({ questions: QUESTIONS, ranks: RANKS })
+---
+
+<section id="juego" class="mx-auto w-full max-w-5xl scroll-mt-24 px-4 pb-20">
+  <div class="reveal overflow-hidden rounded-2xl border border-line/10 bg-surface shadow-2xl shadow-black/20">
+    <div class="flex items-center gap-2 border-b border-line/10 px-4 py-3">
+      <span class="size-3 rounded-full bg-[#ff5f57]"></span>
+      <span class="size-3 rounded-full bg-[#febc2e]"></span>
+      <span class="size-3 rounded-full bg-[#28c840]"></span>
+      <span class="ml-3 truncate font-mono text-xs text-muted">~/code-review-rush — 60s</span>
+      <span class="ml-auto hidden font-mono text-xs text-muted sm:inline">Récord: <span data-g="best" class="text-accent">0</span></span>
+    </div>
+
+    <!-- Inicio -->
+    <div data-screen="intro" class="grid gap-8 p-6 md:grid-cols-[1.3fr_1fr] md:items-center md:p-10">
+      <div>
+        <p class="font-mono text-xs uppercase tracking-[0.2em] text-accent">Minijuego</p>
+        <h2 class="mt-3 text-3xl font-semibold tracking-tight md:text-4xl">¿Pasarías mi <span class="text-gradient">code review</span>?</h2>
+        <p class="mt-4 max-w-md text-muted">
+          60 segundos de preguntas rápidas sobre arquitectura, eventos, APIs, cloud, bases de datos, seguridad y código.
+          Las rachas multiplican los puntos; cada fallo te quita 5 segundos.
+        </p>
+        <div class="mt-7 flex flex-wrap items-center gap-3">
+          <button type="button" data-g="start" class="inline-flex items-center gap-2 rounded-xl bg-accent px-6 py-3 font-medium text-accent-fg transition hover:brightness-110">
+            ▶ Empezar partida
+          </button>
+          <span class="font-mono text-xs text-muted">o pulsa <kbd class="rounded border border-line/15 px-1">Enter</kbd> · responde con <kbd class="rounded border border-line/15 px-1">1</kbd>–<kbd class="rounded border border-line/15 px-1">4</kbd></span>
+        </div>
+      </div>
+      <ol class="space-y-2 font-mono text-sm text-muted" aria-label="Rangos">
+        {RANKS.map((r) => (
+          <li class="flex items-center justify-between rounded-lg border border-line/10 bg-bg px-3 py-2">
+            <span>{r.title}</span><span class="text-xs">{r.min}+</span>
+          </li>
+        ))}
+      </ol>
+    </div>
+
+    <!-- Partida -->
+    <div data-screen="play" class="hidden p-6 md:p-10">
+      <div class="flex items-center justify-between gap-4 font-mono text-sm">
+        <span>⏱ <span data-g="time">60</span>s</span>
+        <span data-g="streak" class="rounded-md bg-accent/15 px-2 py-0.5 text-accent opacity-0 transition">x1</span>
+        <span>Puntos <span data-g="score" class="text-accent">0</span></span>
+      </div>
+      <div class="mt-3 h-1.5 overflow-hidden rounded-full bg-line/10">
+        <div data-g="bar" class="h-full w-full origin-left rounded-full bg-accent transition-transform duration-200 ease-linear"></div>
+      </div>
+      <p data-g="cat" class="mt-8 font-mono text-xs uppercase tracking-[0.2em] text-muted"></p>
+      <h3 data-g="q" class="mt-2 text-xl font-semibold leading-snug md:text-2xl"></h3>
+      <pre data-g="code" class="mt-4 hidden overflow-x-auto rounded-xl border border-line/10 bg-bg p-4 font-mono text-[13px] leading-6"></pre>
+      <div data-g="options" class="mt-6 grid gap-3 sm:grid-cols-2"></div>
+      <p data-g="why" class="mt-4 min-h-[1.5rem] text-sm text-muted" aria-live="polite"></p>
+    </div>
+
+    <!-- Resultado -->
+    <div data-screen="end" class="hidden p-6 text-center md:p-12">
+      <p class="font-mono text-xs uppercase tracking-[0.2em] text-muted">Resultado</p>
+      <p class="mt-3 text-6xl font-semibold tracking-tight text-accent" data-g="final">0</p>
+      <p class="mt-3 text-2xl font-semibold" data-g="rank"></p>
+      <p class="mt-1 text-muted" data-g="ranktext"></p>
+      <p class="mt-4 font-mono text-sm text-muted"><span data-g="hits"></span> · <span data-g="record"></span></p>
+      <div class="mt-8 flex flex-wrap justify-center gap-3">
+        <button type="button" data-g="again" class="rounded-xl bg-accent px-5 py-3 font-medium text-accent-fg transition hover:brightness-110">↻ Jugar otra vez</button>
+        <button type="button" data-g="share" class="rounded-xl border border-line/15 px-5 py-3 font-medium transition hover:bg-line/5">Compartir resultado</button>
+        <a href="/#experiencia" class="rounded-xl px-5 py-3 font-medium text-muted transition hover:text-fg">Ver mi experiencia ↓</a>
+      </div>
+    </div>
+  </div>
+  <script type="application/json" id="quiz-data" set:html={data} />
+</section>
+
+<script>
+  import type { Question } from "@/data/quiz"
+  type Rank = { min: number; title: string; text: string }
+
+  const root = document.getElementById("juego")!
+  const { questions, ranks } = JSON.parse(document.getElementById("quiz-data")!.textContent!) as {
+    questions: Question[]
+    ranks: Rank[]
+  }
+  const $ = (k: string) => root.querySelector<HTMLElement>(`[data-g="${k}"]`)!
+  const screens = ["intro", "play", "end"].map((s) => root.querySelector<HTMLElement>(`[data-screen="${s}"]`)!)
+  const show = (i: number) => screens.forEach((s, j) => s.classList.toggle("hidden", i !== j))
+
+  const DURATION = 60
+  let deck: Question[] = []
+  let current: Question
+  let score = 0, streak = 0, hits = 0, total = 0, timeLeft = DURATION, locked = false, playing = false
+  let timer: number | undefined
+
+  const getBest = () => { try { return Number(localStorage.getItem("crr-best") || 0) } catch { return 0 } }
+  const setBest = (v: number) => { try { localStorage.setItem("crr-best", String(v)) } catch {} }
+  $("best").textContent = String(getBest())
+
+  const shuffle = <T,>(a: T[]) => { const b = [...a]; for (let i = b.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [b[i], b[j]] = [b[j], b[i]] } return b }
+  const mult = () => 1 + Math.floor(streak / 3)
+
+  function paintHud() {
+    $("time").textContent = String(Math.max(0, Math.ceil(timeLeft)))
+    $("score").textContent = String(score)
+    $("bar").style.transform = `scaleX(${Math.max(0, timeLeft) / DURATION})`
+    const s = $("streak")
+    s.textContent = `racha ${streak} · x${mult()}`
+    s.style.opacity = streak >= 2 ? "1" : "0"
+  }
+
+  function next() {
+    if (!deck.length) deck = shuffle(questions)
+    current = deck.pop()!
+    locked = false
+    $("cat").textContent = current.cat
+    $("q").textContent = current.q
+    const code = $("code")
+    code.classList.toggle("hidden", !current.code)
+    code.textContent = current.code ?? ""
+    $("why").textContent = ""
+    const box = $("options")
+    box.innerHTML = ""
+    current.options.forEach((opt, i) => {
+      const b = document.createElement("button")
+      b.type = "button"
+      b.className = "flex items-center gap-3 rounded-xl border border-line/10 bg-bg px-4 py-3 text-left transition hover:border-accent/60"
+      b.innerHTML = `<kbd class="grid size-6 shrink-0 place-items-center rounded-md border border-line/15 font-mono text-xs text-muted">${i + 1}</kbd><span></span>`
+      b.querySelector("span")!.textContent = opt
+      b.addEventListener("click", () => answer(i))
+      box.appendChild(b)
+    })
+  }
+
+  function answer(i: number) {
+    if (locked || !playing) return
+    locked = true
+    total++
+    const buttons = [...$("options").children] as HTMLElement[]
+    const ok = i === current.answer
+    buttons[current.answer].classList.add("!border-emerald-500", "bg-emerald-500/10")
+    if (ok) {
+      hits++
+      streak++
+      score += 100 * mult()
+      $("why").textContent = `✓ +${100 * mult()}`
+    } else {
+      streak = 0
+      timeLeft -= 5
+      buttons[i].classList.add("!border-red-500", "bg-red-500/10")
+      $("why").textContent = `✗ −5s · ${current.why}`
+    }
+    paintHud()
+    setTimeout(() => playing && next(), ok ? 450 : 1600)
+  }
+
+  function start() {
+    deck = shuffle(questions)
+    score = 0; streak = 0; hits = 0; total = 0; timeLeft = DURATION; playing = true
+    show(1)
+    paintHud()
+    next()
+    const t0 = performance.now()
+    let last = t0
+    clearInterval(timer)
+    timer = window.setInterval(() => {
+      const now = performance.now()
+      timeLeft -= (now - last) / 1000
+      last = now
+      paintHud()
+      if (timeLeft <= 0) end()
+    }, 100)
+  }
+
+  function end() {
+    playing = false
+    clearInterval(timer)
+    const best = Math.max(getBest(), score)
+    const isRecord = score > 0 && score >= best && score > Number($("best").textContent)
+    setBest(best)
+    $("best").textContent = String(best)
+    const rank = [...ranks].reverse().find((r) => score >= r.min)!
+    $("final").textContent = String(score)
+    $("rank").textContent = rank.title
+    $("ranktext").textContent = rank.text
+    $("hits").textContent = `${hits}/${total} aciertos`
+    $("record").textContent = isRecord ? "¡nuevo récord!" : `récord ${best}`
+    show(2)
+  }
+
+  async function share() {
+    const rank = $("rank").textContent
+    const text = `He sacado ${$("final").textContent} puntos (${rank}) en Code Review Rush, el minijuego de ${location.host}. ¿Lo superas?`
+    const url = `${location.origin}/#juego`
+    try {
+      if (navigator.share) await navigator.share({ title: "Code Review Rush", text, url })
+      else { await navigator.clipboard.writeText(`${text} ${url}`); $("share").textContent = "¡Copiado!" }
+    } catch {}
+  }
+
+  $("start").addEventListener("click", start)
+  $("again").addEventListener("click", start)
+  $("share").addEventListener("click", share)
+  document.addEventListener("keydown", (e) => {
+    if ((e.target as HTMLElement).closest("input, textarea, dialog")) return
+    const visible = root.getBoundingClientRect()
+    const inView = visible.top < innerHeight && visible.bottom > 0
+    if (!inView) return
+    if (playing && ["1", "2", "3", "4"].includes(e.key)) { e.preventDefault(); answer(Number(e.key) - 1) }
+    else if (!playing && e.key === "Enter" && !(e.target as HTMLElement).closest("a, button")) { e.preventDefault(); start() }
+  })
+</script>

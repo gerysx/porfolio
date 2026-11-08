@@ -1,121 +1,92 @@
 ---
-import "@fontsource-variable/onest"
+import "@fontsource-variable/geist"
+import "@fontsource-variable/geist-mono"
+import "@/styles/global.css"
 
-import Header from "../components/Header.astro"
-import Footer from "../components/Footer.astro"
-import { ViewTransitions } from "astro:transitions"
+import Header from "@/components/Header.astro"
+import Footer from "@/components/Footer.astro"
+import CommandPalette from "@/components/CommandPalette.astro"
+import { PROFILE } from "@/data/profile"
 
 interface Props {
-  title: string
-  description: string
+  title?: string
+  description?: string
 }
 
-const { description, title } = Astro.props
+const {
+  title = `${PROFILE.name} · ${PROFILE.role}`,
+  description = PROFILE.summary,
+} = Astro.props
+
+const canonical = new URL(Astro.url.pathname, Astro.site ?? PROFILE.site).href
+const ogImage = new URL("/og.png", Astro.site ?? PROFILE.site).href
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: PROFILE.fullName,
+  jobTitle: PROFILE.role,
+  worksFor: { "@type": "Organization", name: PROFILE.company },
+  address: { "@type": "PostalAddress", addressLocality: "Madrid", addressCountry: "ES" },
+  url: PROFILE.site,
+  sameAs: [PROFILE.linkedin, PROFILE.github],
+}
 ---
 
 <!doctype html>
-<html lang="es">
+<html lang="es" class="dark">
   <head>
     <meta charset="UTF-8" />
-    <meta name="description" content={description} />
-    <meta name="viewport" content="width=device-width" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link
-    href="https://fonts.googleapis.com/css2?family=Shadows+Into+Light&display=swap"
-    rel="stylesheet"
-  />
-    <meta name="generator" content={Astro.generator} />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
-    <ViewTransitions />
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="theme-color" content="#08090c" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="es_ES" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+
+    <script is:inline>
+      try {
+        const t = localStorage.getItem("theme")
+        if (t === "light") document.documentElement.classList.remove("dark")
+      } catch (_) {}
+      if (!matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        document.documentElement.classList.add("motion")
+        // Red de seguridad: si el JS de animaciones no llega, se muestra todo
+        setTimeout(() => { if (!window.__motionReady) document.documentElement.classList.remove("motion") }, 3000)
+      }
+    </script>
   </head>
 
-  <body class="relative text-black dark:text-white">
-    <div
-      class="absolute top-0 bottom-0 z-[-2] min-h-screen w-full bg-gray-50 dark:bg-gray-950
-      bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(217,216,255,0.5),rgba(255,255,255,0.9))]
-      dark:bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))]"
-    >
+  <body class="min-h-screen overflow-x-hidden">
+    <div aria-hidden="true" class="pointer-events-none fixed inset-0 -z-10">
+      <div class="bg-grid absolute inset-0"></div>
+      <div class="absolute -top-40 left-1/2 h-[480px] w-[900px] max-w-[160vw] -translate-x-1/2 rounded-full bg-accent/10 blur-[120px]"></div>
     </div>
+    <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-md focus:bg-accent focus:px-3 focus:py-2 focus:text-accent-fg">
+      Saltar al contenido
+    </a>
     <Header />
-    <slot />
+    <main id="main">
+      <slot />
+    </main>
     <Footer />
-    <style is:global>
-      :root {
-        color-scheme: light dark;
-      }
+    <CommandPalette />
 
-      html {
-        font-family: "Onest Variable", system-ui, sans-serif;
-        scroll-behavior: smooth;
-      }
-
-      body {
-        color: rgba(17, 17, 17, 0.9);
-        display: flex;
-        flex-direction: column;
-        min-height: 100vh;
-        overscroll-behavior: none;
-      }
-
-      
-
-      @media (prefers-reduced-motion: reduce) {
-        html {
-          scroll-behavior: auto;
-        }
-      }
-
-      @media (prefers-color-scheme: dark) {
-        body {
-          color: rgba(255, 255, 255, 0.9);
-        }
-      }
-
-      #header-nav {
-        animation: blur linear both 0.5s;
-        animation-timeline: scroll();
-        animation-range: 0 500px;
-      }
-
-      @keyframes blur {
-        to {
-          backdrop-filter: blur(20px);
-          border-width: 1px;
-          border-color: rgba(0, 0, 0);
-          padding: 0.25rem 0.75rem;
-          display: flex;
-          flex-direction: row;
-          align-items: center;
-          background-color: rgb(229, 229, 229);
-          border-radius: 9999px;
-        }
-      }
-
-      @media (prefers-color-scheme: dark) {
-        @keyframes blur {
-          from {
-            border: 0px;
-          }
-          to {
-            box-shadow:
-              0px 5px 50px -5px rgba(0, 0, 0, 0.1),
-              0px 0px 0 1px rgba(0, 0, 0, 0.3);
-            background: rgba(0, 0, 0, 0.3);
-            backdrop-filter: blur(20px);
-            border-width: 1px;
-            border-color: rgba(0, 0, 0);
-            padding-left: 0.75rem;
-            padding-right: 0.75rem;
-            padding-top: 0.25rem;
-            padding-bottom: 0.25rem;
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            background-color: rgba(0, 0, 0, 0.3);
-            border-radius: 9999px;
-          }
-        }
-      }
-    </style>
+    <script>
+      import { initMotion } from "@/lib/motion"
+      initMotion()
+    </script>
   </body>
 </html>

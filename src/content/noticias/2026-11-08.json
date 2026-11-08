@@ -1,0 +1,50 @@
+{
+  "date": "2026-11-08",
+  "items": [
+    {
+      "slug": "openai-gpt-6-cyber",
+      "tag": "IA",
+      "title": "OpenAI lanza GPT-6 Cyber, un modelo especializado en ciberseguridad",
+      "summary": "Investigadores autorizados pueden usarlo para encontrar vulnerabilidades y desarrollar exploits con los que probar defensas. OpenAI califica sus capacidades de ciberseguridad como «críticas» y limita el acceso inicial a un grupo reducido de organizaciones.",
+      "take": "Los modelos ya no son solo asistentes de código: empiezan a ser herramientas de auditoría. Para equipos enterprise, esto acelera el pentesting, pero obliga a revisar antes quién tiene acceso a qué.",
+      "source": "OpenAI",
+      "url": "https://deploymentsafety.openai.com/gpt-6-cyber"
+    },
+    {
+      "slug": "hibernate-8-beta-langchain4j",
+      "tag": "Java",
+      "title": "Hibernate ORM 8.0 avanza a Beta4 y LangChain4j 1.23 trae nuevos patrones agénticos",
+      "summary": "Hibernate 8 permite declarar @Filter y @SQLRestriction directamente en asociaciones @ManyToOne y @OneToOne y añade @GeneratorOptimizer para generar identificadores. LangChain4j 1.23 incorpora un planificador agéntico basado en cascada de confianza y soporte de modelos de decisión en Ollama.",
+      "take": "Hibernate 8 viene cargado de cambios: buen momento para medir el impacto en los repositorios JPA antes de que salga la versión final. Y LangChain4j sigue siendo la vía más cómoda para meter agentes en un backend Java.",
+      "source": "InfoQ",
+      "url": "https://www.infoq.com/news/2026/11/java-news-roundup-oct26-2026/"
+    },
+    {
+      "slug": "emudhra-ca-comprometida",
+      "tag": "Seguridad",
+      "title": "Proyectos cloud native dejan de confiar en una CA intermedia comprometida de eMudhra",
+      "summary": "cert-manager, Cilium, Envoy y Crossplane publicaron versiones que retiran la confianza en certificados intermedios de eMudhra, en muchos casos actualizando Go. En cert-manager el problema figura como CVE-2026-111943 y se corrige en la v1.21.3.",
+      "take": "Un recordatorio de que la cadena de confianza TLS también es una dependencia. Conviene revisar qué versiones de cert-manager y de la service mesh corren en cada clúster.",
+      "source": "cert-manager · Last Week in Cloud Native",
+      "url": "https://github.com/cert-manager/cert-manager/releases/tag/v1.21.3"
+    },
+    {
+      "slug": "llm-d-1-0-inferencia-kubernetes",
+      "tag": "Cloud",
+      "title": "llm-d 1.0 lleva la inferencia de IA multi-tenant a Kubernetes",
+      "summary": "La primera versión estable introduce control de flujo con prioridades y reparto justo entre inquilinos, además de descarte controlado de carga cuando el clúster se satura.",
+      "take": "Servir modelos empieza a parecerse mucho a servir microservicios: colas, prioridades y back-pressure. Los mismos patrones de siempre, aplicados a GPUs.",
+      "source": "llm-d",
+      "url": "https://github.com/llm-d/llm-d/releases/tag/v1.0.0"
+    },
+    {
+      "slug": "restricciones-centros-de-datos",
+      "tag": "Industria",
+      "title": "Las restricciones a los centros de datos enfrían las acciones de IA",
+      "summary": "Los inversores dudan de que el ritmo de construcción de centros de datos se mantenga. Desde Nueva York hasta Ámsterdam, las administraciones están endureciendo las condiciones para levantarlos.",
+      "take": "Si la capacidad de cómputo se encarece, la eficiencia vuelve a importar: caché, modelos más pequeños y arquitecturas que no desperdicien recursos.",
+      "source": "Reuters",
+      "url": "https://www.reuters.com/legal/litigation/where-authorities-are-restricting-data-centres-amid-ai-boom-2026-11-05/"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+---
+import { STACK } from "@/data/profile"
+---
+
+<div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+  {
+    STACK.map((g, i) => (
+      <article
+        data-tilt class="reveal spotlight rounded-2xl border border-line/10 bg-surface/60 p-5"
+      >
+        <h3 class="font-mono text-xs uppercase tracking-[0.2em] text-muted">{g.group}</h3>
+        <ul class="mt-4 flex flex-wrap gap-2">
+          {g.items.map((t) => (
+            <li class="rounded-lg border border-line/10 bg-bg px-2.5 py-1 text-sm">{t}</li>
+          ))}
+        </ul>
+      </article>
+    ))
+  }
+</div>

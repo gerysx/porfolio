@@ -1,29 +1,61 @@
 ---
-import ExperienceItem from "./ExperienceItem.astro"
-const EXPERIENCE = [
-  {
-    date: "Octubre 2025 - act",
-    title: "Desarrollador de Software Backend",
-    company: "Delogica — Proyecto Santander Bank USA",
-    description:
-      "Participación en el ciclo completo de desarrollo en entorno bancario internacional de alta exigencia sobre la plataforma de <strong>Santander Bank USA</strong>. Análisis y migración de sistemas legacy en <strong>MuleSoft Anypoint Studio</strong> hacia microservicios con <strong>Spring Boot (Darwin/Gluon)</strong>, elaborando diagramas UML y documentación técnica en Confluence. Diseño de APIs bajo metodología <strong>API First</strong> con <strong>OpenAPI 3.0</strong> y patrón Delegate. Desarrollo backend en <strong>Java 8</strong> con Clean Code, programación funcional, gestión de colas/eventos y transformación de datos en JSON, XML y CSV con Mapstruct y ObjectMapper. Mensajería asíncrona con <strong>Kafka y RabbitMQ</strong>. Exposición segura de servicios en <strong>IBM API Connect</strong> y despliegue automatizado con <strong>GitHub Actions</strong> sobre <strong>OpenShift</strong> mediante ConfigMaps y Secrets. Calidad y seguridad con <strong>SonarQube, JUnit, Fortify y Trivy</strong>. Metodología <strong>Scrum</strong> en entornos de entrega continua (<strong>CI/CD</strong>).",
-  },
-  {
-    date: "Febrero 2025 - Junio 2025",
-    title: "Desarrollador de Software Backend (Prácticas)",
-    company: "Adviser Cloud",
-    description:
-      "Desarrollo de microservicios con <strong>Java y Spring Boot</strong> para aplicaciones internas empresariales, aplicando arquitectura por capas y principios SOLID. Integración del backend con frontend en <strong>Angular</strong>. Diseño e integración de <strong>APIs REST</strong> como capa de comunicación entre servicios, garantizando consistencia y desacoplamiento entre componentes. Creación de <strong>agentes de inteligencia artificial</strong> para automatización de tareas y flujos de trabajo internos, reduciendo la intervención manual en procesos repetitivos.",
-  },
-];
-
+import { EXPERIENCE } from "@/data/profile"
 ---
 
-<ol class=" relative mt-16">
+<ol class="relative">
+  <span data-progress aria-hidden="true" class="pointer-events-none absolute left-0 top-0 h-full w-px origin-top bg-gradient-to-b from-accent via-accent/60 to-transparent md:left-[260px]"></span>
   {
-    EXPERIENCE.map((experience) => (
-      <li class="">
-        <ExperienceItem {...experience} />
+    EXPERIENCE.map((job) => (
+      <li class="reveal group relative grid gap-4 border-l border-line/10 pb-14 pl-8 last:pb-0 md:grid-cols-[220px_1fr] md:gap-10 md:border-l-0 md:pl-0">
+        <span
+          class:list={[
+            "absolute -left-[5px] top-1.5 size-[9px] rounded-full ring-4 ring-bg md:hidden",
+            job.current ? "bg-accent" : "bg-line/30",
+          ]}
+        />
+        <div class="md:sticky md:top-28 md:self-start md:text-right">
+          <p class="font-mono text-xs uppercase tracking-wider text-muted">
+            {job.start} — <span class:list={[job.current && "text-accent"]}>{job.end}</span>
+          </p>
+          <div class="mt-3 flex items-center gap-3 md:flex-row-reverse">
+            {job.logo && (
+              <img src={job.logo} alt={`Logo de ${job.company}`} class="size-11 rounded-xl border border-line/10 bg-white object-contain p-1.5" />
+            )}
+            <p class="text-xl font-semibold">{job.company}</p>
+          </div>
+          {job.context && <p class="text-sm text-muted">{job.context}</p>}
+        </div>
+
+        <div class="relative md:border-l md:border-line/10 md:pl-10">
+          <span
+            class:list={[
+              "absolute -left-[5px] top-1.5 hidden size-[9px] rounded-full ring-4 ring-bg md:block",
+              job.current ? "bg-accent shadow-[0_0_0_6px_rgb(var(--accent)/0.15)]" : "bg-line/30",
+            ]}
+          />
+          <h3 class="flex flex-wrap items-center gap-3 text-lg font-semibold">
+            {job.role}
+            {job.current && (
+              <span class="rounded-full bg-accent/15 px-2 py-0.5 font-mono text-[11px] font-medium uppercase tracking-wider text-accent">
+                Actual
+              </span>
+            )}
+          </h3>
+          <p class="mt-2 leading-relaxed text-muted">{job.summary}</p>
+          <ul class="mt-5 space-y-2.5">
+            {job.points.map((p) => (
+              <li class="flex gap-3 text-[15px] leading-relaxed">
+                <span class="mt-[11px] h-0.5 w-2.5 shrink-0 rounded-full bg-accent" />
+                <span>{p}</span>
+              </li>
+            ))}
+          </ul>
+          <ul class="mt-6 flex flex-wrap gap-2">
+            {job.stack.map((s) => (
+              <li class="rounded-md border border-line/10 bg-surface px-2 py-1 font-mono text-xs text-muted">{s}</li>
+            ))}
+          </ul>
+        </div>
       </li>
     ))
   }

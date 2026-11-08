@@ -1,0 +1,26 @@
+---
+import { HIGHLIGHTS, STACK } from "@/data/profile"
+const marquee = STACK.flatMap((g) => g.items).slice(0, 30)
+---
+
+<div class="mx-auto w-full max-w-5xl px-4">
+  <div class="grid gap-px overflow-hidden rounded-2xl border border-line/10 bg-line/10 sm:grid-cols-2 lg:grid-cols-4">
+    {
+      HIGHLIGHTS.map((h, i) => (
+        <article class="reveal spotlight bg-bg p-6" >
+          <p class="font-mono text-[11px] uppercase tracking-[0.2em] text-accent">{h.kicker}</p>
+          <h3 class="mt-3 text-lg font-semibold">{h.title}</h3>
+          <p class="mt-2 text-sm leading-relaxed text-muted">{h.text}</p>
+        </article>
+      ))
+    }
+  </div>
+</div>
+
+<div class="relative mt-16 overflow-hidden border-y border-line/10 py-4 [mask-image:linear-gradient(90deg,transparent,#000_10%,#000_90%,transparent)]" aria-hidden="true">
+  <div class="flex w-max animate-marquee gap-10 font-mono text-sm text-muted">
+    {[...marquee, ...marquee].map((t) => (
+      <span class="flex items-center gap-10 whitespace-nowrap">{t}<span class="text-accent/60">/</span></span>
+    ))}
+  </div>
+</div>
