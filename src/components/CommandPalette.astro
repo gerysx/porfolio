@@ -9,6 +9,7 @@ const COMMANDS = [
   { group: "Ir a", label: "Proyectos", action: "nav", value: "#proyectos" },
   { group: "Ir a", label: "Sobre mí", action: "nav", value: "#sobre-mi" },
   { group: "Ir a", label: "Contacto", action: "nav", value: "#contacto" },
+  { group: "Ir a", label: "Noticias de hoy", action: "link", value: "/noticias" },
   { group: "Acciones", label: "Copiar email", action: "copy", value: PROFILE.email },
   { group: "Acciones", label: "Descargar CV", action: "link", value: PROFILE.cv },
   { group: "Acciones", label: "Cambiar tema claro / oscuro", action: "theme", value: "" },
@@ -81,7 +82,10 @@ const COMMANDS = [
     if (!el) return
     const { cmd, value = "" } = el.dataset
     dialog.close()
-    if (cmd === "nav") document.querySelector(value)?.scrollIntoView({ behavior: "smooth" })
+    if (cmd === "nav") {
+      const target = document.querySelector(value)
+      target ? target.scrollIntoView({ behavior: "smooth" }) : (location.href = `/${value}`)
+    }
     if (cmd === "copy") navigator.clipboard?.writeText(value)
     if (cmd === "link") location.href = value
     if (cmd === "external") window.open(value, "_blank", "noopener")

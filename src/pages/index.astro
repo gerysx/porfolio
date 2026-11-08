@@ -9,6 +9,7 @@ import Stack from "@/components/Stack.astro"
 import Projects from "@/components/Projects.astro"
 import About from "@/components/About.astro"
 import Contact from "@/components/Contact.astro"
+import NewsTeaser from "@/components/NewsTeaser.astro"
 ---
 
 <Layout>
@@ -51,6 +52,16 @@ import Contact from "@/components/Contact.astro"
 
   <Section id="sobre-mi" index="05" eyebrow="Sobre mí" title="Más allá del CV.">
     <About />
+  </Section>
+
+  <Section
+    id="noticias"
+    index="06"
+    eyebrow="Noticias"
+    title="Hoy en <span class='font-serif font-normal italic text-accent'>tecnología</span>."
+    intro="Cada mañana selecciono 4-5 noticias de backend, cloud, IA y seguridad con un comentario de por qué importan."
+  >
+    <NewsTeaser />
   </Section>
 
   <Contact />

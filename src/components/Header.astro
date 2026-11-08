@@ -7,6 +7,7 @@ const NAV = [
   { title: "Stack", id: "stack" },
   { title: "Proyectos", id: "proyectos" },
   { title: "Sobre mí", id: "sobre-mi" },
+  { title: "Noticias", id: "noticias", href: "/noticias" },
 ]
 ---
 
@@ -25,7 +26,7 @@ const NAV = [
         NAV.map((item) => (
           <li>
             <a
-              href={`/#${item.id}`}
+              href={item.href ?? `/#${item.id}`}
               data-nav={item.id}
               class="rounded-lg px-3 py-1.5 text-muted transition hover:bg-line/5 hover:text-fg data-[active=true]:text-fg"
             >

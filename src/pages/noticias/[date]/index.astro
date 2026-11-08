@@ -1,0 +1,20 @@
+---
+import Layout from "@/layouts/Layout.astro"
+import NewsCard from "@/components/NewsCard.astro"
+import { NEWS_DAYS, formatDate, type NewsDay } from "@/lib/news"
+
+export function getStaticPaths() {
+  return NEWS_DAYS.map((day) => ({ params: { date: day.date }, props: { day } }))
+}
+const { day } = Astro.props as { day: NewsDay }
+---
+
+<Layout title={`Noticias del ${formatDate(day.date, { dateStyle: "long" })} · Germán Álvarez`}>
+  <section class="mx-auto w-full max-w-5xl px-4 pb-24 pt-32 md:pt-40">
+    <a href="/noticias" class="font-mono text-sm text-muted hover:text-fg">← Todas las noticias</a>
+    <h1 class="mt-6 text-4xl font-semibold tracking-tight first-letter:uppercase md:text-5xl">{formatDate(day.date)}</h1>
+    <div class="mt-10 grid gap-5 md:grid-cols-2">
+      {day.items.map((item) => <NewsCard item={item} date={day.date} />)}
+    </div>
+  </section>
+</Layout>

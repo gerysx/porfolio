@@ -226,3 +226,12 @@ export const LANGUAGES = [
   { name: "Español", level: "Nativo" },
   { name: "Inglés", level: "B1-B2" },
 ]
+
+// Comentarios con Giscus (GitHub Discussions). Rellenar repoId y categoryId
+// desde https://giscus.app una vez activadas las Discussions en el repo.
+export const GISCUS = {
+  repo: "gerysx/porfolio",
+  repoId: "",
+  category: "Noticias",
+  categoryId: "",
+}

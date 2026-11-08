@@ -1,0 +1,83 @@
+---
+import Layout from "@/layouts/Layout.astro"
+import NewsCard from "@/components/NewsCard.astro"
+import { NEWS_DAYS, formatDate } from "@/lib/news"
+
+const [today, ...past] = NEWS_DAYS
+const tags = [...new Set(NEWS_DAYS.flatMap((d) => d.items.map((i) => i.tag)))]
+---
+
+<Layout
+  title="Noticias de tecnología · Germán Álvarez"
+  description="Cada mañana, una selección de 4-5 noticias de backend, Java, cloud, IA y seguridad, con un comentario de por qué importan."
+>
+  <section class="mx-auto w-full max-w-5xl px-4 pb-10 pt-32 md:pt-40">
+    <p class="mb-3 flex items-center gap-3 font-mono text-xs uppercase tracking-[0.2em] text-muted">
+      <span class="text-accent">Feed</span><span class="h-px w-8 bg-line/20"></span>Noticias
+    </p>
+    <h1 class="text-4xl font-semibold tracking-tight md:text-6xl">
+      Lo que importa <span class="font-serif font-normal italic text-accent">hoy</span> en tecnología.
+    </h1>
+    <p class="mt-4 max-w-2xl text-lg text-muted">
+      Cada mañana selecciono 4-5 noticias de backend, Java, cloud, IA y seguridad, con un comentario breve de por qué
+      importan. Puedes comentar cada una.
+    </p>
+
+    <div class="mt-8 flex flex-wrap gap-2" role="group" aria-label="Filtrar por tema">
+      <button type="button" data-filter="" aria-pressed="true" class="filter rounded-lg border border-line/10 px-3 py-1.5 text-sm transition aria-pressed:border-accent aria-pressed:text-accent">Todas</button>
+      {tags.map((t) => (
+        <button type="button" data-filter={t} aria-pressed="false" class="filter rounded-lg border border-line/10 px-3 py-1.5 text-sm transition aria-pressed:border-accent aria-pressed:text-accent">{t}</button>
+      ))}
+    </div>
+  </section>
+
+  {
+    today && (
+      <section class="mx-auto w-full max-w-5xl px-4 pb-16">
+        <h2 class="mb-6 flex items-center gap-3 text-sm font-medium text-muted">
+          <span class="relative flex size-2"><span class="absolute size-2 animate-ping rounded-full bg-accent/60" /><span class="relative size-2 rounded-full bg-accent" /></span>
+          <time datetime={today.date} class="first-letter:uppercase">{formatDate(today.date)}</time>
+        </h2>
+        <div class="grid gap-5 md:grid-cols-2">
+          {today.items.map((item) => <NewsCard item={item} date={today.date} />)}
+        </div>
+      </section>
+    )
+  }
+
+  {
+    past.length > 0 && (
+      <section class="mx-auto w-full max-w-5xl px-4 pb-24">
+        <h2 class="mb-6 text-2xl font-semibold tracking-tight">Días anteriores</h2>
+        <div class="space-y-12">
+          {past.map((day) => (
+            <div data-day>
+              <h3 class="mb-4 font-mono text-xs uppercase tracking-wider text-muted">
+                <a href={`/noticias/${day.date}`} class="hover:text-fg">{formatDate(day.date)}</a>
+              </h3>
+              <div class="grid gap-4 md:grid-cols-2">
+                {day.items.map((item) => <NewsCard item={item} date={day.date} compact />)}
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+    )
+  }
+</Layout>
+
+<script>
+  const buttons = document.querySelectorAll<HTMLButtonElement>("[data-filter]")
+  buttons.forEach((b) =>
+    b.addEventListener("click", () => {
+      const tag = b.dataset.filter
+      buttons.forEach((o) => o.setAttribute("aria-pressed", String(o === b)))
+      document.querySelectorAll<HTMLElement>("[data-tag]").forEach((card) => {
+        card.hidden = Boolean(tag) && card.dataset.tag !== tag
+      })
+      document.querySelectorAll<HTMLElement>("[data-day]").forEach((d) => {
+        d.hidden = !d.querySelector("[data-tag]:not([hidden])")
+      })
+    })
+  )
+</script>
