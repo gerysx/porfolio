@@ -1,0 +1,135 @@
+---
+import { PROFILE } from "@/data/profile"
+
+// Escena: topología de microservicios sobre una rejilla en perspectiva.
+const W = 1200
+const H = 360
+const VP = { x: 241, y: 150 } // punto de fuga
+const floorY = [170, 182, 198, 220, 250, 290, 345, 410]
+const rays = Array.from({ length: 19 }, (_, i) => -600 + i * 150)
+
+const NODES = [
+  { id: "gw", x: 96, y: 92, label: "api-gateway", w: 128 },
+  { id: "orders", x: 241, y: 52, label: "orders-svc", w: 120 },
+  { id: "users", x: 241, y: 150, label: "users-svc", w: 112 },
+  { id: "kafka", x: 342, y: 100, label: "kafka", w: 92, accent: true },
+  { id: "billing", x: 438, y: 52, label: "billing-svc", w: 124 },
+  { id: "redis", x: 336, y: 210, label: "redis", w: 84 },
+  { id: "db", x: 444, y: 168, label: "postgres", w: 104 },
+]
+const byId = Object.fromEntries(NODES.map((n) => [n.id, n]))
+const EDGES: [string, string][] = [
+  ["gw", "orders"],
+  ["gw", "users"],
+  ["orders", "kafka"],
+  ["users", "kafka"],
+  ["kafka", "billing"],
+  ["users", "redis"],
+  ["billing", "db"],
+  ["kafka", "db"],
+]
+const wide = new Set(["redis", "db"]) // solo en pantallas grandes
+const path = (a: string, b: string) => {
+  const p = byId[a]
+  const q = byId[b]
+  const mx = (p.x + q.x) / 2
+  return `M${p.x} ${p.y} C${mx} ${p.y} ${mx} ${q.y} ${q.x} ${q.y}`
+}
+const code = [
+  "@RestController",
+  '@RequestMapping("/api/v1/orders")',
+  "public class OrderController implements OrdersApi {",
+  "  private final OrderDelegate delegate;",
+  "  @Override",
+  "  public ResponseEntity<Order> create(OrderRequest req) {",
+  '    kafka.send("orders.created", event(req));',
+  "    return ResponseEntity.status(CREATED).body(order);",
+  "  }",
+  "}",
+]
+---
+
+<div class="relative overflow-hidden rounded-3xl border border-line/10 bg-[#050816] shadow-2xl shadow-blue-950/30">
+  <svg
+    viewBox={`0 0 ${W} ${H}`}
+    preserveAspectRatio="xMinYMid slice"
+    class="block h-[240px] w-full sm:h-[300px] md:h-[340px]"
+    role="img"
+    aria-label="Ilustración de una arquitectura de microservicios: gateway, servicios, Kafka, Redis y PostgreSQL conectados"
+  >
+    <defs>
+      <linearGradient id="bn-bg" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="#050a24" />
+        <stop offset=".45" stop-color="#0a1f63" />
+        <stop offset="1" stop-color="#03050f" />
+      </linearGradient>
+      <radialGradient id="bn-glow" cx=".35" cy=".35" r=".55">
+        <stop offset="0" stop-color="#2f6bff" stop-opacity=".55" />
+        <stop offset="1" stop-color="#2f6bff" stop-opacity="0" />
+      </radialGradient>
+      <linearGradient id="bn-fade" x1="0" x2="1">
+        <stop offset=".5" stop-color="#03050f" stop-opacity="0" />
+        <stop offset="1" stop-color="#03050f" stop-opacity=".92" />
+      </linearGradient>
+      <linearGradient id="bn-floor" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#5b8cff" stop-opacity="0" />
+        <stop offset="1" stop-color="#5b8cff" stop-opacity=".35" />
+      </linearGradient>
+      <filter id="bn-blur"><feGaussianBlur stdDeviation="6" /></filter>
+    </defs>
+
+    <rect width={W} height={H} fill="url(#bn-bg)" />
+    <rect width={W} height={H} fill="url(#bn-glow)" />
+
+    <!-- Código de fondo -->
+    <g font-family="JetBrains Mono, monospace" font-size="13" fill="#9db7ff" opacity=".16">
+      {code.map((l, i) => <text x="40" y={34 + i * 22} xml:space="preserve">{l}</text>)}
+    </g>
+
+    <!-- Suelo en perspectiva -->
+    <g stroke="url(#bn-floor)" stroke-width="1">
+      {floorY.map((y) => <line x1="0" y1={y + 40} x2={W} y2={y + 40} />)}
+      {rays.map((x) => <line x1={VP.x} y1={VP.y + 40} x2={x * 2.2 + VP.x} y2={H + 120} />)}
+    </g>
+
+    <!-- Conexiones -->
+    <g fill="none" stroke-width="1.5">
+      {EDGES.map(([a, b], i) => (
+        <g class:list={[(wide.has(a) || wide.has(b)) && "hidden lg:inline"]}>
+          <path d={path(a, b)} stroke="#4f7dff" stroke-opacity=".45" />
+          <circle r="3.5" fill={i % 3 === 0 ? "#fcd34d" : "#9fc0ff"}>
+            <animateMotion dur={`${2.4 + (i % 4) * 0.5}s`} begin={`${i * 0.3}s`} repeatCount="indefinite" path={path(a, b)} />
+          </circle>
+        </g>
+      ))}
+    </g>
+
+    <!-- Nodos -->
+    <g font-family="JetBrains Mono, monospace" font-size="13" text-anchor="middle">
+      {NODES.map((n) => (
+        <g class:list={[wide.has(n.id) && "hidden lg:inline"]}>
+          <rect x={n.x - n.w / 2 - 4} y={n.y - 20} width={n.w + 8} height="40" rx="12" fill={n.accent ? "#fcd34d" : "#3f6dff"} opacity=".25" filter="url(#bn-blur)" />
+          <rect x={n.x - n.w / 2} y={n.y - 16} width={n.w} height="32" rx="9" fill="#0a1335" stroke={n.accent ? "#fcd34d" : "#5b8cff"} stroke-opacity=".9" />
+          <circle cx={n.x - n.w / 2 + 12} cy={n.y} r="3" fill={n.accent ? "#fcd34d" : "#34d399"} />
+          <text x={n.x + 6} y={n.y + 4.5} fill="#dbe6ff">{n.label}</text>
+        </g>
+      ))}
+    </g>
+
+    <rect width={W} height={H} fill="url(#bn-fade)" />
+  </svg>
+
+  <!-- Texto, como una portada de perfil -->
+  <div class="absolute inset-0 flex items-end justify-end bg-gradient-to-t from-[#03050f]/85 via-[#03050f]/30 to-transparent p-4 pl-28 sm:items-center sm:bg-none sm:p-10 sm:pl-10 md:p-14">
+    <div class="text-right text-white">
+      <h1 class="text-2xl font-semibold tracking-tight drop-shadow-[0_2px_20px_rgb(0_0_0/0.6)] sm:text-4xl lg:text-6xl">{PROFILE.name}</h1>
+      <p class="mt-2 inline-flex items-center gap-2 whitespace-nowrap rounded-full border border-white/40 bg-[#03050f]/40 px-3 py-1 text-[11px] backdrop-blur sm:mt-3 sm:px-4 sm:text-base">
+        <span class="size-1.5 rounded-full bg-[#fcd34d]"></span>
+        {PROFILE.role} · {PROFILE.company}
+      </p>
+      <p class="mt-2 font-mono text-[11px] text-white/75 sm:mt-3 sm:text-sm">
+        {PROFILE.location} <span class="mx-2 text-white/40">|</span> gerysdev.es
+      </p>
+    </div>
+  </div>
+</div>
