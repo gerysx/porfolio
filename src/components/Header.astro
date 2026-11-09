@@ -1,5 +1,6 @@
 ---
 import ThemeToggle from "./ThemeToggle.astro"
+import Logo from "./Logo.astro"
 import { alternatePath, getLang, homePath } from "@/i18n"
 
 const lang = getLang(Astro.url)
@@ -23,7 +24,7 @@ const other = alternatePath(Astro.url, lang)
     class="flex w-full max-w-5xl items-center justify-between gap-2 rounded-2xl border border-line/10 bg-bg/70 px-3 py-2 shadow-[0_8px_30px_rgb(0_0_0/0.08)] backdrop-blur-xl"
   >
     <a href={`${home}#inicio`} class="group flex items-center gap-2 rounded-lg px-1 font-mono text-sm" aria-label={en ? "Home" : "Inicio"}>
-      <span class="grid size-8 place-items-center rounded-lg bg-fg font-sans text-sm font-bold text-bg transition group-hover:bg-accent group-hover:text-accent-fg">GÁ</span>
+      <Logo class="size-8" />
       <span class="hidden text-muted sm:inline">gerysdev<span class="text-accent">.es</span></span>
     </a>
 
