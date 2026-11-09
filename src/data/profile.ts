@@ -16,7 +16,7 @@ export const PROFILE = {
   tagline:
     "Diseño y construyo plataformas de software enterprise: arquitectura, integración, cloud y entrega continua.",
   summary:
-    "Arquitecto de Software especialista en banca internacional, con proyectos para Santander y TSB Bank. Perfil completo: diseño sistemas distribuidos, defino contratos e integraciones, planifico despliegues cloud native y cuido el rendimiento y la calidad en producción, desde el código hasta la operación.",
+    "Arquitecto de Software especialista en banca internacional, actualmente en el proyecto conjunto Santander UK – TSB. Perfil completo: diseño sistemas distribuidos, defino contratos e integraciones, planifico despliegues on premise y cloud y cuido el rendimiento y la calidad en producción, desde el código hasta la operación.",
 }
 
 export const HIGHLIGHTS = [
@@ -60,30 +60,31 @@ export const EXPERIENCE: Job[] = [
   {
     role: "Arquitecto de Software",
     company: "NTT DATA",
-    context: "Proyectos Santander y TSB Bank",
+    context: "Proyecto Santander UK – TSB",
     start: "May 2026",
     end: "Actualidad",
     current: true,
     summary:
-      "Responsable del diseño técnico de soluciones enterprise: defino cómo se construyen, integran, despliegan y operan los sistemas, y acompaño a los equipos desde la primera decisión hasta producción.",
+      "Responsable del diseño técnico de soluciones enterprise en un entorno on premise: defino cómo se construyen, integran, despliegan y operan los sistemas, y acompaño a los equipos desde la primera decisión hasta producción.",
     points: [
-      "Diseño de arquitecturas distribuidas y orientadas a eventos, eligiendo patrones según el dominio, el volumen y los requisitos no funcionales.",
-      "Definición de contratos de API y de la estrategia de integración entre sistemas, plataformas y terceros.",
-      "Estrategia de despliegue cloud native sobre contenedores y Kubernetes, con pipelines CI/CD y puertas de calidad y seguridad.",
-      "Análisis de rendimiento y escalabilidad: caché distribuida, pruebas de carga, observabilidad y capacidad.",
-      "Planificación de migraciones de librerías e infraestructura con análisis de impacto, plan de pruebas y rollback.",
-      "Gobierno técnico: estándares, revisiones de diseño y registro de decisiones de arquitectura.",
+      "Diseño, creación y mantenimiento de componentes comunes de arquitectura que reutilizan los equipos de desarrollo.",
+      "Actualización de librerías, frameworks e infraestructura con análisis de impacto, plan de pruebas, despliegue por fases y rollback.",
+      "Análisis y remediación de vulnerabilidades en dependencias e imágenes dentro de los pipelines CI/CD.",
+      "Observabilidad y rendimiento: monitorización con Dynatrace, pruebas de carga comparadas e informes de conclusiones.",
+      "Caché distribuida: ajuste de pools, timeouts y topología en varios centros de datos.",
+      "Soporte y diagnóstico on premise: servidores Linux y contenedores en OpenShift/Kubernetes (logs, configuración y despliegues).",
+      "Arquitecturas distribuidas y orientadas a eventos, contratos de API y gobierno técnico (estándares, revisiones y ADR).",
     ],
     stack: [
-      "Arquitectura distribuida",
-      "Mensajería de eventos",
-      "API First",
-      "Kubernetes",
-      "OpenShift",
-      "CI/CD",
-      "Caché distribuida",
+      "Componentes comunes",
+      "Actualización de librerías",
+      "Análisis de vulnerabilidades",
       "Observabilidad",
-      "Migraciones",
+      "Dynatrace",
+      "Caché distribuida",
+      "OpenShift",
+      "Linux",
+      "On premise",
     ],
   },
   {
@@ -142,7 +143,7 @@ export const STACK = [
     group: "Integración y mensajería",
     items: ["Mensajería de eventos", "Colas de mensajes", "Pub/Sub", "API gateways", "IBM API Connect", "MuleSoft"],
   },
-  { group: "Cloud y despliegue", items: ["Kubernetes", "OpenShift", "Docker", "AWS"] },
+  { group: "Cloud y despliegue", items: ["OpenShift", "Kubernetes", "Docker", "Linux", "On premise", "AWS"] },
   { group: "CI/CD y calidad", items: ["GitHub Actions", "SonarQube", "Fortify", "Trivy", "Pruebas automatizadas"] },
   { group: "Datos y rendimiento", items: ["PostgreSQL", "Redis", "NoSQL", "Caché distribuida", "Dynatrace"] },
   { group: "Desarrollo", items: ["Java", "Spring Boot", "Spring Cloud", "SQL"] },
