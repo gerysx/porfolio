@@ -1,0 +1,50 @@
+{
+  "date": "2026-11-09",
+  "items": [
+    {
+      "slug": "spring-boot-4-2-rc2-spring-cloud-paddington",
+      "tag": "Java",
+      "title": "Spring Boot 4.2.0-RC2 y Spring Cloud 2026.0.0-RC2 «Paddington», ya en la recta final",
+      "summary": "Spring Boot 4.2.0-RC2 reúne 99 cambios, entre ellos soporte de X-Forwarded-Prefix con Reactor Netty y que spring.data.redis.database se aplique también a las réplicas. Sobre esa base, Spring Cloud 2026.0.0-RC2 añade Google Cloud Storage como backend de Config Server y un filtro LocalResponseCache para Gateway en Web MVC.",
+      "take": "Con dos release candidates encima de la mesa, es el momento de levantar una rama de pruebas con el nuevo tren y ver qué rompe en gateways y servidores de configuración antes de la GA.",
+      "source": "Spring Blog",
+      "url": "https://spring.io/blog/2026/11/05/spring-cloud-2026-0-0-RC2-has-been-released"
+    },
+    {
+      "slug": "copilot-code-review-api-gestion",
+      "tag": "IA",
+      "title": "Copilot code review se puede gobernar por API a nivel de empresa, organización y repositorio",
+      "summary": "GitHub permite activar la revisión automática, fijar el esfuerzo por defecto y configurar los runners mediante API, con ajustes de empresa que las organizaciones no pueden sobrescribir. Las revisiones de esfuerzo equilibrado pasan a usar tres modelos revisores cuyos hallazgos combina un cuarto.",
+      "take": "La revisión con IA deja de ser un experimento de cada equipo y pasa a ser política de plataforma. Tiene sentido definirla igual que se definen las reglas de rama o los quality gates.",
+      "source": "GitHub Changelog",
+      "url": "https://github.blog/changelog/2026-11-06-copilot-code-review-api-management-and-review-overview-updates/"
+    },
+    {
+      "slug": "deepmind-debilidades-rsa-1024",
+      "tag": "Seguridad",
+      "title": "Agentes de IA de Google DeepMind encuentran dos debilidades en RSA de 1024 bits",
+      "summary": "Una afecta a las firmas cuando el atacante controla buena parte del bloque firmado; la otra abarata la factorización de muchas claves de 1024 bits a la vez tras un único precálculo. DeepMind insiste en que las claves de 2048 bits o más siguen siendo seguras y que las mejoras son, por ahora, teóricas.",
+      "take": "Buen pretexto para inventariar claves heredadas en HSM, firma de código y sistemas antiguos. Si aún queda alguna de 1024 bits, ya no hay excusa para no rotarla.",
+      "source": "Data Studios",
+      "url": "https://www.datastudios.org/post/google-deepmind-ai-agents-two-weaknesses-legacy-1024-bit-rsa"
+    },
+    {
+      "slug": "dynamodb-bulk-put-items-s3",
+      "tag": "Cloud",
+      "title": "DynamoDB permite cargar datos desde S3 en tablas existentes sin montar un pipeline",
+      "summary": "La nueva función bulk put items lee los ficheros de un bucket de S3 y escribe en una tabla ya creada, con expresiones de condición por elemento para inserciones únicas o escrituras protegidas por versión. Hay un nivel estándar en todas las regiones comerciales y otro acelerado en regiones concretas.",
+      "take": "Backfills, migraciones y recargas diarias dejan de necesitar un Lambda o un job de Glue hecho a medida. Menos código de ingesta que mantener y menos puntos de fallo.",
+      "source": "AWS",
+      "url": "https://aws.amazon.com/jp/about-aws/whats-new/2026/11/amazon-dynamodb-now-supports-bulk-put-items/"
+    },
+    {
+      "slug": "kubecon-na-2026-agentes-kubernetes",
+      "tag": "Cloud",
+      "title": "La KubeCon de Salt Lake City llega con los agentes de IA en el centro",
+      "summary": "La edición norteamericana se celebra del 10 al 12 de noviembre y uno de sus focos es OpenShell, un entorno de ejecución aislado para agentes que Red Hat y Nvidia impulsan y que entró en la CNCF como proyecto sandbox en septiembre. Según theCUBE Research, el 94 % de las organizaciones ya opera en dos o más nubes.",
+      "take": "Ejecutar agentes con permisos acotados es el mismo problema de aislamiento de siempre con otra carga de trabajo. Kubernetes vuelve a ser la plataforma donde se resuelve.",
+      "source": "SiliconANGLE",
+      "url": "https://siliconangle.com/2026/11/05/container-orchestration-kubecon-thecube-ai-kubeconna/"
+    }
+  ]
+}
