@@ -46,7 +46,7 @@ CONTACT = {
 ES = {
     "file": "German-Alvarez-CV-ES.pdf",
     "lang": "es-ES",
-    "title": "Arquitecto de Software",
+    "title": "Arquitecto de Software | Especialista en banca internacional",
     "location": "Madrid, España",
     "h": {
         "summary": "Perfil profesional",
@@ -56,7 +56,8 @@ ES = {
         "languages": "Idiomas",
     },
     "summary": (
-        "Arquitecto de Software en NTT DATA para banca internacional (Santander y TSB Bank). Diseño sistemas distribuidos "
+        "Arquitecto de Software especialista en banca internacional: actualmente en NTT DATA en proyectos para Santander y TSB Bank, "
+        "y antes en la modernización de plataformas de Santander Bank USA. Diseño sistemas distribuidos "
         "y orientados a eventos, defino contratos de API y estrategias de integración, y planifico despliegues cloud native "
         "sobre Kubernetes, OpenShift y AWS con CI/CD, observabilidad y seguridad en cada entrega. Perfil completo de arquitectura: "
         "del diseño del sistema y sus decisiones técnicas a la operación, el rendimiento y la calidad en producción."
@@ -64,7 +65,7 @@ ES = {
     "jobs": [
         {
             "role": "Arquitecto de Software",
-            "company": "NTT DATA · Banca internacional: Santander y TSB Bank",
+            "company": "NTT DATA · Proyectos Santander y TSB Bank",
             "place": "Madrid",
             "dates": "Mayo 2026 – Actualidad",
             "points": [
@@ -126,7 +127,7 @@ ES = {
 EN = {
     "file": "German-Alvarez-CV-EN.pdf",
     "lang": "en-GB",
-    "title": "Software Architect",
+    "title": "Software Architect | International Banking Specialist",
     "location": "Madrid, Spain",
     "h": {
         "summary": "Professional summary",
@@ -136,7 +137,8 @@ EN = {
         "languages": "Languages",
     },
     "summary": (
-        "Software Architect at NTT DATA serving international banking clients (Santander and TSB Bank). I design distributed and event-driven "
+        "Software Architect specialised in international banking: currently at NTT DATA on projects for Santander and TSB Bank, "
+        "previously modernising platforms for Santander Bank USA. I design distributed and event-driven "
         "systems, define API contracts and integration strategies, and plan cloud native deployments on Kubernetes, OpenShift "
         "and AWS with CI/CD, observability and security built into every release. Full architecture profile: from system "
         "design and technical decisions to operations, performance and quality in production."
@@ -144,7 +146,7 @@ EN = {
     "jobs": [
         {
             "role": "Software Architect",
-            "company": "NTT DATA · International banking: Santander and TSB Bank",
+            "company": "NTT DATA · Santander and TSB Bank projects",
             "place": "Madrid, Spain",
             "dates": "May 2026 – Present",
             "points": [
@@ -282,10 +284,10 @@ def build(cv):
         str(OUT / cv["file"]),
         pagesize=A4,
         leftMargin=18 * mm, rightMargin=18 * mm, topMargin=15 * mm, bottomMargin=15 * mm,
-        title=f"Germán Álvarez González - {cv['title']} - CV",
+        title=f"Germán Álvarez González - {cv['title'].split(' | ')[0]} - CV",
         author="Germán Álvarez González",
-        subject=f"{cv['title']} CV",
-        keywords="Software Architect, Arquitecto de Software, Microservices, Event-Driven Architecture, Kubernetes, AWS, CI/CD, Spring Cloud, OpenShift, API First",
+        subject=f"{cv['title']} - CV",
+        keywords="Software Architect, Arquitecto de Software, International Banking, Banca internacional, Microservices, Event-Driven Architecture, Kubernetes, AWS, CI/CD, Spring Cloud, OpenShift, API First",
         lang=cv["lang"],
     )
     doc.build(story)

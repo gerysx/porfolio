@@ -10,6 +10,7 @@ const json = [
   ["name", `"${PROFILE.name}"`],
   ["role", `"${PROFILE.role}"`],
   ["company", `"${PROFILE.company}"`],
+  ["sector", en ? `"international banking"` : `"banca internacional"`],
   ["location", `"Madrid, ES"`],
   ["focus", en ? `["architecture", "integration", "cloud", "delivery"]` : `["arquitectura", "integración", "cloud", "delivery"]`],
   ["patterns", en ? `["microservices", "event-driven", "api-first"]` : `["microservicios", "event-driven", "api-first"]`],
@@ -31,7 +32,7 @@ const json = [
   </div>
   <div class="mt-20 grid items-center gap-12 md:mt-24 md:grid-cols-[1.15fr_1fr]">
   <div>
-    <p data-hero-item class="font-mono text-xs uppercase tracking-[0.2em] text-accent">{en ? "Architecture · Integration · Cloud · Delivery" : "Arquitectura · Integración · Cloud · Delivery"}</p>
+    <p data-hero-item class="font-mono text-xs uppercase tracking-[0.2em] text-accent">{en ? "International banking · Architecture · Cloud · Delivery" : "Banca internacional · Arquitectura · Cloud · Delivery"}</p>
     {en ? (<>
       <p data-hero-item class="mt-4 text-4xl font-semibold leading-[1.05] tracking-[-0.035em] sm:text-5xl md:text-[3.4rem]">
         Software architecture, <span class="text-gradient">end to end.</span>

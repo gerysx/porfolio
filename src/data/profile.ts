@@ -5,6 +5,7 @@ export const PROFILE = {
   name: "Germán Álvarez",
   fullName: "Germán Álvarez González",
   role: "Arquitecto de Software",
+  specialty: "Especialista en banca internacional",
   company: "NTT DATA",
   location: "Madrid, España",
   email: "geralvarez95@gmail.com",
@@ -15,7 +16,7 @@ export const PROFILE = {
   tagline:
     "Diseño y construyo plataformas de software enterprise: arquitectura, integración, cloud y entrega continua.",
   summary:
-    "Arquitecto de Software con perfil completo: diseño sistemas distribuidos, defino contratos e integraciones, planifico despliegues cloud native y cuido el rendimiento y la calidad en producción. Vengo del desarrollo en banca internacional, así que conozco el sistema desde el código hasta la operación.",
+    "Arquitecto de Software especialista en banca internacional, con proyectos para Santander y TSB Bank. Perfil completo: diseño sistemas distribuidos, defino contratos e integraciones, planifico despliegues cloud native y cuido el rendimiento y la calidad en producción, desde el código hasta la operación.",
 }
 
 export const HIGHLIGHTS = [
@@ -59,7 +60,7 @@ export const EXPERIENCE: Job[] = [
   {
     role: "Arquitecto de Software",
     company: "NTT DATA",
-    context: "Banca internacional · Santander y TSB Bank",
+    context: "Proyectos Santander y TSB Bank",
     start: "May 2026",
     end: "Actualidad",
     current: true,
