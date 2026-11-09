@@ -56,27 +56,27 @@ ES = {
         "languages": "Idiomas",
     },
     "summary": (
-        "Arquitecto de Software especialista en banca internacional: actualmente en NTT DATA en proyectos para Santander y TSB Bank, "
+        "Arquitecto de Software especialista en banca internacional: actualmente en NTT DATA en el proyecto conjunto Santander UK – TSB, "
         "y antes en la modernización de plataformas de Santander Bank USA. Diseño sistemas distribuidos "
-        "y orientados a eventos, defino contratos de API y estrategias de integración, y planifico despliegues cloud native "
-        "sobre Kubernetes, OpenShift y AWS con CI/CD, observabilidad y seguridad en cada entrega. Perfil completo de arquitectura: "
+        "y orientados a eventos, defino contratos de API y estrategias de integración, y planifico despliegues on premise y cloud "
+        "sobre OpenShift, Kubernetes y AWS con CI/CD, observabilidad y seguridad en cada entrega. Perfil completo de arquitectura: "
         "del diseño del sistema y sus decisiones técnicas a la operación, el rendimiento y la calidad en producción."
     ),
     "jobs": [
         {
             "role": "Arquitecto de Software",
-            "company": "NTT DATA · Proyectos Santander y TSB Bank",
+            "company": "NTT DATA · Proyecto Santander UK – TSB",
             "place": "Madrid",
             "dates": "Mayo 2026 – Actualidad",
             "points": [
-                "Diseño de arquitecturas distribuidas y orientadas a eventos (microservicios, EDA), eligiendo patrones según el dominio, el volumen y los requisitos no funcionales.",
-                "Definición de contratos de API (API First, OpenAPI) y de la estrategia de integración entre sistemas, plataformas y terceros mediante API gateways y mensajería de eventos.",
-                "Arquitecturas de microservicios con Spring Boot y Spring Cloud: configuración centralizada, descubrimiento de servicios, gateway y resiliencia.",
-                "Estrategia de despliegue cloud native sobre contenedores, Kubernetes, OpenShift y AWS, con pipelines CI/CD y puertas de calidad y seguridad.",
-                "Análisis de rendimiento y escalabilidad: caché distribuida, pruebas de carga, observabilidad y planificación de capacidad.",
-                "Diseño de modelos de datos y elección de bases de datos relacionales y NoSQL según patrones de acceso y consistencia.",
-                "Planificación de migraciones de librerías e infraestructura con análisis de impacto, plan de pruebas y rollback.",
-                "Gobierno técnico: estándares, revisiones de diseño y registro de decisiones de arquitectura (ADR) con los equipos de desarrollo.",
+                "Diseño, creación y mantenimiento de componentes comunes de arquitectura (librerías compartidas, configuración base y plantillas) que reutilizan los equipos de desarrollo.",
+                "Actualización de librerías, frameworks e infraestructura: análisis de breaking changes e impacto en el código, plan de pruebas, despliegue por fases y rollback.",
+                "Análisis y remediación de vulnerabilidades en dependencias e imágenes (SonarQube, Fortify, Trivy) integrados en los pipelines CI/CD.",
+                "Observabilidad y rendimiento: monitorización con Dynatrace, pruebas de carga comparadas, análisis de throughput y latencias (p95/p99) e informes de conclusiones.",
+                "Caché distribuida: configuración y ajuste de pools, timeouts y topología en varios centros de datos.",
+                "Soporte y diagnóstico en entornos on premise: acceso a servidores Linux y a contenedores en OpenShift/Kubernetes para revisar logs, configuración y despliegues.",
+                "Diseño de arquitecturas distribuidas y orientadas a eventos, con contratos de API y estrategia de integración entre sistemas.",
+                "Gobierno técnico: estándares, revisiones de diseño y registro de decisiones de arquitectura (ADR).",
             ],
         },
         {
@@ -110,7 +110,7 @@ ES = {
     "skills": [
         ("Arquitectura", "Arquitectura de software, microservicios, arquitectura orientada a eventos (EDA), sistemas distribuidos, API First, OpenAPI 3.0, REST, DDD, arquitectura hexagonal, CQRS, Saga, Outbox, Circuit Breaker, patrón Delegate"),
         ("Integración y mensajería", "Mensajería de eventos, colas de mensajes, publicación/suscripción, API Gateway, IBM API Connect, MuleSoft"),
-        ("Cloud e infraestructura", "Kubernetes, OpenShift, Docker, AWS, cloud native, contenedores, ConfigMaps y Secrets"),
+        ("Cloud e infraestructura", "OpenShift, Kubernetes, Docker, servidores Linux on premise, AWS, cloud native, contenedores, ConfigMaps y Secrets"),
         ("CI/CD y DevOps", "CI/CD, GitHub Actions, Git, SonarQube, Fortify, Trivy, DevSecOps, Linux"),
         ("Datos y rendimiento", "PostgreSQL, SQL, NoSQL, MongoDB, Redis, caché distribuida, Dynatrace, observabilidad, pruebas de carga"),
         ("Desarrollo backend", "Java, Spring Boot, Spring Cloud, JUnit, MapStruct, JSON, XML"),
@@ -137,27 +137,27 @@ EN = {
         "languages": "Languages",
     },
     "summary": (
-        "Software Architect specialised in international banking: currently at NTT DATA on projects for Santander and TSB Bank, "
+        "Software Architect specialised in international banking: currently at NTT DATA on the joint Santander UK – TSB project, "
         "previously modernising platforms for Santander Bank USA. I design distributed and event-driven "
-        "systems, define API contracts and integration strategies, and plan cloud native deployments on Kubernetes, OpenShift "
+        "systems, define API contracts and integration strategies, and plan on-premise and cloud deployments on OpenShift, Kubernetes "
         "and AWS with CI/CD, observability and security built into every release. Full architecture profile: from system "
         "design and technical decisions to operations, performance and quality in production."
     ),
     "jobs": [
         {
             "role": "Software Architect",
-            "company": "NTT DATA · Santander and TSB Bank projects",
+            "company": "NTT DATA · Santander UK – TSB project",
             "place": "Madrid, Spain",
             "dates": "May 2026 – Present",
             "points": [
-                "Design distributed and event-driven architectures (microservices, EDA), choosing patterns based on domain, volume and non-functional requirements.",
-                "Define API contracts (API First, OpenAPI) and the integration strategy between systems, platforms and third parties through API gateways and event messaging.",
-                "Microservice architectures with Spring Boot and Spring Cloud: centralised configuration, service discovery, gateway and resilience.",
-                "Cloud native deployment strategy on containers, Kubernetes, OpenShift and AWS, with CI/CD pipelines and quality and security gates.",
-                "Performance and scalability analysis: distributed caching, load testing, observability and capacity planning.",
-                "Data modelling and selection of relational and NoSQL databases based on access patterns and consistency needs.",
-                "Plan library and infrastructure migrations with impact analysis, test plans and rollback.",
-                "Technical governance: standards, design reviews and architecture decision records (ADR) with development teams.",
+                "Design, build and maintain common architecture components (shared libraries, base configuration and templates) reused by development teams.",
+                "Upgrade libraries, frameworks and infrastructure: breaking-change and code impact analysis, test plans, phased rollout and rollback.",
+                "Vulnerability analysis and remediation in dependencies and images (SonarQube, Fortify, Trivy) built into the CI/CD pipelines.",
+                "Observability and performance: Dynatrace monitoring, comparative load testing, throughput and latency analysis (p95/p99) and findings reports.",
+                "Distributed caching: configuration and tuning of pools, timeouts and multi-data-centre topology.",
+                "Support and troubleshooting in on-premise environments: access to Linux servers and OpenShift/Kubernetes containers to review logs, configuration and deployments.",
+                "Design distributed and event-driven architectures, with API contracts and the integration strategy between systems.",
+                "Technical governance: standards, design reviews and architecture decision records (ADR).",
             ],
         },
         {
@@ -191,7 +191,7 @@ EN = {
     "skills": [
         ("Architecture", "Software architecture, microservices, event-driven architecture (EDA), distributed systems, API First, OpenAPI 3.0, REST, DDD, hexagonal architecture, CQRS, Saga, Outbox, Circuit Breaker, Delegate pattern"),
         ("Integration and messaging", "Event messaging, message queues, publish/subscribe, API Gateway, IBM API Connect, MuleSoft"),
-        ("Cloud and infrastructure", "Kubernetes, OpenShift, Docker, AWS, cloud native, containers, ConfigMaps and Secrets"),
+        ("Cloud and infrastructure", "OpenShift, Kubernetes, Docker, on-premise Linux servers, AWS, cloud native, containers, ConfigMaps and Secrets"),
         ("CI/CD and DevOps", "CI/CD, GitHub Actions, Git, SonarQube, Fortify, Trivy, DevSecOps, Linux"),
         ("Data and performance", "PostgreSQL, SQL, NoSQL, MongoDB, Redis, distributed caching, Dynatrace, observability, load testing"),
         ("Backend development", "Java, Spring Boot, Spring Cloud, JUnit, MapStruct, JSON, XML"),
