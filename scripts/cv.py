@@ -56,7 +56,7 @@ ES = {
         "languages": "Idiomas",
     },
     "summary": (
-        "Arquitecto de Software en NTT DATA con experiencia previa en banca internacional. Diseño sistemas distribuidos "
+        "Arquitecto de Software en NTT DATA para banca internacional (Santander y TSB Bank). Diseño sistemas distribuidos "
         "y orientados a eventos, defino contratos de API y estrategias de integración, y planifico despliegues cloud native "
         "sobre Kubernetes, OpenShift y AWS con CI/CD, observabilidad y seguridad en cada entrega. Perfil completo de arquitectura: "
         "del diseño del sistema y sus decisiones técnicas a la operación, el rendimiento y la calidad en producción."
@@ -64,7 +64,7 @@ ES = {
     "jobs": [
         {
             "role": "Arquitecto de Software",
-            "company": "NTT DATA",
+            "company": "NTT DATA · Banca internacional: Santander y TSB Bank",
             "place": "Madrid",
             "dates": "Mayo 2026 – Actualidad",
             "points": [
@@ -136,7 +136,7 @@ EN = {
         "languages": "Languages",
     },
     "summary": (
-        "Software Architect at NTT DATA with a background in international banking. I design distributed and event-driven "
+        "Software Architect at NTT DATA serving international banking clients (Santander and TSB Bank). I design distributed and event-driven "
         "systems, define API contracts and integration strategies, and plan cloud native deployments on Kubernetes, OpenShift "
         "and AWS with CI/CD, observability and security built into every release. Full architecture profile: from system "
         "design and technical decisions to operations, performance and quality in production."
@@ -144,7 +144,7 @@ EN = {
     "jobs": [
         {
             "role": "Software Architect",
-            "company": "NTT DATA",
+            "company": "NTT DATA · International banking: Santander and TSB Bank",
             "place": "Madrid, Spain",
             "dates": "May 2026 – Present",
             "points": [
