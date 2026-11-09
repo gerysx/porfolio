@@ -6,11 +6,12 @@ import { PROFILE as PROFILE_ES } from "./profile"
 export const PROFILE = {
   ...PROFILE_ES,
   role: "Software Architect",
+  specialty: "International banking specialist",
   location: "Madrid, Spain",
   cv: "/cv/German-Alvarez-CV-EN.pdf",
   tagline: "I design and build enterprise software platforms: architecture, integration, cloud and continuous delivery.",
   summary:
-    "Software Architect with a full-spectrum profile: I design distributed systems, define contracts and integrations, plan cloud native deployments and look after performance and quality in production. I come from software development in international banking, so I know the system from the code all the way to operations.",
+    "Software Architect specialised in international banking, with projects for Santander and TSB Bank. Full-spectrum profile: I design distributed systems, define contracts and integrations, plan cloud native deployments and look after performance and quality in production, from the code all the way to operations.",
 }
 
 export const HIGHLIGHTS = [
@@ -40,7 +41,7 @@ export const EXPERIENCE: Job[] = [
   {
     role: "Software Architect",
     company: "NTT DATA",
-    context: "International banking · Santander and TSB Bank",
+    context: "Santander and TSB Bank projects",
     start: "May 2026",
     end: "Present",
     current: true,
