@@ -1,28 +1,32 @@
 ---
-import { PROFILE } from "@/data/profile"
+import { content, getLang } from "@/i18n"
+const lang = getLang(Astro.url)
+const en = lang === "en"
+const { PROFILE } = content(lang)
 ---
 
 <section id="contacto" class="mx-auto w-full max-w-5xl scroll-mt-24 px-4 py-20 md:py-28">
   <div class="reveal relative overflow-hidden rounded-3xl border border-line/10 bg-surface px-6 py-14 text-center md:px-16 md:py-20">
     <div class="bg-grid absolute inset-0 -z-0 opacity-60" aria-hidden="true"></div>
     <div class="relative">
-      <p class="font-mono text-xs uppercase tracking-[0.2em] text-accent">Contacto</p>
+      <p class="font-mono text-xs uppercase tracking-[0.2em] text-accent">{en ? "Contact" : "Contacto"}</p>
       <h2 data-split class="mx-auto mt-4 max-w-2xl text-4xl font-semibold tracking-[-0.03em] md:text-6xl">
-        ¿Construimos algo <span class="text-gradient">sólido</span>?
+        {en ? <>Shall we build something <span class="text-gradient">solid</span>?</> : <>¿Construimos algo <span class="text-gradient">sólido</span>?</>}
       </h2>
       <p class="mx-auto mt-5 max-w-lg text-lg text-muted">
-        Arquitectura, microservicios o un sistema que necesita escalar. Escríbeme y te respondo pronto.
+        {en ? "Architecture, microservices or a system that needs to scale. Drop me a line and I will get back to you soon." : "Arquitectura, microservicios o un sistema que necesita escalar. Escríbeme y te respondo pronto."}
       </p>
       <div class="mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row">
         <a
           href={`mailto:${PROFILE.email}`}
           class="inline-flex items-center gap-2 rounded-xl bg-fg px-5 py-3 font-medium text-bg transition hover:bg-accent hover:text-accent-fg"
         >
-          Escríbeme un email
+          {en ? "Send me an email" : "Escríbeme un email"}
         </a>
         <button
           type="button"
           data-copy-email={PROFILE.email}
+          data-copied={en ? "Copied!" : "¡Copiado!"}
           class="inline-flex items-center gap-2 rounded-xl border border-line/15 bg-bg px-5 py-3 font-mono text-sm transition hover:border-line/30"
         >
           <span data-copy-label>{PROFILE.email}</span>
@@ -46,7 +50,7 @@ import { PROFILE } from "@/data/profile"
         await navigator.clipboard.writeText(btn.dataset.copyEmail!)
         if (label) {
           const prev = label.textContent
-          label.textContent = "¡Copiado!"
+          label.textContent = btn.dataset.copied ?? "¡Copiado!"
           setTimeout(() => (label.textContent = prev), 1600)
         }
       } catch (_) {

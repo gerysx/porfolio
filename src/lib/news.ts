@@ -26,6 +26,6 @@ export const TAG_STYLES: Record<string, string> = {
   Frontend: "text-pink-600 dark:text-pink-300 bg-pink-500/10",
 }
 
-export function formatDate(date: string, opts: Intl.DateTimeFormatOptions = { dateStyle: "full" }) {
-  return new Intl.DateTimeFormat("es-ES", { ...opts, timeZone: "UTC" }).format(new Date(`${date}T00:00:00Z`))
+export function formatDate(date: string, opts: Intl.DateTimeFormatOptions = { dateStyle: "full" }, locale = "es-ES") {
+  return new Intl.DateTimeFormat(locale, { ...opts, timeZone: "UTC" }).format(new Date(`${date}T00:00:00Z`))
 }

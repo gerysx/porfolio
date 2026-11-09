@@ -1,5 +1,8 @@
 ---
-import { PROFILE } from "@/data/profile"
+import { content, getLang } from "@/i18n"
+const lang = getLang(Astro.url)
+const en = lang === "en"
+const { PROFILE } = content(lang)
 
 // Escena completa: desarrollo → CI/CD → clúster (gateway, servicios Spring,
 // mensajería de eventos) → datos. Coordenadas en un lienzo de 1200x360.
@@ -8,7 +11,7 @@ const H = 360
 
 type N = { id: string; x: number; y: number; label: string; w: number; kind?: "accent" | "data" | "infra" }
 const PIPE: N[] = [
-  { id: "dev", x: 70, y: 30, label: "IDE · código", w: 112 },
+  { id: "dev", x: 70, y: 30, label: en ? "IDE · code" : "IDE · código", w: 112 },
   { id: "git", x: 180, y: 30, label: "git push", w: 80 },
   { id: "ci", x: 285, y: 30, label: "GitHub Actions", w: 118 },
   { id: "qa", x: 405, y: 30, label: "Sonar · Trivy", w: 108 },
@@ -59,7 +62,7 @@ const color = (k?: N["kind"]) =>
     data-banner-scene
     class="block h-[240px] w-full origin-left sm:h-[300px] md:h-[340px]"
     role="img"
-    aria-label="Ilustración del ciclo completo: desarrollo, pipeline CI/CD, clúster Kubernetes/OpenShift con gateway, microservicios, mensajería de eventos y bases de datos"
+    aria-label={en ? "Illustration of the full lifecycle: development, CI/CD pipeline, Kubernetes/OpenShift cluster with gateway, microservices, event messaging and databases" : "Ilustración del ciclo completo: desarrollo, pipeline CI/CD, clúster Kubernetes/OpenShift con gateway, microservicios, mensajería de eventos y bases de datos"}
   >
     <defs>
       <linearGradient id="bn-bg" x1="0" y1="0" x2="1" y2="1">
@@ -92,7 +95,7 @@ const color = (k?: N["kind"]) =>
     <!-- Clúster -->
     <rect x="22" y="76" width="640" height="270" rx="18" fill="#0a1335" fill-opacity=".45" stroke="#a78bfa" stroke-opacity=".45" stroke-dasharray="6 6" />
     <text x="40" y="98" font-family="Geist Mono Variable, ui-monospace, monospace" font-size="11" fill="#c4b5fd" opacity=".85">☸ kubernetes · openshift  —  namespace: prod</text>
-    <text x={KX} y="320" text-anchor="middle" font-family="Geist Mono Variable, ui-monospace, monospace" font-size="10" fill="#9db7ff" opacity=".6">service mesh · eventos · datos</text>
+    <text x={KX} y="320" text-anchor="middle" font-family="Geist Mono Variable, ui-monospace, monospace" font-size="10" fill="#9db7ff" opacity=".6">{en ? "service mesh · events · data" : "service mesh · eventos · datos"}</text>
 
     <!-- Pipeline CI/CD -->
     <g fill="none" stroke="#5b8cff" stroke-opacity=".6" stroke-width="1.3">
@@ -117,7 +120,7 @@ const color = (k?: N["kind"]) =>
           ))}
         </g>
       ))}
-      <text x={KX} y={BROKER.y + BROKER.h - 8} text-anchor="middle" font-size="9" fill="#fde68a" opacity=".7">topics · colas</text>
+      <text x={KX} y={BROKER.y + BROKER.h - 8} text-anchor="middle" font-size="9" fill="#fde68a" opacity=".7">{en ? "topics · queues" : "topics · colas"}</text>
     </g>
 
     <!-- Conexiones con mensajes en vuelo -->

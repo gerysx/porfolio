@@ -1,0 +1,110 @@
+---
+// Portada completa. La usan / (español) y /en/ (inglés).
+import Layout from "@/layouts/Layout.astro"
+import Hero from "@/components/Hero.astro"
+import Game from "@/components/Game.astro"
+import Highlights from "@/components/Highlights.astro"
+import Section from "@/components/Section.astro"
+import Experience from "@/components/Experience.astro"
+import Architecture from "@/components/Architecture.astro"
+import Stack from "@/components/Stack.astro"
+import Projects from "@/components/Projects.astro"
+import About from "@/components/About.astro"
+import Contact from "@/components/Contact.astro"
+import NewsTeaser from "@/components/NewsTeaser.astro"
+import { content, getLang } from "@/i18n"
+
+const lang = getLang(Astro.url)
+const { PROFILE } = content(lang)
+
+const T = {
+  es: {
+    experience: {
+      eyebrow: "Experiencia",
+      title: "De construir sistemas a <span class='text-gradient'>diseñarlos</span>.",
+      intro: "Del desarrollo en banca internacional al diseño de soluciones enterprise completas en NTT DATA: arquitectura, integración, despliegue y operación.",
+    },
+    architecture: {
+      eyebrow: "Cómo construyo",
+      title: "Así viaja una petición por los sistemas que diseño.",
+      intro: "Pulsa cada pieza para ver qué decisión hay detrás. Debajo, las puertas de calidad por las que pasa cada cambio antes de llegar a producción.",
+    },
+    stack: {
+      eyebrow: "Stack",
+      title: "Arquitectura, integración y <span class='text-gradient'>despliegue</span>.",
+      intro: "Patrones, plataformas y herramientas con las que diseño, integro y llevo a producción sistemas enterprise.",
+    },
+    projects: {
+      eyebrow: "Proyectos",
+      title: "Cosas que he construido por mi cuenta.",
+      intro: "Proyectos personales, con demo en vivo y código abierto.",
+    },
+    about: { eyebrow: "Sobre mí", title: "Más allá del <span class='text-gradient'>CV</span>." },
+    news: {
+      eyebrow: "Noticias",
+      title: "Hoy en <span class='text-gradient'>tecnología</span>.",
+      intro: "Cada mañana selecciono 4-5 noticias de backend, cloud, IA y seguridad con un comentario de por qué importan.",
+    },
+  },
+  en: {
+    experience: {
+      eyebrow: "Experience",
+      title: "From building systems to <span class='text-gradient'>designing them</span>.",
+      intro: "From software development in international banking to designing complete enterprise solutions at NTT DATA: architecture, integration, deployment and operations.",
+    },
+    architecture: {
+      eyebrow: "How I build",
+      title: "How a request travels through the systems I design.",
+      intro: "Click each piece to see the decision behind it. Below, the quality gates every change goes through before reaching production.",
+    },
+    stack: {
+      eyebrow: "Stack",
+      title: "Architecture, integration and <span class='text-gradient'>delivery</span>.",
+      intro: "Patterns, platforms and tools I use to design, integrate and ship enterprise systems to production.",
+    },
+    projects: {
+      eyebrow: "Projects",
+      title: "Things I have built on my own.",
+      intro: "Personal projects, with live demos and open source code.",
+    },
+    about: { eyebrow: "About me", title: "Beyond the <span class='text-gradient'>CV</span>." },
+    news: {
+      eyebrow: "News",
+      title: "Today in <span class='text-gradient'>tech</span>.",
+      intro: "Every morning I pick 4-5 backend, cloud, AI and security stories with a note on why they matter. The news feed is written in Spanish.",
+    },
+  },
+}[lang]
+---
+
+<Layout title={`${PROFILE.name} · ${PROFILE.role}`} description={PROFILE.summary}>
+  <Hero />
+  <Game />
+  <Highlights />
+
+  <Section id="experiencia" index="01" {...T.experience}>
+    <Experience />
+  </Section>
+
+  <Section id="arquitectura" index="02" {...T.architecture}>
+    <Architecture />
+  </Section>
+
+  <Section id="stack" index="03" {...T.stack}>
+    <Stack />
+  </Section>
+
+  <Section id="proyectos" index="04" {...T.projects}>
+    <Projects />
+  </Section>
+
+  <Section id="sobre-mi" index="05" {...T.about}>
+    <About />
+  </Section>
+
+  <Section id="noticias" index="06" {...T.news}>
+    <NewsTeaser />
+  </Section>
+
+  <Contact />
+</Layout>

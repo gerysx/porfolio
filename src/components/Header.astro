@@ -1,22 +1,28 @@
 ---
 import ThemeToggle from "./ThemeToggle.astro"
+import { alternatePath, getLang, homePath } from "@/i18n"
+
+const lang = getLang(Astro.url)
+const home = homePath(lang)
+const en = lang === "en"
 
 const NAV = [
-  { title: "Experiencia", id: "experiencia" },
-  { title: "Arquitectura", id: "arquitectura" },
+  { title: en ? "Experience" : "Experiencia", id: "experiencia" },
+  { title: en ? "Architecture" : "Arquitectura", id: "arquitectura" },
   { title: "Stack", id: "stack" },
-  { title: "Proyectos", id: "proyectos" },
-  { title: "Sobre mí", id: "sobre-mi" },
-  { title: "Noticias", id: "noticias", href: "/noticias" },
+  { title: en ? "Projects" : "Proyectos", id: "proyectos" },
+  { title: en ? "About" : "Sobre mí", id: "sobre-mi" },
+  { title: en ? "News" : "Noticias", id: "noticias", href: "/noticias" },
 ]
+const other = alternatePath(Astro.url, lang)
 ---
 
 <header class="fixed inset-x-0 top-0 z-40 flex justify-center px-4 pt-3">
   <nav
-    aria-label="Principal"
+    aria-label={en ? "Main" : "Principal"}
     class="flex w-full max-w-5xl items-center justify-between gap-2 rounded-2xl border border-line/10 bg-bg/70 px-3 py-2 shadow-[0_8px_30px_rgb(0_0_0/0.08)] backdrop-blur-xl"
   >
-    <a href="/#inicio" class="group flex items-center gap-2 rounded-lg px-1 font-mono text-sm" aria-label="Inicio">
+    <a href={`${home}#inicio`} class="group flex items-center gap-2 rounded-lg px-1 font-mono text-sm" aria-label={en ? "Home" : "Inicio"}>
       <span class="grid size-8 place-items-center rounded-lg bg-fg font-sans text-sm font-bold text-bg transition group-hover:bg-accent group-hover:text-accent-fg">GÁ</span>
       <span class="hidden text-muted sm:inline">gerysdev<span class="text-accent">.es</span></span>
     </a>
@@ -26,7 +32,7 @@ const NAV = [
         NAV.map((item) => (
           <li>
             <a
-              href={item.href ?? `/#${item.id}`}
+              href={item.href ?? `${home}#${item.id}`}
               data-nav={item.id}
               class="rounded-lg px-3 py-1.5 text-muted transition hover:bg-line/5 hover:text-fg data-[active=true]:text-fg"
             >
@@ -42,17 +48,37 @@ const NAV = [
         type="button"
         data-open-palette
         class="flex items-center gap-2 rounded-lg border border-line/10 px-2.5 py-1.5 text-sm text-muted transition hover:border-line/25 hover:text-fg"
-        aria-label="Abrir paleta de comandos"
+        aria-label={en ? "Open command palette" : "Abrir paleta de comandos"}
       >
         <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-3.5-3.5"></path></svg>
-        <span class="hidden sm:inline">Buscar</span>
+        <span class="hidden sm:inline">{en ? "Search" : "Buscar"}</span>
         <kbd class="hidden rounded border border-line/15 px-1.5 font-mono text-[11px] sm:inline">⌘K</kbd>
       </button>
+      <div class="flex items-center rounded-lg border border-line/10 p-0.5 font-mono text-xs" role="group" aria-label={en ? "Language" : "Idioma"}>
+        <a
+          href={en ? other : home}
+          hreflang="es"
+          lang="es"
+          aria-current={!en ? "true" : undefined}
+          data-lang-switch="es"
+          title="Ver en español"
+          class:list={["rounded-md px-2 py-1 transition", !en ? "bg-fg text-bg" : "text-muted hover:text-fg"]}
+        >ES</a>
+        <a
+          href={en ? home : other}
+          hreflang="en"
+          lang="en"
+          aria-current={en ? "true" : undefined}
+          data-lang-switch="en"
+          title="View in English"
+          class:list={["rounded-md px-2 py-1 transition", en ? "bg-fg text-bg" : "text-muted hover:text-fg"]}
+        >EN</a>
+      </div>
       <ThemeToggle />
       <a
-        href="/#contacto"
+        href={`${home}#contacto`}
         class="ml-1 hidden rounded-lg bg-fg px-3 py-1.5 text-sm font-medium text-bg transition hover:bg-accent hover:text-accent-fg sm:inline-block"
-        >Contacto</a
+        >{en ? "Contact" : "Contacto"}</a
       >
     </div>
   </nav>

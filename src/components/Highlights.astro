@@ -1,5 +1,6 @@
 ---
-import { HIGHLIGHTS, STACK } from "@/data/profile"
+import { content, getLang } from "@/i18n"
+const { HIGHLIGHTS, STACK } = content(getLang(Astro.url))
 const marquee = STACK.flatMap((g) => g.items).slice(0, 30)
 ---
 

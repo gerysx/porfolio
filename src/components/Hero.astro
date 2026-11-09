@@ -1,15 +1,19 @@
 ---
-import { PROFILE } from "@/data/profile"
 import Banner from "@/components/Banner.astro"
+import { content, getLang, homePath } from "@/i18n"
+
+const lang = getLang(Astro.url)
+const en = lang === "en"
+const { PROFILE } = content(lang)
 
 const json = [
   ["name", `"${PROFILE.name}"`],
   ["role", `"${PROFILE.role}"`],
   ["company", `"${PROFILE.company}"`],
   ["location", `"Madrid, ES"`],
-  ["focus", `["arquitectura", "integración", "cloud", "delivery"]`],
-  ["patterns", `["microservicios", "event-driven", "api-first"]`],
-  ["platform", `["kubernetes", "ci/cd", "observabilidad"]`],
+  ["focus", en ? `["architecture", "integration", "cloud", "delivery"]` : `["arquitectura", "integración", "cloud", "delivery"]`],
+  ["patterns", en ? `["microservices", "event-driven", "api-first"]` : `["microservicios", "event-driven", "api-first"]`],
+  ["platform", en ? `["kubernetes", "ci/cd", "observability"]` : `["kubernetes", "ci/cd", "observabilidad"]`],
   ["status", `"building"`],
 ]
 ---
@@ -27,23 +31,34 @@ const json = [
   </div>
   <div class="mt-20 grid items-center gap-12 md:mt-24 md:grid-cols-[1.15fr_1fr]">
   <div>
-    <p data-hero-item class="font-mono text-xs uppercase tracking-[0.2em] text-accent">Arquitectura · Integración · Cloud · Delivery</p>
-    <p data-hero-item class="mt-4 text-4xl font-semibold leading-[1.05] tracking-[-0.035em] sm:text-5xl md:text-[3.4rem]">
-      Arquitectura de software <span class="text-gradient">de extremo a extremo.</span>
-    </p>
-    <p data-hero-item class="mt-6 max-w-xl text-lg leading-relaxed text-muted">
-      {PROFILE.tagline} Del <span class="text-fg">diseño del sistema</span> y sus contratos a la
-      <span class="text-fg">integración por eventos</span>, el <span class="text-fg">despliegue en Kubernetes</span>
-      y la observabilidad en producción.
-    </p>
+    <p data-hero-item class="font-mono text-xs uppercase tracking-[0.2em] text-accent">{en ? "Architecture · Integration · Cloud · Delivery" : "Arquitectura · Integración · Cloud · Delivery"}</p>
+    {en ? (<>
+      <p data-hero-item class="mt-4 text-4xl font-semibold leading-[1.05] tracking-[-0.035em] sm:text-5xl md:text-[3.4rem]">
+        Software architecture, <span class="text-gradient">end to end.</span>
+      </p>
+      <p data-hero-item class="mt-6 max-w-xl text-lg leading-relaxed text-muted">
+        {PROFILE.tagline} From <span class="text-fg">system design</span> and its contracts to
+        <span class="text-fg">event-driven integration</span>, <span class="text-fg">Kubernetes deployments</span>
+        and observability in production.
+      </p>
+    </>) : (<>
+      <p data-hero-item class="mt-4 text-4xl font-semibold leading-[1.05] tracking-[-0.035em] sm:text-5xl md:text-[3.4rem]">
+        Arquitectura de software <span class="text-gradient">de extremo a extremo.</span>
+      </p>
+      <p data-hero-item class="mt-6 max-w-xl text-lg leading-relaxed text-muted">
+        {PROFILE.tagline} Del <span class="text-fg">diseño del sistema</span> y sus contratos a la
+        <span class="text-fg">integración por eventos</span>, el <span class="text-fg">despliegue en Kubernetes</span>
+        y la observabilidad en producción.
+      </p>
+    </>)}
 
     <div data-hero-item class="mt-9 flex flex-wrap gap-3">
       <a
-        href="/#contacto"
+        href={`${homePath(lang)}#contacto`}
         data-magnetic
         class="inline-flex items-center gap-2 rounded-xl bg-fg px-5 py-3 text-sm font-medium text-bg transition hover:bg-accent hover:text-accent-fg"
       >
-        Hablemos
+        {en ? "Let's talk" : "Hablemos"}
         <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>
       </a>
       <a
@@ -53,7 +68,7 @@ const json = [
         class="inline-flex items-center gap-2 rounded-xl border border-line/15 px-5 py-3 text-sm font-medium transition hover:border-line/30 hover:bg-line/5"
       >
         <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12M7 10l5 5 5-5M5 21h14"></path></svg>
-        Descargar CV
+        {en ? "Download CV" : "Descargar CV"}
       </a>
       <div class="flex items-center gap-1">
         <a href={PROFILE.linkedin} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" class="grid size-11 place-items-center rounded-xl text-muted transition hover:bg-line/5 hover:text-fg">

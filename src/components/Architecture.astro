@@ -1,4 +1,6 @@
 ---
+import { getLang } from "@/i18n"
+
 const RUNTIME = [
   {
     id: "client",
@@ -45,15 +47,65 @@ const PIPELINE = [
   { label: "Despliegue", sub: "OpenShift · K8s" },
   { label: "Observabilidad", sub: "Dynatrace" },
 ]
+const RUNTIME_EN = [
+  {
+    id: "client",
+    label: "Client",
+    sub: "Web · Mobile · Partners",
+    detail:
+      "It all starts with a contract. Consumers know the API before a single line of code exists thanks to the OpenAPI specification.",
+  },
+  {
+    id: "gateway",
+    label: "API Gateway",
+    sub: "Security · Rate limit",
+    detail:
+      "Single entry point: authentication, quotas, versioning and secure exposure of services (IBM API Connect or equivalent).",
+  },
+  {
+    id: "service",
+    label: "Microservice",
+    sub: "Contract · Domain",
+    detail:
+      "Services with a single responsibility and clear domain boundaries. OpenAPI contract, Delegate pattern and hexagonal architecture so the technology can change without touching the business logic.",
+  },
+  {
+    id: "broker",
+    label: "Events",
+    sub: "Broker · Queues · Pub/Sub",
+    detail:
+      "Event messaging and queues: services publish business facts and others react without depending on their availability. Retries, idempotency and dead letters so nothing gets lost.",
+  },
+  {
+    id: "data",
+    label: "Data",
+    sub: "SQL · NoSQL · Redis",
+    detail:
+      "Each service owns its data. Distributed caching with Redis for low latency and less load on the databases.",
+  },
+]
+
+const PIPELINE_EN = [
+  { label: "Commit", sub: "Git · PR" },
+  { label: "Build and tests", sub: "Automated tests" },
+  { label: "Quality", sub: "SonarQube" },
+  { label: "Security", sub: "Fortify · Trivy" },
+  { label: "Deployment", sub: "OpenShift · K8s" },
+  { label: "Observability", sub: "Dynatrace" },
+]
+
+const en = getLang(Astro.url) === "en"
+const runtime = en ? RUNTIME_EN : RUNTIME
+const pipeline = en ? PIPELINE_EN : PIPELINE
 ---
 
 <div class="reveal overflow-hidden rounded-2xl border border-line/10 bg-surface/60">
   <!-- Flujo en tiempo de ejecución -->
   <div class="border-b border-line/10 p-5 md:p-8">
-    <p class="mb-6 font-mono text-xs uppercase tracking-[0.2em] text-muted">Runtime · una petición de principio a fin</p>
-    <ol class="flex flex-col gap-0 md:flex-row md:items-stretch" role="tablist" aria-label="Componentes de la arquitectura">
+    <p class="mb-6 font-mono text-xs uppercase tracking-[0.2em] text-muted">{en ? "Runtime · one request from start to finish" : "Runtime · una petición de principio a fin"}</p>
+    <ol class="flex flex-col gap-0 md:flex-row md:items-stretch" role="tablist" aria-label={en ? "Architecture components" : "Componentes de la arquitectura"}>
       {
-        RUNTIME.map((n, i) => (
+        runtime.map((n, i) => (
           <li class="flex flex-col md:flex-1 md:flex-row md:items-center">
             <button
               type="button"
@@ -66,7 +118,7 @@ const PIPELINE = [
               <span class="block font-semibold">{n.label}</span>
               <span class="block text-xs text-muted">{n.sub}</span>
             </button>
-            {i < RUNTIME.length - 1 && (
+            {i < runtime.length - 1 && (
               <span class="wire relative mx-auto h-8 w-px bg-line/15 md:mx-0 md:h-px md:w-8 md:shrink-0" aria-hidden="true">
                 <span class="dot absolute size-1.5 rounded-full bg-accent shadow-[0_0_8px_rgb(var(--accent))]" style={`animation-delay:${i * 0.35}s`} />
               </span>
@@ -76,7 +128,7 @@ const PIPELINE = [
       }
     </ol>
     <div class="mt-6 rounded-xl border border-dashed border-line/15 p-4 text-sm leading-relaxed text-muted" aria-live="polite">
-      {RUNTIME.map((n, i) => (
+      {runtime.map((n, i) => (
         <p data-arch-detail={n.id} class:list={[i !== 2 && "hidden"]}>
           <strong class="font-semibold text-fg">{n.label}.</strong> {n.detail}
         </p>
@@ -86,14 +138,14 @@ const PIPELINE = [
 
   <!-- Pipeline CI/CD -->
   <div class="p-5 md:p-8">
-    <p class="mb-6 font-mono text-xs uppercase tracking-[0.2em] text-muted">Delivery · cada cambio pasa por estas puertas</p>
+    <p class="mb-6 font-mono text-xs uppercase tracking-[0.2em] text-muted">{en ? "Delivery · every change goes through these gates" : "Delivery · cada cambio pasa por estas puertas"}</p>
     <ol class="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
       {
-        PIPELINE.map((s, i) => (
+        pipeline.map((s, i) => (
           <li class="relative rounded-xl border border-line/10 bg-bg p-3">
             <span class="flex items-center gap-2 font-mono text-[10px] text-emerald-600 dark:text-emerald-400">
               <svg class="size-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><path d="m5 12 5 5L20 7" /></svg>
-              paso {i + 1}
+              {en ? "step" : "paso"} {i + 1}
             </span>
             <span class="mt-1 block text-sm font-semibold">{s.label}</span>
             <span class="block text-xs text-muted">{s.sub}</span>

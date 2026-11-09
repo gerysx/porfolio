@@ -1,7 +1,30 @@
 ---
-import { PROFILE } from "@/data/profile"
+import { alternatePath, content, getLang, homePath } from "@/i18n"
 
-const COMMANDS = [
+const lang = getLang(Astro.url)
+const en = lang === "en"
+const { PROFILE } = content(lang)
+const home = homePath(lang)
+
+const COMMANDS_EN = [
+  { group: "Go to", label: "Home", action: "nav", value: "#inicio" },
+  { group: "Go to", label: "Play Code Review Rush", action: "nav", value: "#juego" },
+  { group: "Go to", label: "Experience", action: "nav", value: "#experiencia" },
+  { group: "Go to", label: "Architecture", action: "nav", value: "#arquitectura" },
+  { group: "Go to", label: "Stack", action: "nav", value: "#stack" },
+  { group: "Go to", label: "Projects", action: "nav", value: "#proyectos" },
+  { group: "Go to", label: "About me", action: "nav", value: "#sobre-mi" },
+  { group: "Go to", label: "Contact", action: "nav", value: "#contacto" },
+  { group: "Go to", label: "Today's news (Spanish)", action: "link", value: "/noticias" },
+  { group: "Actions", label: "Copy email", action: "copy", value: PROFILE.email },
+  { group: "Actions", label: "Download CV", action: "download", value: PROFILE.cv },
+  { group: "Actions", label: "Ver en español", action: "link", value: alternatePath(Astro.url, lang) },
+  { group: "Actions", label: "Toggle light / dark theme", action: "theme", value: "" },
+  { group: "Links", label: "LinkedIn", action: "external", value: PROFILE.linkedin },
+  { group: "Links", label: "GitHub", action: "external", value: PROFILE.github },
+]
+
+const COMMANDS_ES = [
   { group: "Ir a", label: "Inicio", action: "nav", value: "#inicio" },
   { group: "Ir a", label: "Jugar a Code Review Rush", action: "nav", value: "#juego" },
   { group: "Ir a", label: "Experiencia", action: "nav", value: "#experiencia" },
@@ -12,16 +35,20 @@ const COMMANDS = [
   { group: "Ir a", label: "Contacto", action: "nav", value: "#contacto" },
   { group: "Ir a", label: "Noticias de hoy", action: "link", value: "/noticias" },
   { group: "Acciones", label: "Copiar email", action: "copy", value: PROFILE.email },
-  { group: "Acciones", label: "Descargar CV", action: "link", value: PROFILE.cv },
+  { group: "Acciones", label: "Descargar CV", action: "download", value: PROFILE.cv },
+  { group: "Acciones", label: "View in English", action: "link", value: alternatePath(Astro.url, lang) },
   { group: "Acciones", label: "Cambiar tema claro / oscuro", action: "theme", value: "" },
   { group: "Enlaces", label: "LinkedIn", action: "external", value: PROFILE.linkedin },
   { group: "Enlaces", label: "GitHub", action: "external", value: PROFILE.github },
 ]
+
+const COMMANDS = en ? COMMANDS_EN : COMMANDS_ES
 ---
 
 <dialog
   id="palette"
-  aria-label="Paleta de comandos"
+  aria-label={en ? "Command palette" : "Paleta de comandos"}
+  data-home={home}
   class="m-0 mx-auto mt-[12vh] w-[min(560px,calc(100vw-32px))] overflow-hidden rounded-2xl border border-line/15 bg-surface p-0 text-fg shadow-2xl backdrop:bg-black/50 backdrop:backdrop-blur-sm"
 >
   <div class="flex items-center gap-3 border-b border-line/10 px-4">
@@ -30,8 +57,8 @@ const COMMANDS = [
       id="palette-input"
       type="text"
       autocomplete="off"
-      placeholder="¿A dónde quieres ir?"
-      aria-label="Buscar comando"
+      placeholder={en ? "Where do you want to go?" : "¿A dónde quieres ir?"}
+      aria-label={en ? "Search command" : "Buscar comando"}
       class="h-14 flex-1 bg-transparent text-base outline-none placeholder:text-muted"
     />
     <kbd class="rounded border border-line/15 px-1.5 font-mono text-[11px] text-muted">ESC</kbd>
@@ -51,7 +78,7 @@ const COMMANDS = [
         </li>
       ))
     }
-    <li id="palette-empty" class="hidden px-3 py-6 text-center text-sm text-muted">Sin resultados</li>
+    <li id="palette-empty" class="hidden px-3 py-6 text-center text-sm text-muted">{en ? "No results" : "Sin resultados"}</li>
   </ul>
 </dialog>
 
@@ -85,10 +112,19 @@ const COMMANDS = [
     dialog.close()
     if (cmd === "nav") {
       const target = document.querySelector(value)
-      target ? target.scrollIntoView({ behavior: "smooth" }) : (location.href = `/${value}`)
+      target ? target.scrollIntoView({ behavior: "smooth" }) : (location.href = `${dialog.dataset.home ?? "/"}${value}`)
     }
     if (cmd === "copy") navigator.clipboard?.writeText(value)
     if (cmd === "link") location.href = value
+    if (cmd === "download") {
+      // Descarga real del PDF (location.href solo lo abriría en el visor)
+      const a = document.createElement("a")
+      a.href = value
+      a.download = value.split("/").pop() ?? "CV.pdf"
+      document.body.appendChild(a)
+      a.click()
+      a.remove()
+    }
     if (cmd === "external") window.open(value, "_blank", "noopener")
     if (cmd === "theme") toggleTheme()
   }
