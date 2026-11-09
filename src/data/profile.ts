@@ -163,7 +163,7 @@ export const PROJECTS: Project[] = [
       "Porfolio profesional para un analista de inversiones con acreditación EFA. Índices, cotizaciones y noticias de mercados que se actualizan solas cada pocas horas con GitHub Actions, buscador de empresas y calculadora servidos desde un Worker de Cloudflare, y CV descargable. Sin panel de administración: todo funciona de forma autónoma.",
     image: "/projects/jacobo-invest.webp",
     tags: ["Astro", "Cloudflare Workers", "GitHub Actions", "Datos de mercado", "Automatización"],
-    link: "https://jacobo-porfolio.geralvarez95.workers.dev/",
+    link: "https://jalvarezinvest.com/",
     github: "https://github.com/gerysx/jacobo-porfolio",
     featured: true,
   },
