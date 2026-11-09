@@ -40,6 +40,7 @@ export const EXPERIENCE: Job[] = [
   {
     role: "Software Architect",
     company: "NTT DATA",
+    context: "International banking · Santander and TSB Bank",
     start: "May 2026",
     end: "Present",
     current: true,
