@@ -1,8 +1,30 @@
 ---
-import { EDUCATION, LANGUAGES, PROFILE } from "@/data/profile"
+import { content, getLang } from "@/i18n"
+const lang = getLang(Astro.url)
+const en = lang === "en"
+const { EDUCATION, LANGUAGES, PROFILE } = content(lang)
 ---
 
 <div class="grid gap-10 md:grid-cols-[1fr_300px] md:gap-14">
+  {en ? (
+  <div class="reveal space-y-5 text-lg leading-relaxed text-muted">
+    <p>
+      I'm <span class="text-fg">Germán</span>, I live in Madrid and I design software. I started out building services and APIs, moved on to platform modernisation in international banking, and today, as a
+      <span class="text-fg">Software Architect at NTT DATA</span>, I define how systems are built, integrated and deployed
+      so they can handle load, change and years in production.
+    </p>
+    <p>
+      I enjoy problems with many moving parts: integrating systems that were never meant to talk, migrating without stopping the service and
+      finding the bottleneck before the user does. I also explore how
+      <span class="text-fg">applied AI</span> can take repetitive work off our plates, and I have built agents to
+      automate real workflows.
+    </p>
+    <p>
+      Away from the keyboard: sport, travel and trying out every new tool that comes out. I work best in a team,
+      sharing ideas and communicating well.
+    </p>
+  </div>
+  ) : (
   <div class="reveal space-y-5 text-lg leading-relaxed text-muted">
     <p>
       Soy <span class="text-fg">Germán</span>, vivo en Madrid y diseño software. Empecé programando servicios y APIs, pasé por la modernización de plataformas en banca internacional y hoy, como
@@ -20,6 +42,7 @@ import { EDUCATION, LANGUAGES, PROFILE } from "@/data/profile"
       compartiendo ideas y con buena comunicación.
     </p>
   </div>
+  )}
 
   <aside class="reveal space-y-4">
     <figure class="relative mx-auto flex aspect-[4/5] w-full max-w-[300px] items-end justify-center overflow-hidden rounded-2xl border border-line/10 bg-surface/60">
@@ -33,7 +56,7 @@ import { EDUCATION, LANGUAGES, PROFILE } from "@/data/profile"
       />
     </figure>
     <div class="rounded-2xl border border-line/10 bg-surface/60 p-5">
-      <h3 class="font-mono text-xs uppercase tracking-[0.2em] text-muted">Formación</h3>
+      <h3 class="font-mono text-xs uppercase tracking-[0.2em] text-muted">{en ? "Education" : "Formación"}</h3>
       <ul class="mt-3 space-y-3">
         {EDUCATION.map((e) => (
           <li>
@@ -42,7 +65,7 @@ import { EDUCATION, LANGUAGES, PROFILE } from "@/data/profile"
           </li>
         ))}
       </ul>
-      <h3 class="mt-5 font-mono text-xs uppercase tracking-[0.2em] text-muted">Idiomas</h3>
+      <h3 class="mt-5 font-mono text-xs uppercase tracking-[0.2em] text-muted">{en ? "Languages" : "Idiomas"}</h3>
       <ul class="mt-3 space-y-1.5 text-sm">
         {LANGUAGES.map((l) => (
           <li class="flex justify-between"><span>{l.name}</span><span class="text-muted">{l.level}</span></li>

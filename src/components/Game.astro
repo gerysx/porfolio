@@ -1,6 +1,15 @@
 ---
-import { QUESTIONS, RANKS } from "@/data/quiz"
-const data = JSON.stringify({ questions: QUESTIONS, ranks: RANKS })
+import { getLang, homePath, quiz } from "@/i18n"
+
+const lang = getLang(Astro.url)
+const en = lang === "en"
+const { QUESTIONS, RANKS } = quiz(lang)
+const UI = en
+  ? { streak: "streak", hits: "correct", newRecord: "new record!", record: "record", copied: "Copied!",
+      share: "I scored {score} points ({rank}) in Code Review Rush, the mini game on {host}. Can you beat it?" }
+  : { streak: "racha", hits: "aciertos", newRecord: "¡nuevo récord!", record: "récord", copied: "¡Copiado!",
+      share: "He sacado {score} puntos ({rank}) en Code Review Rush, el minijuego de {host}. ¿Lo superas?" }
+const data = JSON.stringify({ questions: QUESTIONS, ranks: RANKS, ui: UI, home: homePath(lang) })
 ---
 
 <section id="juego" class="mx-auto w-full max-w-5xl scroll-mt-24 px-4 pb-20">
@@ -10,26 +19,27 @@ const data = JSON.stringify({ questions: QUESTIONS, ranks: RANKS })
       <span class="size-3 rounded-full bg-[#febc2e]"></span>
       <span class="size-3 rounded-full bg-[#28c840]"></span>
       <span class="ml-3 truncate font-mono text-xs text-muted">~/code-review-rush — 60s</span>
-      <span class="ml-auto hidden font-mono text-xs text-muted sm:inline">Récord: <span data-g="best" class="text-accent">0</span></span>
+      <span class="ml-auto hidden font-mono text-xs text-muted sm:inline">{en ? "Best:" : "Récord:"} <span data-g="best" class="text-accent">0</span></span>
     </div>
 
     <!-- Inicio -->
     <div data-screen="intro" class="grid gap-8 p-6 md:grid-cols-[1.3fr_1fr] md:items-center md:p-10">
       <div>
-        <p class="font-mono text-xs uppercase tracking-[0.2em] text-accent">Minijuego</p>
-        <h2 class="mt-3 text-3xl font-semibold tracking-tight md:text-4xl">¿Pasarías mi <span class="text-gradient">code review</span>?</h2>
+        <p class="font-mono text-xs uppercase tracking-[0.2em] text-accent">{en ? "Mini game" : "Minijuego"}</p>
+        <h2 class="mt-3 text-3xl font-semibold tracking-tight md:text-4xl">{en ? <>Would you pass my <span class="text-gradient">code review</span>?</> : <>¿Pasarías mi <span class="text-gradient">code review</span>?</>}</h2>
         <p class="mt-4 max-w-md text-muted">
-          60 segundos de preguntas rápidas sobre arquitectura, eventos, APIs, cloud, bases de datos, seguridad y código.
-          Las rachas multiplican los puntos; cada fallo te quita 5 segundos.
+          {en
+            ? "60 seconds of quick questions on architecture, events, APIs, cloud, databases, security and code. Streaks multiply your points; every mistake costs you 5 seconds."
+            : "60 segundos de preguntas rápidas sobre arquitectura, eventos, APIs, cloud, bases de datos, seguridad y código. Las rachas multiplican los puntos; cada fallo te quita 5 segundos."}
         </p>
         <div class="mt-7 flex flex-wrap items-center gap-3">
           <button type="button" data-g="start" class="inline-flex items-center gap-2 rounded-xl bg-accent px-6 py-3 font-medium text-accent-fg transition hover:brightness-110">
-            ▶ Empezar partida
+            ▶ {en ? "Start game" : "Empezar partida"}
           </button>
-          <span class="font-mono text-xs text-muted">o pulsa <kbd class="rounded border border-line/15 px-1">Enter</kbd> · responde con <kbd class="rounded border border-line/15 px-1">1</kbd>–<kbd class="rounded border border-line/15 px-1">4</kbd></span>
+          <span class="font-mono text-xs text-muted">{en ? "or press" : "o pulsa"} <kbd class="rounded border border-line/15 px-1">Enter</kbd> · {en ? "answer with" : "responde con"} <kbd class="rounded border border-line/15 px-1">1</kbd>–<kbd class="rounded border border-line/15 px-1">4</kbd></span>
         </div>
       </div>
-      <ol class="space-y-2 font-mono text-sm text-muted" aria-label="Rangos">
+      <ol class="space-y-2 font-mono text-sm text-muted" aria-label={en ? "Ranks" : "Rangos"}>
         {RANKS.map((r) => (
           <li class="flex items-center justify-between rounded-lg border border-line/10 bg-bg px-3 py-2">
             <span>{r.title}</span><span class="text-xs">{r.min}+</span>
@@ -43,7 +53,7 @@ const data = JSON.stringify({ questions: QUESTIONS, ranks: RANKS })
       <div class="flex items-center justify-between gap-4 font-mono text-sm">
         <span>⏱ <span data-g="time">60</span>s</span>
         <span data-g="streak" class="rounded-md bg-accent/15 px-2 py-0.5 text-accent opacity-0 transition">x1</span>
-        <span>Puntos <span data-g="score" class="text-accent">0</span></span>
+        <span>{en ? "Points" : "Puntos"} <span data-g="score" class="text-accent">0</span></span>
       </div>
       <div class="mt-3 h-1.5 overflow-hidden rounded-full bg-line/10">
         <div data-g="bar" class="h-full w-full origin-left rounded-full bg-accent transition-transform duration-200 ease-linear"></div>
@@ -57,15 +67,15 @@ const data = JSON.stringify({ questions: QUESTIONS, ranks: RANKS })
 
     <!-- Resultado -->
     <div data-screen="end" class="hidden p-6 text-center md:p-12">
-      <p class="font-mono text-xs uppercase tracking-[0.2em] text-muted">Resultado</p>
+      <p class="font-mono text-xs uppercase tracking-[0.2em] text-muted">{en ? "Result" : "Resultado"}</p>
       <p class="mt-3 text-6xl font-semibold tracking-tight text-accent" data-g="final">0</p>
       <p class="mt-3 text-2xl font-semibold" data-g="rank"></p>
       <p class="mt-1 text-muted" data-g="ranktext"></p>
       <p class="mt-4 font-mono text-sm text-muted"><span data-g="hits"></span> · <span data-g="record"></span></p>
       <div class="mt-8 flex flex-wrap justify-center gap-3">
-        <button type="button" data-g="again" class="rounded-xl bg-accent px-5 py-3 font-medium text-accent-fg transition hover:brightness-110">↻ Jugar otra vez</button>
-        <button type="button" data-g="share" class="rounded-xl border border-line/15 px-5 py-3 font-medium transition hover:bg-line/5">Compartir resultado</button>
-        <a href="/#experiencia" class="rounded-xl px-5 py-3 font-medium text-muted transition hover:text-fg">Ver mi experiencia ↓</a>
+        <button type="button" data-g="again" class="rounded-xl bg-accent px-5 py-3 font-medium text-accent-fg transition hover:brightness-110">↻ {en ? "Play again" : "Jugar otra vez"}</button>
+        <button type="button" data-g="share" class="rounded-xl border border-line/15 px-5 py-3 font-medium transition hover:bg-line/5">{en ? "Share result" : "Compartir resultado"}</button>
+        <a href={`${homePath(lang)}#experiencia`} class="rounded-xl px-5 py-3 font-medium text-muted transition hover:text-fg">{en ? "See my experience ↓" : "Ver mi experiencia ↓"}</a>
       </div>
     </div>
   </div>
@@ -77,9 +87,11 @@ const data = JSON.stringify({ questions: QUESTIONS, ranks: RANKS })
   type Rank = { min: number; title: string; text: string }
 
   const root = document.getElementById("juego")!
-  const { questions, ranks } = JSON.parse(document.getElementById("quiz-data")!.textContent!) as {
+  const { questions, ranks, ui, home } = JSON.parse(document.getElementById("quiz-data")!.textContent!) as {
     questions: Question[]
     ranks: Rank[]
+    ui: Record<"streak" | "hits" | "newRecord" | "record" | "copied" | "share", string>
+    home: string
   }
   const $ = (k: string) => root.querySelector<HTMLElement>(`[data-g="${k}"]`)!
   const screens = ["intro", "play", "end"].map((s) => root.querySelector<HTMLElement>(`[data-screen="${s}"]`)!)
@@ -103,7 +115,7 @@ const data = JSON.stringify({ questions: QUESTIONS, ranks: RANKS })
     $("score").textContent = String(score)
     $("bar").style.transform = `scaleX(${Math.max(0, timeLeft) / DURATION})`
     const s = $("streak")
-    s.textContent = `racha ${streak} · x${mult()}`
+    s.textContent = `${ui.streak} ${streak} · x${mult()}`
     s.style.opacity = streak >= 2 ? "1" : "0"
   }
 
@@ -181,18 +193,18 @@ const data = JSON.stringify({ questions: QUESTIONS, ranks: RANKS })
     $("final").textContent = String(score)
     $("rank").textContent = rank.title
     $("ranktext").textContent = rank.text
-    $("hits").textContent = `${hits}/${total} aciertos`
-    $("record").textContent = isRecord ? "¡nuevo récord!" : `récord ${best}`
+    $("hits").textContent = `${hits}/${total} ${ui.hits}`
+    $("record").textContent = isRecord ? ui.newRecord : `${ui.record} ${best}`
     show(2)
   }
 
   async function share() {
     const rank = $("rank").textContent
-    const text = `He sacado ${$("final").textContent} puntos (${rank}) en Code Review Rush, el minijuego de ${location.host}. ¿Lo superas?`
-    const url = `${location.origin}/#juego`
+    const text = ui.share.replace("{score}", $("final").textContent ?? "0").replace("{rank}", rank ?? "").replace("{host}", location.host)
+    const url = `${location.origin}${home}#juego`
     try {
       if (navigator.share) await navigator.share({ title: "Code Review Rush", text, url })
-      else { await navigator.clipboard.writeText(`${text} ${url}`); $("share").textContent = "¡Copiado!" }
+      else { await navigator.clipboard.writeText(`${text} ${url}`); $("share").textContent = ui.copied }
     } catch {}
   }
 

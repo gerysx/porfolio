@@ -1,11 +1,13 @@
 ---
 import { PROFILE } from "@/data/profile"
+import { getLang } from "@/i18n"
+const en = getLang(Astro.url) === "en"
 const year = new Date().getFullYear()
 ---
 
 <footer class="mx-auto flex w-full max-w-5xl flex-col items-center justify-between gap-3 border-t border-line/10 px-4 py-8 text-sm text-muted sm:flex-row">
   <p>© {year} {PROFILE.fullName}</p>
   <p class="font-mono text-xs">
-    Hecho con Astro · pulsa <kbd class="rounded border border-line/15 px-1">⌘K</kbd> para navegar
+    {en ? <>Built with Astro · press <kbd class="rounded border border-line/15 px-1">⌘K</kbd> to navigate</> : <>Hecho con Astro · pulsa <kbd class="rounded border border-line/15 px-1">⌘K</kbd> para navegar</>}
   </p>
 </footer>

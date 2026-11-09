@@ -1,5 +1,7 @@
 ---
 import { TAG_STYLES, type NewsItem } from "@/lib/news"
+import { getLang } from "@/i18n"
+const en = getLang(Astro.url) === "en"
 
 interface Props {
   item: NewsItem
@@ -28,7 +30,7 @@ const permalink = `/noticias/${date}/${item.slug}`
     )
   }
   <div class="relative z-10 mt-auto flex items-center gap-4 pt-5 text-sm">
-    <a href={permalink} class="font-medium text-fg underline decoration-line/20 underline-offset-4 hover:decoration-accent">Comentar</a>
-    <a href={item.url} target="_blank" rel="noopener noreferrer" class="text-muted hover:text-fg">Leer en {item.source.split(" · ")[0]} ↗</a>
+    <a href={permalink} class="font-medium text-fg underline decoration-line/20 underline-offset-4 hover:decoration-accent">{en ? "Comment" : "Comentar"}</a>
+    <a href={item.url} target="_blank" rel="noopener noreferrer" class="text-muted hover:text-fg">{en ? "Read on" : "Leer en"} {item.source.split(" · ")[0]} ↗</a>
   </div>
 </article>

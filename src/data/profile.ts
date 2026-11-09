@@ -10,7 +10,7 @@ export const PROFILE = {
   email: "geralvarez95@gmail.com",
   linkedin: "https://linkedin.com/in/germanalvarezgonzalez",
   github: "https://github.com/gerysx",
-  cv: "/CV_GERMAN_ALVAREZ_FS.pdf",
+  cv: "/cv/German-Alvarez-CV-ES.pdf",
   site: "https://gerysdev.es",
   tagline:
     "Diseño y construyo plataformas de software enterprise: arquitectura, integración, cloud y entrega continua.",
@@ -157,6 +157,16 @@ export interface Project {
 }
 
 export const PROJECTS: Project[] = [
+  {
+    title: "Web profesional de inversión",
+    description:
+      "Porfolio profesional para un analista de inversiones con acreditación EFA. Índices, cotizaciones y noticias de mercados que se actualizan solas cada pocas horas con GitHub Actions, buscador de empresas y calculadora servidos desde un Worker de Cloudflare, y CV descargable. Sin panel de administración: todo funciona de forma autónoma.",
+    image: "/projects/jacobo-invest.webp",
+    tags: ["Astro", "Cloudflare Workers", "GitHub Actions", "Datos de mercado", "Automatización"],
+    link: "https://jacobo-porfolio.geralvarez95.workers.dev/",
+    github: "https://github.com/gerysx/jacobo-porfolio",
+    featured: true,
+  },
   {
     title: "ERP de ventas",
     description:

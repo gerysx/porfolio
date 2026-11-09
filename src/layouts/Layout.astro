@@ -6,7 +6,10 @@ import "@/styles/global.css"
 import Header from "@/components/Header.astro"
 import Footer from "@/components/Footer.astro"
 import CommandPalette from "@/components/CommandPalette.astro"
-import { PROFILE } from "@/data/profile"
+import { content, getLang } from "@/i18n"
+
+const lang = getLang(Astro.url)
+const { PROFILE } = content(lang)
 
 interface Props {
   title?: string
@@ -18,6 +21,8 @@ const {
   description = PROFILE.summary,
 } = Astro.props
 
+const site = Astro.site ?? PROFILE.site
+const isHome = Astro.url.pathname === "/" || Astro.url.pathname === "/en/" || Astro.url.pathname === "/en"
 const canonical = new URL(Astro.url.pathname, Astro.site ?? PROFILE.site).href
 const ogImage = new URL("/og.png", Astro.site ?? PROFILE.site).href
 
@@ -34,18 +39,21 @@ const jsonLd = {
 ---
 
 <!doctype html>
-<html lang="es" class="dark">
+<html lang={lang} class="dark">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
+    {isHome && <link rel="alternate" hreflang="es" href={new URL("/", site).href} />}
+    {isHome && <link rel="alternate" hreflang="en" href={new URL("/en/", site).href} />}
+    {isHome && <link rel="alternate" hreflang="x-default" href={new URL("/", site).href} />}
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="theme-color" content="#08090c" />
 
     <meta property="og:type" content="website" />
-    <meta property="og:locale" content="es_ES" />
+    <meta property="og:locale" content={lang === "en" ? "en_GB" : "es_ES"} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
@@ -75,7 +83,7 @@ const jsonLd = {
       <div class="absolute -top-40 left-1/2 h-[480px] w-[900px] max-w-[160vw] -translate-x-1/2 rounded-full bg-accent/10 blur-[120px]"></div>
     </div>
     <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-md focus:bg-accent focus:px-3 focus:py-2 focus:text-accent-fg">
-      Saltar al contenido
+      {lang === "en" ? "Skip to content" : "Saltar al contenido"}
     </a>
     <Header />
     <main id="main">

@@ -1,6 +1,8 @@
 ---
 import NewsCard from "@/components/NewsCard.astro"
 import { NEWS_DAYS, formatDate } from "@/lib/news"
+import { getLang } from "@/i18n"
+const en = getLang(Astro.url) === "en"
 const today = NEWS_DAYS[0]
 ---
 
@@ -8,8 +10,8 @@ const today = NEWS_DAYS[0]
   today && (
     <>
       <div class="mb-6 flex items-end justify-between gap-4">
-        <p class="font-mono text-xs uppercase tracking-wider text-muted first-letter:uppercase">{formatDate(today.date, { dateStyle: "long" })}</p>
-        <a href="/noticias" class="shrink-0 text-sm font-medium underline decoration-line/20 underline-offset-4 hover:decoration-accent">Ver todas →</a>
+        <p class="font-mono text-xs uppercase tracking-wider text-muted first-letter:uppercase">{formatDate(today.date, { dateStyle: "long" }, en ? "en-GB" : "es-ES")}</p>
+        <a href="/noticias" class="shrink-0 text-sm font-medium underline decoration-line/20 underline-offset-4 hover:decoration-accent">{en ? "See all (in Spanish) →" : "Ver todas →"}</a>
       </div>
       <div class="grid gap-5 md:grid-cols-3">
         {today.items.slice(0, 3).map((item) => <NewsCard item={item} date={today.date} compact />)}

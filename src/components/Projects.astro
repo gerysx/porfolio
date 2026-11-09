@@ -1,5 +1,8 @@
 ---
-import { PROJECTS, PROFILE } from "@/data/profile"
+import { content, getLang } from "@/i18n"
+const lang = getLang(Astro.url)
+const en = lang === "en"
+const { PROJECTS, PROFILE } = content(lang)
 ---
 
 <div class="grid gap-5 md:grid-cols-2">
@@ -15,7 +18,7 @@ import { PROJECTS, PROFILE } from "@/data/profile"
         <div class:list={["relative overflow-hidden border-line/10 bg-bg", p.featured ? "md:w-3/5 md:border-r" : "border-b"]}>
           <img
             src={p.image}
-            alt={`Captura del proyecto ${p.title}`}
+            alt={en ? `Screenshot of ${p.title}` : `Captura del proyecto ${p.title}`}
             loading="lazy"
             decoding="async"
             class:list={[
@@ -25,7 +28,7 @@ import { PROJECTS, PROFILE } from "@/data/profile"
           />
           {p.featured && (
             <span class="absolute left-4 top-4 rounded-full bg-bg/80 px-2.5 py-1 font-mono text-[11px] uppercase tracking-wider text-accent backdrop-blur">
-              Destacado
+              {en ? "Featured" : "Destacado"}
             </span>
           )}
         </div>
@@ -45,7 +48,7 @@ import { PROJECTS, PROFILE } from "@/data/profile"
                 rel="noopener noreferrer"
                 class="inline-flex items-center gap-1.5 rounded-lg bg-fg px-3 py-2 text-sm font-medium text-bg transition hover:bg-accent hover:text-accent-fg"
               >
-                Ver demo
+                {en ? "Live demo" : "Ver demo"}
                 <svg class="size-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9" /></svg>
               </a>
             )}
@@ -56,7 +59,7 @@ import { PROJECTS, PROFILE } from "@/data/profile"
                 rel="noopener noreferrer"
                 class="inline-flex items-center gap-1.5 rounded-lg border border-line/15 px-3 py-2 text-sm font-medium transition hover:bg-line/5"
               >
-                Código
+                {en ? "Code" : "Código"}
               </a>
             )}
           </div>
@@ -68,6 +71,6 @@ import { PROJECTS, PROFILE } from "@/data/profile"
 
 <div class="mt-10 text-center">
   <a href={PROFILE.github} target="_blank" rel="noopener noreferrer" class="font-mono text-sm text-muted underline decoration-line/20 underline-offset-4 transition hover:text-fg hover:decoration-accent">
-    Más proyectos en github.com/gerysx →
+    {en ? "More projects on github.com/gerysx →" : "Más proyectos en github.com/gerysx →"}
   </a>
 </div>
