@@ -1,0 +1,50 @@
+{
+  "date": "2026-11-10",
+  "items": [
+    {
+      "slug": "qubole-acceso-aws-confianza-brecha",
+      "tag": "Seguridad",
+      "title": "Un atacante usa el acceso de confianza de Qubole para entrar en cuentas AWS de sus clientes",
+      "summary": "Entre el 14 y el 26 de octubre, alguien con credenciales de la cuenta AWS de Qubole asumió los roles que sus clientes habían creado para la plataforma, muchos ya sin uso, y desde ahí leyó Secrets Manager, Parameter Store, variables de Lambda y buckets de S3 completos. Wiz y Sentra detectaron la actividad y recomiendan revisar CloudTrail desde el 1 de octubre y limitar los AssumeRole de terceros por IP de origen o VPC endpoint.",
+      "take": "Los roles cross-account de proveedores son deuda de seguridad que nadie revisa: el External ID no es un secreto y un rol olvidado sigue abierto. Toca inventariarlos, recortar permisos y añadir condiciones de red a las trust policies.",
+      "source": "The Hacker News",
+      "url": "https://thehackernews.com/2026/11/hackers-exploit-quboles-trusted-aws.html"
+    },
+    {
+      "slug": "spring-ai-2-1-rc2-decisionmodel-mcp",
+      "tag": "Java",
+      "title": "Spring AI 2.1.0-RC2 estrena DecisionModel y un servidor MCP sin sesiones",
+      "summary": "La nueva API DecisionModel devuelve decisiones tipadas (sí/no, elección o puntuación) con su probabilidad, y sobre ella se apoyan un reranker y un filtro de documentos para RAG y un índice para buscar herramientas. También llega el modo MODERN del protocolo MCP 2026-07-28, que elimina initialize y las sesiones, y el streaming de argumentos de llamadas a herramientas para Anthropic, OpenAI, Bedrock y DeepSeek.",
+      "take": "Un servidor MCP sin estado escala como cualquier servicio REST detrás de un balanceador, sin afinidad de sesión. Y tener probabilidades explícitas permite fijar umbrales de confianza en el código en vez de fiarse del texto del modelo.",
+      "source": "Spring Blog",
+      "url": "https://spring.io/blog/2026/11/09/spring-ai-2-1-0-RC2-available-now"
+    },
+    {
+      "slug": "secret-scanning-logs-github-actions",
+      "tag": "Seguridad",
+      "title": "El secret scanning de GitHub empieza a revisar los logs de GitHub Actions",
+      "summary": "En vista previa pública para GitHub Enterprise Cloud con Secret Protection o Advanced Security, GitHub analiza los logs de cada ejecución al terminar y crea alertas enlazadas a la línea donde apareció el secreto, que se conservan aunque se borre el log. Solo cubre ejecuciones posteriores a activarlo y no detecta patrones genéricos ni personalizados.",
+      "take": "Los logs de CI son una de las vías de fuga más habituales: un echo de depuración o un error verboso basta. Conviene activarlo y, mientras dure la preview sin notificaciones, revisar las alertas como parte del proceso.",
+      "source": "GitHub Changelog",
+      "url": "https://github.blog/changelog/2026-11-09-secret-scanning-detects-secrets-in-github-actions-workflow-logs"
+    },
+    {
+      "slug": "maquinas-virtuales-siguen-centrales-cloud-native",
+      "tag": "Cloud",
+      "title": "Las máquinas virtuales siguen sosteniendo más de la mitad de las aplicaciones cloud native",
+      "summary": "Un estudio de Linux Foundation Research con 492 profesionales cifra en un 53 % la media de aplicaciones en producción que corren en VM, y el 71 % espera mantener esa proporción el próximo año. El aislamiento gana peso: el 62 % ya usa algún enfoque basado en VM y el sandboxing con microVM pasaría del 20 % al 30 %, aunque solo el 8 % gestiona sus VM con KubeVirt.",
+      "take": "La plataforma real es híbrida: contenedores y VM conviven y los equipos que las operan tienen que coordinarse. Para cargas de agentes y multi-tenant, el aislamiento fuerte vuelve a ser un criterio de diseño de primer nivel.",
+      "source": "CNCF",
+      "url": "https://www.cncf.io/blog/2026/11/09/new-research-virtual-machines-remain-central-to-cloud-native-infrastructure-as-ai-workloads-evolve/"
+    },
+    {
+      "slug": "claude-fable-5-2-github-copilot",
+      "tag": "IA",
+      "title": "Claude Fable 5.2 llega a GitHub Copilot, con retención de datos por defecto",
+      "summary": "El nuevo modelo de Anthropic ya está disponible en Copilot Pro+, Max, Business y Enterprise para tareas de código complejas y de varios pasos, y según GitHub resolvió más tareas que Fable 5.1 con menos llamadas a herramientas. A diferencia del resto de modelos Claude, exige retener prompts y respuestas para clasificadores de seguridad, salvo para empresas elegibles hasta final de año.",
+      "take": "Elegir modelo ya no es solo cuestión de calidad: la política de retención de datos entra en la evaluación de cumplimiento. En entornos regulados hay que revisarla antes de habilitarlo para los equipos.",
+      "source": "GitHub Changelog",
+      "url": "https://github.blog/changelog/2026-11-09-claude-fable-5-2-in-github-copilot"
+    }
+  ]
+}
