@@ -1,0 +1,50 @@
+{
+  "date": "2026-11-11",
+  "items": [
+    {
+      "slug": "bee-js-swarm-desktop-cadena-suministro-ci",
+      "tag": "Seguridad",
+      "title": "Comprometen bee-js y Swarm Desktop a través de su propia automatización de releases",
+      "summary": "Con credenciales de CI robadas, los atacantes publicaron bee-js 13.3.0 en npm y Swarm Desktop 0.56.2 firmado y notarizado, ambos desde los workflows legítimos del proyecto y sin ninguna aprobación previa. El código malicioso se ejecutaba en el postinstall o al arrancar la app, robaba las claves del nodo e instalaba puertas traseras persistentes en Linux, macOS y Windows.",
+      "take": "El paquete tenía provenance válida porque lo construyó el pipeline real: la procedencia no sustituye a la revisión. Los jobs de publicación y firma necesitan aprobación manual, ramas protegidas y credenciales de vida corta.",
+      "source": "The Hacker News",
+      "url": "https://thehackernews.com/2026/11/hackers-compromise-etherspheres-bee-js.html"
+    },
+    {
+      "slug": "google-agent-distraction-deuda-tecnica",
+      "tag": "IA",
+      "title": "Google mide cómo la deuda técnica desvía a los agentes de código",
+      "summary": "Analizando cientos de millones de pasos de agentes, Google vio que, cuando un agente se pone a resolver por su cuenta un bug citado en un TODO, el 41 % de esas veces el ticket ya estaba cerrado y el 57 % quedaba fuera de lo pedido. Esos desvíos suponen un 70 % más de pasos y un 77 % más de tokens, y un agente que limpia TODOs obsoletos ha conseguido más de un 95 % de aceptación en revisión.",
+      "take": "Los comentarios y specs desactualizados ya no solo confunden a las personas: son contexto que consume el agente y que cuesta dinero. Mantener el código limpio pasa a ser también una medida de eficiencia en el uso de IA.",
+      "source": "InfoQ",
+      "url": "https://www.infoq.com/news/2026/11/google-agent-distraction/"
+    },
+    {
+      "slug": "spring-for-apache-pulsar-pasa-a-asf",
+      "tag": "Java",
+      "title": "Spring for Apache Pulsar se muda a la Apache Software Foundation",
+      "summary": "El proyecto pasa a ser un subproyecto de Apache Pulsar y la versión 2.0.8, incluida en Spring Boot 4.2.0, será la última publicada por el equipo de Spring. El starter de Boot deja de mantenerse y el binder de Spring Cloud Stream también migra tras la 5.1.0, así que para recibir parches habrá que cambiar coordenadas y paquetes.",
+      "take": "Quien use Pulsar como mensajería de eventos con Spring debe planificar la migración de dependencias antes de que la 2.0.8 se quede sin correcciones de seguridad. Es buen momento para revisar también qué otros starters de terceros dependen de un único mantenedor.",
+      "source": "Spring Blog",
+      "url": "https://spring.io/blog/2026/11/10/spring-pulsar-new-home-asf"
+    },
+    {
+      "slug": "cloudnativepg-incubating-cncf",
+      "tag": "Cloud",
+      "title": "CloudNativePG, el operador de PostgreSQL para Kubernetes, sube a incubación en la CNCF",
+      "summary": "El operador creado por EDB gestiona clústeres PostgreSQL de alta disponibilidad con failover automático, backups continuos y recuperación a un punto en el tiempo, y ya lo usan en producción más de 50 organizaciones. Su hoja de ruta incluye soporte nativo de Barman Cloud en la 1.31 y solicitar la graduación en 2027.",
+      "take": "Ejecutar bases de datos dentro de Kubernetes deja de ser una apuesta arriesgada cuando hay un operador maduro y con gobierno abierto. Para plataformas on premise u OpenShift ofrece una alternativa real a depender de un servicio gestionado.",
+      "source": "CNCF",
+      "url": "https://www.cncf.io/blog/2026/11/10/cloudnativepg-becomes-a-cncf-incubating-project/"
+    },
+    {
+      "slug": "google-cloud-limites-gasto-ga",
+      "tag": "Cloud",
+      "title": "Google Cloud lanza en disponibilidad general los topes de gasto que cortan el servicio",
+      "summary": "Un tope de gasto es un presupuesto con efecto real: al llegar al límite, el servicio deja de aceptar nuevas peticiones en ese proyecto hasta que se levanta o se reinicia el mes, y se puede gestionar por API. Por ahora solo cubre la Gemini API, la plataforma de agentes de Gemini Enterprise y Cloud Run, y como no actúa al instante Google aconseja fijarlo algo por debajo del límite real.",
+      "take": "Con agentes que pueden disparar llamadas sin control, un presupuesto que solo avisa se queda corto. Incluir estos topes en el aprovisionamiento automático de proyectos es una salvaguarda FinOps barata.",
+      "source": "InfoQ",
+      "url": "https://www.infoq.com/news/2026/11/google-cloud-spend-caps/"
+    }
+  ]
+}
