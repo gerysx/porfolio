@@ -1,0 +1,50 @@
+{
+  "date": "2026-11-12",
+  "items": [
+    {
+      "slug": "git-corrige-fallo-clonado-recursivo-submodulos",
+      "tag": "Seguridad",
+      "title": "Git corrige un fallo que permite ejecutar código al clonar repositorios con submódulos",
+      "summary": "La vulnerabilidad CVE-2026-111760 aprovecha un truncado de enteros en el índice de Git para que un repositorio malicioso sustituya el .git de un submódulo por un enlace a hooks del atacante durante un clonado recursivo. Está corregida en Git 2.56.1 y en versiones de mantenimiento de las ramas 2.50 a 2.55, junto con otros cinco fallos.",
+      "take": "Los pipelines de CI que clonan con submódulos son el punto más expuesto: conviene actualizar el Git de runners e imágenes base, no solo el de los portátiles, y evitar clonados recursivos de orígenes no confiables.",
+      "source": "The Hacker News",
+      "url": "https://thehackernews.com/2026/11/git-patches-flaw-that-lets-malicious.html"
+    },
+    {
+      "slug": "github-agentic-workflows-disponibilidad-general",
+      "tag": "IA",
+      "title": "GitHub Agentic Workflows llega a disponibilidad general con aislamiento y topes de gasto",
+      "summary": "GitHub permite definir en Markdown flujos con agentes de código que se compilan a workflows normales de Actions, con el agente en solo lectura, cortafuegos propio y jobs separados con permisos de escritura. Incluye un tope por defecto de 10 dólares por ejecución y límites diarios configurables por organización.",
+      "take": "El diseño separa al agente que propone del job que escribe, un patrón de mínimo privilegio que merece la pena copiar en cualquier automatización con IA; aun así, la seguridad final depende de cómo se configure cada workflow.",
+      "source": "InfoQ",
+      "url": "https://www.infoq.com/news/2026/11/github-agentic-workflows-ga/"
+    },
+    {
+      "slug": "istio-ambient-multi-network-disponibilidad-general",
+      "tag": "Cloud",
+      "title": "Istio declara estable el modo Ambient entre varias redes y clústeres",
+      "summary": "En la KubeCon de Salt Lake City, Istio anunció la disponibilidad general de Ambient Multi-Network para ejecutar cargas activo-activo entre decenas de clústeres en distintas redes, regiones y nubes. También presentó una vía de migración desde sidecars y una API para extender el tráfico con Lua y WebAssembly.",
+      "take": "Quitar los sidecars de cada pod reduce consumo y complejidad operativa en mallas grandes; para quien ya usa Istio con sidecars, la ruta de migración es lo que hace viable planteárselo sin rehacer la plataforma.",
+      "source": "CNCF",
+      "url": "https://www.cncf.io/blog/2026/11/10/istio-enables-global-availability-for-all-workloads-traditional-agentic-and-beyond/"
+    },
+    {
+      "slug": "open-cluster-management-incubacion-cncf",
+      "tag": "Cloud",
+      "title": "Open Cluster Management, para gobernar flotas de Kubernetes, sube a incubación en la CNCF",
+      "summary": "El proyecto, creado por IBM y Red Hat, gestiona clústeres en cloud, on premise y edge con un modelo hub-and-spoke y APIs abiertas para registro, despliegue y ubicación de cargas. eBay lo usa junto a Argo CD para desplegar en más de 190 clústeres.",
+      "take": "Para entornos híbridos con muchos clústeres, ofrece una capa de gestión multiclúster abierta que encaja con GitOps y evita atarse al plano de control propietario de un proveedor.",
+      "source": "CNCF",
+      "url": "https://www.cncf.io/blog/2026/11/10/open-cluster-management-ocm-becomes-a-cncf-incubating-project/"
+    },
+    {
+      "slug": "sap-parchea-cuatro-fallos-cvss-10",
+      "tag": "Seguridad",
+      "title": "SAP parchea cuatro fallos de gravedad máxima en NetWeaver, Web Dispatcher y Gateway",
+      "summary": "El parche mensual de noviembre corrige cuatro vulnerabilidades sin autenticación con CVSS 10.0, que permiten corromper memoria y ejecutar comandos del sistema o suplantar a cualquier usuario en ciertos inicios de sesión SAML. Los investigadores no han detectado explotación activa, pero los kernels fuera de mantenimiento también están afectados.",
+      "take": "Web Dispatcher y Gateway suelen estar en la frontera de red de los sistemas core, así que es un buen recordatorio de inventariar componentes expuestos y de que un kernel sin soporte convierte un parche en una actualización completa.",
+      "source": "The Hacker News",
+      "url": "https://thehackernews.com/2026/11/sap-patches-four-cvss-100-flaws.html"
+    }
+  ]
+}
