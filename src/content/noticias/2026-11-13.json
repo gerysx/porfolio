@@ -1,0 +1,50 @@
+{
+  "date": "2026-11-13",
+  "items": [
+    {
+      "slug": "github-cuentas-secuestradas-robo-secretos-ci",
+      "tag": "Seguridad",
+      "title": "Un atacante usa 4.837 cuentas de GitHub robadas para inyectar un ladrón de secretos en pipelines de CI",
+      "summary": "Con credenciales robadas, el atacante abrió pull requests de prueba en más de 61.000 repositorios y metió un payload en workflows de Actions o en hooks postinstall de npm, que llegó a ejecutarse en al menos 1.806 repositorios. El código robaba secretos de Actions, tokens OIDC y credenciales de AWS, Azure, GCP y Kubernetes, y dejaba accesos persistentes como claves IAM y credenciales federadas nuevas.",
+      "take": "Cualquier secreto o rol cloud que pueda leer un workflow comprometido hay que darlo por perdido: credenciales OIDC de vida corta, permisos mínimos por job y protección de ramas reducen mucho el radio de impacto de una cuenta robada.",
+      "source": "The Hacker News",
+      "url": "https://thehackernews.com/2026/11/4837-hijacked-github-accounts-ran-ci.html"
+    },
+    {
+      "slug": "nodejs-corrige-16-fallos-http2",
+      "tag": "Seguridad",
+      "title": "Node.js corrige 16 vulnerabilidades, con fallos en HTTP/2 que tumban servidores y filtran memoria",
+      "summary": "Las versiones 22.23.5, 24.22.3 y 26.13.1 resuelven 16 fallos, siete de gravedad alta, entre ellos caídas de servidores HTTP/2 por defecto y fugas de memoria que pueden exponer respuestas de otras conexiones o incluso claves TLS. No hay alternativa a actualizar y las ramas sin soporte, como la 20.x, se quedan sin parche.",
+      "take": "Aunque el backend principal no sea Node, suele estar en BFFs, gateways y herramientas internas; conviene inventariar esas piezas y sus imágenes base, porque una fuga entre conexiones es especialmente grave en servicios multiusuario.",
+      "source": "The Hacker News",
+      "url": "https://thehackernews.com/2026/11/nodejs-fixes-16-flaws-including-http2.html"
+    },
+    {
+      "slug": "openshell-sandbox-agentes-ia-kubernetes",
+      "tag": "IA",
+      "title": "OpenShell aísla a cada agente de IA en su propio sandbox dentro de Kubernetes",
+      "summary": "El proyecto, iniciado por NVIDIA y ahora en el Sandbox de la CNCF, ejecuta cada agente aislado con un supervisor externo que controla en YAML su acceso a ficheros, procesos, red y credenciales, sin que el agente vea nunca la clave real. En Kubernetes se apoya en el proyecto Agent Sandbox de SIG Apps y expone cada agente como objetos estándar, aunque sigue en versión 0.1.",
+      "take": "Tratar el código que genera un agente como no confiable, con red denegada por defecto y credenciales inyectadas por un tercero, es el patrón que hay que exigir antes de dejar agentes cerca de sistemas productivos.",
+      "source": "CNCF",
+      "url": "https://www.cncf.io/blog/2026/11/11/openshell-on-kubernetes-a-guide-for-platform-engineers/"
+    },
+    {
+      "slug": "cncf-certificacion-ckne-redes-kubernetes",
+      "tag": "Cloud",
+      "title": "La CNCF lanza CKNE, una certificación práctica de redes en Kubernetes",
+      "summary": "Presentada en la KubeCon de Salt Lake City, la Certified Kubernetes Network Engineer es un examen práctico de 120 minutos que cubre CNI, redes de servicio y DNS, gestión avanzada de tráfico, políticas de red y observabilidad. No exige certificaciones previas, aunque presupone un nivel de administración similar al de la CKA.",
+      "take": "La red sigue siendo donde más se atascan los diagnósticos en Kubernetes; que exista una certificación específica ayuda a formalizar ese conocimiento en los equipos de plataforma.",
+      "source": "CNCF",
+      "url": "https://www.cncf.io/announcements/2026/11/10/cncf-launches-certified-kubernetes-network-engineer-certification-ckne-to-advance-production-ready-networking-skills-for-ai-era/"
+    },
+    {
+      "slug": "dependabot-pausa-alertas-repos-inactivos",
+      "tag": "Seguridad",
+      "title": "Dependabot dejará de avisar en los repositorios sin actividad en el último año",
+      "summary": "A partir del 8 de diciembre, GitHub desactivará las alertas de Dependabot en la mayoría de repositorios sin pushes en un año, archivando las existentes sin borrarlas. Cualquier push o activarlas en la configuración las recupera, y quedan exentos los repositorios con configuraciones de seguridad forzadas a nivel de organización o empresa.",
+      "take": "Las librerías internas que llevan tiempo sin tocarse pero siguen desplegadas son justo las que pueden quedarse sin avisos; merece la pena forzar las alertas por política de organización en lugar de depender de la actividad del repo.",
+      "source": "GitHub Blog",
+      "url": "https://github.blog/changelog/2026-11-10-dependabot-alerts-will-pause-on-inactive-repositories"
+    }
+  ]
+}
