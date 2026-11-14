@@ -1,0 +1,50 @@
+{
+  "date": "2026-11-14",
+  "items": [
+    {
+      "slug": "postgresql-parchea-52-fallos-rce-autenticado",
+      "tag": "Seguridad",
+      "title": "PostgreSQL corrige 52 fallos, entre ellos uno de hace 22 años que permite ejecutar código en el servidor",
+      "summary": "Las versiones 18.7, 17.12, 16.16, 15.20 y 14.25 resuelven 52 vulnerabilidades; la más llamativa, CVE-2026-6460, deja que un usuario con permiso para crear objetos ejecute código con los privilegios del sistema operativo del servidor, y otra permite reiniciar servidores PostgreSQL 18 sin autenticarse. También hay fallos en pg_dump, pg_restore y psql que ejecutan código al restaurar copias manipuladas, y la 14.25 es la última de la rama 14.",
+      "take": "No basta con actualizar el motor: hay que recompilar extensiones en C, actualizar las herramientas cliente de los pipelines de backup y revisar los pasos de reindexado; y en servicios gestionados conviene confirmar con el proveedor cuándo aplica el parche.",
+      "source": "The Hacker News",
+      "url": "https://thehackernews.com/2026/11/postgresql-patches-52-flaws-including.html"
+    },
+    {
+      "slug": "apache-http2-fallo-critico-ejecucion-remota",
+      "tag": "Seguridad",
+      "title": "Un fallo crítico en el módulo HTTP/2 de Apache permite ejecutar código sin autenticación",
+      "summary": "CVE-2026-119618 afecta a mod_http2 en Apache HTTP Server 2.4.55 a 2.4.70 y se corrige en la 2.4.71; Red Hat lo puntúa con 9,8 y asegura que ya hay investigación pública con un exploit fiable sobre la configuración por defecto. Solo afecta a servidores con HTTP/2 activo y, mientras no se pueda actualizar, la mitigación es dejar únicamente http/1.1 en la directiva Protocols.",
+      "take": "Apache sigue muy presente como proxy inverso delante de servicios Java; toca inventariar dónde está activo h2 o h2c, incluidas imágenes de contenedor y appliances, porque varias distribuciones aún no tienen paquete corregido.",
+      "source": "The Hacker News",
+      "url": "https://thehackernews.com/2026/11/critical-apache-http2-flaw-could-let.html"
+    },
+    {
+      "slug": "linkedin-sustituye-argo-cd-motor-gitops-propio",
+      "tag": "Cloud",
+      "title": "LinkedIn sustituye Argo CD por un motor GitOps propio para desplegar en Kubernetes",
+      "summary": "Con más de 250 clústeres, 4.000 servicios y 100.000 despliegues semanales, LinkedIn chocó con cachés obsoletas, estados de sincronización poco fiables y más de 200 instancias de Argo CD que mantener, así que construyó un motor en el que cada despliegue corre en su propio pod efímero y detecta la deriva comparando estado vivo, manifiesto anterior y manifiesto nuevo. Los fallos de infraestructura de despliegue bajaron de 925 a 63 pese a multiplicar por 3,7 el volumen.",
+      "take": "Es un buen ejemplo de cuándo un controlador compartido deja de escalar: aislar cada despliegue y hacer explícita la deriva da trazabilidad, aunque construir algo propio solo compensa a una escala que pocas organizaciones alcanzan.",
+      "source": "InfoQ",
+      "url": "https://www.infoq.com/news/2026/11/kubernetes-argocd-linkedin/"
+    },
+    {
+      "slug": "bedrock-switchyard-enrutado-modelos-agentes-codigo",
+      "tag": "IA",
+      "title": "AWS muestra cómo enrutar las peticiones de agentes de código al modelo adecuado con NeMo Switchyard",
+      "summary": "La guía usa NeMo Switchyard, una librería open source de NVIDIA, para que un agente envíe por defecto sus peticiones a un modelo barato de Amazon Bedrock y escale a uno más capaz cuando acumula fallos en sus herramientas. AWS avisa de que la integración con LiteLLM es experimental y no publica cifras medidas de coste ni de latencia.",
+      "take": "El enrutado entre modelos se está convirtiendo en una pieza más de la arquitectura de plataformas de IA, y la métrica que propone, coste por tarea resuelta en vez de precio por token, es la correcta para decidir.",
+      "source": "AWS Machine Learning Blog",
+      "url": "https://aws.amazon.com/blogs/machine-learning/route-coding-agent-requests-to-the-right-model-on-amazon-bedrock-with-nvidia-nemo-switchyard"
+    },
+    {
+      "slug": "copilot-retira-modelos-diciembre",
+      "tag": "IA",
+      "title": "GitHub Copilot retirará seis modelos el 14 de diciembre",
+      "summary": "Claude Fable 5, Claude Haiku 4.5, Gemini 3.8 Flash, Gemini 4 Argon, Grok 4.6 y Kimi K3 dejarán de estar disponibles en todas las experiencias de Copilot, con alternativas como Fable 5.2, Haiku 5.5 o Gemini 4 Hydrogen. En Business y Enterprise los sustitutos se activan solos salvo que el administrador haya desactivado la política por defecto.",
+      "take": "Cualquier integración o workflow que fije un modelo concreto necesita revisarse antes de la fecha; es otro recordatorio de tratar el modelo como una dependencia versionada con su propio ciclo de vida.",
+      "source": "GitHub Changelog",
+      "url": "https://github.blog/changelog/2026-11-13-upcoming-deprecation-of-selected-github-copilot-models-in-december/"
+    }
+  ]
+}
