@@ -1,0 +1,50 @@
+{
+  "date": "2026-11-15",
+  "items": [
+    {
+      "slug": "red-hat-quay-fallos-criticos-imagenes-privadas",
+      "tag": "Seguridad",
+      "title": "Dos fallos críticos en Red Hat Quay permiten leer y sobrescribir imágenes privadas del registro",
+      "summary": "CVE-2026-123710 (9,8) deja que un atacante, incluso anónimo con la configuración por defecto, registre su propia clave de firma sin caducidad y obtenga tokens válidos para cualquier repositorio; CVE-2026-110697 (9,9) permite a quien pueda crear un namespace robar tokens de cuentas robot de otros inquilinos por un patrón LIKE sin escapar. Afecta a Quay 3 y 5, incluido el operador de OpenShift y el mirror registry, y hay builds corregidas para ocho ramas de Quay 3.",
+      "take": "El registro de imágenes es parte de la cadena de suministro: además de parchear, hay que bloquear el endpoint /keys en el proxy, revisar auditorías en busca de claves sin caducidad y rotar tokens robot, porque una clave plantada sobrevive a reinicios y cambios de contraseña.",
+      "source": "The Hacker News",
+      "url": "https://thehackernews.com/2026/11/critical-red-hat-quay-flaw-lets.html"
+    },
+    {
+      "slug": "mior-skyfall-ataques-amd-sev-snp",
+      "tag": "Seguridad",
+      "title": "Los ataques Mior y Skyfall rompen el aislamiento de las máquinas virtuales confidenciales de AMD",
+      "summary": "Investigadores de ETH Zurich, con Google en el caso de Skyfall, muestran cómo un host malicioso puede leer y modificar la memoria de VMs protegidas con SEV-SNP o recuperar de la caché registros y claves de cifrado de disco. AMD señala las líneas EPYC 7003, 8004, 8005, 9004 y 9005, ha publicado firmware y microcódigo, y las BIOS corregidas de los fabricantes llegan entre noviembre y diciembre.",
+      "take": "Quien use computación confidencial para cargas reguladas depende de que su proveedor cloud aplique BIOS y microcódigo; conviene pedirle fechas y no tratar la atestación como garantía absoluta frente a un hipervisor comprometido.",
+      "source": "The Hacker News",
+      "url": "https://thehackernews.com/2026/11/new-mior-and-skyfall-attacks-let-rogue.html"
+    },
+    {
+      "slug": "aws-emulator-probar-aplicaciones-en-local",
+      "tag": "Cloud",
+      "title": "AWS lanza AWS Emulator, un emulador local y open source de sus APIs",
+      "summary": "Está escrito en Rust, es gratuito, escucha en local y funciona con el AWS CLI, los SDK y agentes de código cambiando solo variables de entorno; publica para cada servicio una puntuación de fidelidad con sus tests, incluidos los que fallan. No evalúa políticas IAM, simula una única cuenta y región y devuelve 501 en las operaciones que no implementa.",
+      "take": "Abre una alternativa oficial para tests de integración y pipelines sin tocar una cuenta real, pero no sirve para validar permisos ni escenarios multicuenta; y en Java habrá que configurar el trust store para su certificado.",
+      "source": "AWS News Blog",
+      "url": "https://aws.amazon.com/blogs/aws/test-your-applications-against-aws-locally-with-aws-emulator/"
+    },
+    {
+      "slug": "github-actions-retira-arm32",
+      "tag": "Cloud",
+      "title": "GitHub Actions dejará de ejecutar jobs ARM32 en sus runners alojados el 8 de diciembre",
+      "summary": "Los runners alojados de Linux y Windows perderán el soporte para jobs ARM32 y la ejecución nativa de espacio de usuario AArch32. GitHub lo vincula al fin de Node 20 en Actions, ya que Node 24 no soporta ARM32.",
+      "take": "Los pipelines que compilan o prueban artefactos para dispositivos de 32 bits necesitarán runners autoalojados o emulación; mejor detectarlos ahora que descubrirlo con builds rotas en diciembre.",
+      "source": "GitHub Changelog",
+      "url": "https://github.blog/changelog/2026-11-12-actions-for-arm32-linux-windows-retirement"
+    },
+    {
+      "slug": "copilot-app-github-enterprise-server",
+      "tag": "IA",
+      "title": "La app de GitHub Copilot ya trabaja con GitHub Enterprise Server",
+      "summary": "El soporte para GHES deja de ser una preview opcional y pasa a disponibilidad general desde la versión 1.2.0 de la app, que permite trabajar con repositorios, issues y pull requests alojados en el propio servidor. Hace falta iniciar sesión antes con una cuenta de GitHub.com o GHE.com, y las sesiones en la nube no están disponibles para GHES.",
+      "take": "Acerca los asistentes de código a organizaciones con repositorios on premise, como banca o sector público, aunque la falta de sesiones cloud y el login obligatorio en GitHub.com obligan a revisarlo con seguridad y cumplimiento antes de desplegarlo.",
+      "source": "GitHub Changelog",
+      "url": "https://github.blog/changelog/2026-11-13-github-enterprise-server-support-in-the-github-copilot-app"
+    }
+  ]
+}
