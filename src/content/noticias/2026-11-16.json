@@ -1,0 +1,50 @@
+{
+  "date": "2026-11-16",
+  "items": [
+    {
+      "slug": "cursor-brecha-clave-fireworks-extension-troyanizada",
+      "tag": "Seguridad",
+      "title": "Una clave robada a Fireworks AI acabó en una brecha en Cursor y en una extensión de Claude Code troyanizada",
+      "summary": "El atacante usó una clave que Cursor había emitido para Fireworks y que se filtró en una brecha de ese proveedor: copió trazas de sesiones de agentes sin Privacy Mode, con algunas credenciales en claro, y con ellas saltó a herramientas SaaS internas. El 29 de octubre colocó durante unas 11 horas versiones 2.1.312 y 2.1.313 troyanizadas de la extensión de Claude Code en la caché del marketplace, que intentaban instalar una puerta trasera SSH y pudieron llegar a un máximo de 5.000 usuarios.",
+      "take": "Es un ataque en cadena por terceros: una credencial estática compartida con un proveedor abrió datos, herramientas internas y finalmente la distribución de software. Credenciales con caducidad corta y alcance mínimo para cada integración, y nunca secretos en trazas o logs, son la defensa que habría cortado la cadena.",
+      "source": "The Hacker News",
+      "url": "https://thehackernews.com/2026/11/stolen-fireworks-ai-key-led-to-cursor.html"
+    },
+    {
+      "slug": "microsoft-outlook-caida-24-horas-cambio-red",
+      "tag": "Cloud",
+      "title": "Microsoft restablece Outlook tras más de 24 horas caído por un cambio en su red",
+      "summary": "La caída empezó el jueves 12 a las 17:17 en Exchange Online y se extendió a Teams y Copilot, con incidencias registradas en 74 países; Microsoft dio el servicio por recuperado el sábado 14 poco después de las 7:00. Según la compañía, el origen fue una actualización previa de capacidad de su red que solo se manifestó al hacer un cambio posterior en esa misma infraestructura, y la recuperación fue escalonada y verificada por fases.",
+      "take": "Recuerda que los cambios de configuración de red son de los más peligrosos porque sus efectos pueden aparecer tarde y lejos del cambio que los provocó: despliegues progresivos, rollback probado y dependencias críticas que no compartan un único proveedor deberían estar en cualquier diseño de alta disponibilidad.",
+      "source": "Xataka",
+      "url": "https://www.xataka.com/aplicaciones/microsoft-recupera-outlook-24-horas-despues-sabemos-que-provoco-caida-sus-servicios"
+    },
+    {
+      "slug": "cloudflare-orquestadores-pentesting-ia",
+      "tag": "Seguridad",
+      "title": "Cloudflare alerta de la explosión de orquestadores de pentesting con IA que atacan a sus clientes",
+      "summary": "Cloudflare detecta más de 50 familias de frameworks de pentesting guiados por LLM escaneando a sus clientes y un tráfico diario unas 30 veces mayor desde el 1 de octubre; ARTEX y sus forks superan el 60% de los orquestadores conocidos pese a que su autor retiró el repositorio original. En sus investigaciones, los atacantes encadenaron tokens estáticos de CI/CD sin caducidad para saltar de un entorno de un hiperescalador a la cuenta de Cloudflare de un cliente.",
+      "take": "El volumen y la automatización de estos ataques hacen inviable confiar en que nadie encuentre un token olvidado: tokens de pipeline efímeros, restringidos por IP y con rate limit, validación de esquemas OpenAPI y acceso Zero Trust a lo interno pasan de buenas prácticas a requisitos.",
+      "source": "Blog de Cloudflare",
+      "url": "https://blog.cloudflare.com/adapting-to-ai-penetration-testing-orchestrators/"
+    },
+    {
+      "slug": "cloudflare-kitesurf-open-source",
+      "tag": "IA",
+      "title": "Cloudflare publica como open source Kitesurf, su navegador sin contenedores para agentes de IA",
+      "summary": "Kitesurf es un motor de navegador experimental y sin estado que corre sobre Workers: parsea HTML, aplica CSS, ejecuta JavaScript y genera capturas usando librerías Rust compiladas a WebAssembly, y admite el Chrome DevTools Protocol para clientes como Puppeteer. El código sale bajo licencia Apache 2.0, se puede ejecutar en local y desplegarlo en una cuenta propia exige el plan Workers Paid.",
+      "take": "Para agentes que necesitan navegar, cambiar navegadores headless en contenedores por un motor serverless aislado por página puede abaratar y simplificar la operación, aunque al estar en pleno desarrollo conviene validar compatibilidad antes de apoyarse en él.",
+      "source": "Blog de Cloudflare",
+      "url": "https://blog.cloudflare.com/kitesurf-open-source/"
+    },
+    {
+      "slug": "langchain-ronda-300-millones-valoracion-3000",
+      "tag": "Industria",
+      "title": "LangChain levanta 300 millones de dólares y duplica su valoración hasta 3.000 millones",
+      "summary": "La ronda Serie C la lidera CapitalG, con GIC, DFJ Growth, IVP y Sapphire Ventures, y más que duplica la valoración de 1.250 millones de hace un año. La empresa, nacida como proyecto open source en 2022, centra ahora su negocio en LangSmith, su plataforma para crear y gestionar agentes, con 7.000 clientes declarados.",
+      "take": "El mercado apuesta por capas de gobierno de agentes independientes del modelo y de la nube; para un arquitecto, es una señal de que observar, limitar y auditar agentes será una pieza de plataforma más, igual que hoy lo son el API gateway o la observabilidad.",
+      "source": "TechCrunch",
+      "url": "https://techcrunch.com/2026/11/13/ai-agent-startup-langchain-hits-3b-valuation/"
+    }
+  ]
+}
