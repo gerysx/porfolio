@@ -1,0 +1,50 @@
+{
+  "date": "2026-11-17",
+  "items": [
+    {
+      "slug": "amazon-agentes-ia-roban-claves-gateways-llm",
+      "tag": "Seguridad",
+      "title": "Amazon caza a agentes de IA que buscan claves de API en gateways LLM y plataformas como LiteLLM o Dify",
+      "summary": "Con servidores señuelo que imitaban servicios LLM, Amazon Threat Intelligence registró desde el 3 de octubre cómo agentes atacantes, probablemente basados en ARTEX, localizaban aplicaciones de IA expuestas, extraían las claves de proveedores guardadas, las validaban y las añadían a un fondo compartido. Entre los objetivos figuran LiteLLM, One API, Dify, Langflow, RAGFlow u Open WebUI, atacados con credenciales por defecto, instalaciones a medio terminar, endpoints de administración sin login y SSRF hacia los servicios de metadatos de la nube.",
+      "take": "Los gateways de modelos concentran secretos de alto valor y a menudo se despliegan como herramienta interna sin el rigor de producción. Tratarlos como cualquier servicio crítico, con credenciales rotadas, administración fuera de Internet y alertas de consumo anómalo, es ya imprescindible.",
+      "source": "The Hacker News",
+      "url": "https://thehackernews.com/2026/11/amazon-uncovers-ai-agent-campaign.html"
+    },
+    {
+      "slug": "kubernetes-programa-retirada-kube-proxy-ipvs",
+      "tag": "Cloud",
+      "title": "Kubernetes programa la retirada del backend IPVS de kube-proxy",
+      "summary": "SIG Network anuncia que eliminará el modo ipvs de kube-proxy, que ya estaba deprecado desde Kubernetes 1.35 y hoy solo funciona con un aviso. El motivo es que la API IPVS del kernel encaja mal con el modelo de Services, nunca cubrió todos sus casos límite y es costosa de mantener; su sustituto es el backend nftables, disponible en GA desde la 1.33.",
+      "take": "Muchos clústeres on premise eligieron IPVS hace años por rendimiento y nadie ha vuelto a revisarlo. Conviene inventariar qué modo usa cada clúster y probar nftables en preproducción antes de que la actualización de versión obligue a hacerlo con prisas.",
+      "source": "Blog de Kubernetes",
+      "url": "https://kubernetes.io/blog/2026/11/16/ipvs-removal/"
+    },
+    {
+      "slug": "log4shell-vcenter-servidor-firma-codigo",
+      "tag": "Seguridad",
+      "title": "Log4Shell sin parchear en un vCenter abre la puerta al servidor de firma de código de un desarrollador de software",
+      "summary": "Kaspersky describe una intrusión de meses del grupo BO Team contra un fabricante de software ruso: entraron por un SSH expuesto y lograron root en un VMware vCenter 7.0.3 todavía vulnerable a Log4Shell (CVE-2021-44228). Desde ahí comprometieron GitLab, Ansible y el controlador de dominio, y llegaron al servidor que firma las versiones comerciales, aunque no se confirmó ninguna release maliciosa.",
+      "take": "Cinco años después, una dependencia Java vulnerable dentro de un appliance de infraestructura sigue siendo la llave maestra. El inventario de componentes debe incluir los productos de terceros, y la firma de código merece aislamiento propio, idealmente con claves en HSM y fuera del alcance de las cuentas de administración generales.",
+      "source": "The Hacker News",
+      "url": "https://thehackernews.com/2026/11/bo-team-exploits-log4shell-in-vmware.html"
+    },
+    {
+      "slug": "google-gtig-agentes-ia-exploits-desde-parches",
+      "tag": "IA",
+      "title": "Google detecta atacantes que usan agentes de IA para crear exploits a partir de los parches",
+      "summary": "El Google Threat Intelligence Group observa que grupos criminales y actores de espionaje usan marcos ofensivos multiagente como ARTEX, CAIRN, CyberStrikeAI o PentAGI para automatizar fases de intrusiones reales. Además emplean LLM para analizar las diferencias de los parches y convertirlos en exploits más rápido, y revenden acceso a modelos robado a empresas mediante servicios intermediarios.",
+      "take": "Si un parche publicado se convierte en exploit en horas, la ventana entre publicar y aplicar es el riesgo real. Pipelines capaces de reconstruir y desplegar dependencias actualizadas en el mismo día valen más que cualquier política de parcheo mensual.",
+      "source": "The Hacker News",
+      "url": "https://thehackernews.com/2026/11/google-finds-hackers-using-ai-agents-to.html"
+    },
+    {
+      "slug": "github-ai-scan-arranque-masivo-repositorios",
+      "tag": "IA",
+      "title": "GitHub permite lanzar AI Scan en hasta 20 repositorios a la vez",
+      "summary": "AI Scan analiza con IA la rama principal de un repositorio en busca de vulnerabilidades, incluso en lenguajes que CodeQL no soporta, y deja sus hallazgos junto a las alertas de CodeQL. Ahora puede arrancarse en bloque para hasta 20 repositorios desde la configuración o la página de alertas de la organización, en vista previa pública y sin necesidad de licencia de Copilot.",
+      "take": "Facilita pasar un primer barrido de seguridad por todo un portfolio de servicios heredados, incluidos scripts y lenguajes sin cobertura estática; eso sí, conviene tratar sus hallazgos como entrada para triaje y no como sustituto de SAST y revisión humana.",
+      "source": "GitHub Blog",
+      "url": "https://github.blog/changelog/2026-11-16-bulk-start-ai-scan-for-repositories"
+    }
+  ]
+}
