@@ -1,0 +1,50 @@
+{
+  "date": "2026-11-18",
+  "items": [
+    {
+      "slug": "oracle-parchea-11-fallos-java-se-noviembre",
+      "tag": "Java",
+      "title": "Oracle corrige 11 fallos de Java SE explotables en remoto y sin credenciales",
+      "summary": "La actualización mensual del 17 de noviembre cubre 11 vulnerabilidades de Java SE con una puntuación máxima CVSS 3.1 de 8,1, que afectan a las líneas 8, 11, 17, 21, 25 y 27, a GraalVM y a JavaFX. Aparte circula un supuesto fallo de ejecución remota en OpenJDK 17.0.6 y posteriores (CVE-2026-114938, CVSS 9,2) que aún no tiene descripción pública ni confirmación técnica.",
+      "take": "Con el ciclo de parches de Java ya mensual, actualizar el JDK deja de ser un evento trimestral y pasa a ser rutina de pipeline. Saber qué runtime corre en cada servicio, incluidas las imágenes base, es lo que permite reaccionar en días y no en semanas.",
+      "source": "The Hacker News",
+      "url": "https://thehackernews.com/2026/11/oracle-to-patch-11-java-flaws-today-as.html"
+    },
+    {
+      "slug": "aws-nitro-sandboxes-microvm-por-pod-eks",
+      "tag": "Cloud",
+      "title": "AWS Nitro Sandboxes mete cada pod de EKS en su propia microVM con un solo campo",
+      "summary": "Basta indicar runtimeClassName: isolated-sandbox o confidential-sandbox para que un pod, una tarea de ECS o una carga de EC2 corra en una microVM Firecracker con kernel propio, sin coste adicional y en todas las regiones comerciales. El modo confidencial añade políticas Cedar, atestación con el Nitro Secure Module y secretos de KMS ligados a las mediciones, pero no admite GPU y limita la densidad por nodo.",
+      "take": "Ejecutar código no confiable, como agentes de IA o builds de terceros, deja de requerir clústeres separados. Antes de adoptarlo conviene medir latencia de arranque y E/S, y tener en cuenta que exige Kubernetes 1.36 y Pod Identity en lugar de IRSA.",
+      "source": "InfoQ",
+      "url": "https://www.infoq.com/news/2026/11/aws-nitro-sandboxes-eks/"
+    },
+    {
+      "slug": "google-segunda-edicion-libro-sre",
+      "tag": "Industria",
+      "title": "Google reescribe su libro de SRE diez años después para la era de la IA",
+      "summary": "La segunda edición de Site Reliability Engineering mantiene la idea de aplicar ingeniería de software a la operación, pero pasa a SLO multinivel con alertas por tasa de consumo, observabilidad con OpenTelemetry y trazas distribuidas, e infraestructura declarativa sobre plataformas internas. Dedica además capítulos a operar infraestructura de IA y a usar la IA como apoyo en triaje de incidentes y postmortems.",
+      "take": "Es una buena referencia para revisar cómo se definen SLO y alertas en sistemas distribuidos actuales. El mensaje de fondo encaja con la gobernanza técnica: la fiabilidad se diseña desde la arquitectura y la plataforma, no se añade al final con dashboards.",
+      "source": "InfoQ",
+      "url": "https://www.infoq.com/news/2026/11/google-sre-book-ai-era/"
+    },
+    {
+      "slug": "github-event-streams-preview-agentes",
+      "tag": "IA",
+      "title": "GitHub Event Streams avisa en tiempo real a agentes y automatizaciones sin webhooks",
+      "summary": "La nueva función, en vista previa con lista de espera para todos los planes, permite suscribirse a un pull request y mantener una conexión abierta para recibir eventos de revisiones, commits nuevos, conflictos, fusiones y cambios en los checks. Al no necesitar un endpoint público, un agente puede reaccionar incluso ejecutándose en un portátil.",
+      "take": "Sustituir el sondeo por eventos es el mismo patrón que aplicamos entre microservicios, ahora llevado a los agentes de código. Reduce consumo de cuota y de tokens y simplifica las automatizaciones que hoy dependen de bucles de polling.",
+      "source": "GitHub Blog",
+      "url": "https://github.blog/changelog/2026-11-17-github-event-streams-is-now-in-preview"
+    },
+    {
+      "slug": "gitdoor-graphdoor-backdoors-github-sharepoint-c2",
+      "tag": "Seguridad",
+      "title": "Las puertas traseras GitDoor y GraphDoor usan GitHub y SharePoint como canal de control",
+      "summary": "Kaspersky describe la campaña Operation ShadowCloud contra organismos públicos de Asia y África: GitDoor recibe órdenes desde un repositorio público de GitHub y deja los resultados en otro privado, mientras GraphDoor usa una aplicación maliciosa y la API de Microsoft Graph para intercambiar datos en SharePoint. El acceso inicial llegó a través de un agente de MeshCentral y carga de DLL lateral.",
+      "take": "Cuando el tráfico malicioso va a GitHub o Microsoft 365, los filtros por destino no sirven. Hay que vigilar qué aplicaciones registradas tienen permisos en el tenant y qué procesos de servidor hablan con estas APIs sin motivo de negocio.",
+      "source": "The Hacker News",
+      "url": "https://thehackernews.com/2026/11/new-gitdoor-and-graphdoor-backdoors.html"
+    }
+  ]
+}
