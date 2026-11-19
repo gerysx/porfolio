@@ -1,0 +1,50 @@
+{
+  "date": "2026-11-19",
+  "items": [
+    {
+      "slug": "java4shell-desbordamiento-base64-avx512",
+      "tag": "Java",
+      "title": "Java4Shell: un fallo en el decodificador Base64 del JDK amenaza a Jira, Jenkins o Keycloak",
+      "summary": "CVE-2026-114938 está en la versión acelerada con AVX-512 del decodificador Base64: una cadena malformada que termina en un '=' de más hace que escriba hasta 63 bytes fuera del búfer antes de rechazarla, y afecta a Java 17.0.6 en adelante, 21, 25 y 27 en CPU x86-64 recientes, pero no a Java 8 y 11 estándar ni a ARM64. Oracle, Corretto, Zulu y GraalVM ya tienen versiones corregidas, Red Hat aún no, y no hay exploit público ni ataques conocidos.",
+      "take": "Es el caso típico en el que el riesgo depende del runtime y del hardware, no de tu código. Mientras llegan los parches, la opción -XX:-UseBASE64Intrinsics desactiva la ruta vulnerable, y conviene tener inventariado qué JDK y qué familia de CPU hay detrás de cada servicio.",
+      "source": "The Hacker News",
+      "url": "https://thehackernews.com/2026/11/java4shell-cve-2026-114938-enables-pre.html"
+    },
+    {
+      "slug": "aws-privatelink-tunnel-endpoints-rango-cidr",
+      "tag": "Cloud",
+      "title": "Los tunnel endpoints de AWS PrivateLink comparten un rango CIDR entero con otra cuenta",
+      "summary": "En lugar de exponer recurso a recurso, el proveedor comparte un rango de direcciones mediante Resource Access Manager y el consumidor accede a él encapsulando el tráfico en GENEVE, con conexiones solo en un sentido y soporte para CIDR solapados. Solo admite TCP (UDP únicamente para DNS), no soporta nombres DNS privados y los logs no identifican el origen interno del tráfico.",
+      "take": "Para entornos regulados es una alternativa al peering, que abre la VPC completa en ambos sentidos y suele chocar con auditoría. Eso sí, compartir rangos amplios equivale a abrir todo lo enrutable, así que el perímetro hay que definirlo con el rango más estrecho posible.",
+      "source": "InfoQ",
+      "url": "https://www.infoq.com/news/2026/11/aws-privatelink-tunnel-endpoints/"
+    },
+    {
+      "slug": "yelp-migra-cassandra-eks-volumenes-ebs",
+      "tag": "Cloud",
+      "title": "Yelp migra unos 90 clústeres de Cassandra a EKS trasladando los volúmenes EBS en vez de copiar datos",
+      "summary": "Su técnica de trasplante de volúmenes crea en EKS PersistentVolumes que apuntan a los mismos discos EBS y mueve los pods uno a uno, de modo que cada nodo vuelve al anillo con sus datos sin transferir cerca de 1.000 TiB por red. Lo ejecutó un solo ingeniero en unas tres semanas, sin caída para clientes ni pérdida de datos, y la marcha atrás era la misma operación a la inversa.",
+      "take": "Para cargas con estado ligadas a una zona de disponibilidad, mover el puntero al volumen es mucho más barato que replicar. Las lecciones son las que importan: revisar antes reparaciones, roles IAM de los backups y severidad de las alertas, que fue donde aparecieron los problemas.",
+      "source": "InfoQ",
+      "url": "https://www.infoq.com/news/2026/11/kubernetes-cassandra-eks/"
+    },
+    {
+      "slug": "agent-framework-pypi-comprometido-credenciales",
+      "tag": "Seguridad",
+      "title": "Publican versiones maliciosas de Microsoft Agent Framework en PyPI para robar credenciales cloud",
+      "summary": "Las versiones 1.26.1 y 1.26.2 del paquete agent-framework, con unas 190.000 descargas al mes, instalaban un fichero .pth que se ejecuta al arrancar Python y enviaba variables de entorno, ficheros de credenciales y tokens OIDC de Azure DevOps y GitHub Actions a un webhook externo. Estuvieron disponibles unos 45 minutos el 17 de noviembre antes de quedar en cuarentena, y la última versión segura es la 1.26.0.",
+      "take": "El código malicioso corre aunque el paquete no llegue a importarse, así que el riesgo está en los runners de CI más que en producción. Fijar versiones con hash, limitar la salida de red de los pipelines y usar identidades de corta duración reduce mucho el impacto de este tipo de ataques.",
+      "source": "The Hacker News",
+      "url": "https://thehackernews.com/2026/11/attackers-compromise-microsofts-agent.html"
+    },
+    {
+      "slug": "github-secret-scanning-agentes-copilot",
+      "tag": "IA",
+      "title": "GitHub integra su detección de secretos en las revisiones de seguridad de Copilot",
+      "summary": "En vista previa pública, la revisión de seguridad de Copilot puede usar los detectores de secret scanning de GitHub, con más de 500 tipos de secretos y un modelo ajustado para contraseñas o cadenas de conexión sin formato reconocible. Funciona en la CLI, la app, el SDK y la revisión de pull requests, analiza solo los cambios y no el historial, y consume créditos de IA.",
+      "take": "Detectar el secreto antes de que llegue al repositorio es mucho más barato que rotarlo después, sobre todo cuando parte del código lo escriben agentes. No sustituye al escaneo del historial ni a un gestor de secretos, pero añade un control temprano en el flujo de desarrollo.",
+      "source": "GitHub Blog",
+      "url": "https://github.blog/changelog/2026-11-17-secret-scanning-on-demand-for-developers-and-agents"
+    }
+  ]
+}
