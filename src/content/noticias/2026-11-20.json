@@ -1,0 +1,50 @@
+{
+  "date": "2026-11-20",
+  "items": [
+    {
+      "slug": "spring-batch-6-1-ga-reinicios-memoria",
+      "tag": "Java",
+      "title": "Spring Batch 6.1 ya es GA y abarata los reinicios de jobs con mucho historial",
+      "summary": "La nueva versión se alinea con Spring Framework 7.1, Spring Data 2026.1 y Micrometer 1.18, añade la anotación @JobParameter, un PageableItemReader tipado y lleva AsyncItemProcessor y AsyncItemWriter al módulo core. El coste de reiniciar ya no crece con el historial del job: en un caso de step particionado los StepExecution en memoria bajaron de unos 700.000 a 837 y la memoria del nodo de polling de 15 GB a 1,5 GB.",
+      "take": "En procesos batch de banca con años de ejecuciones acumuladas, ese consumo de memoria en los reinicios es justo lo que acaba tumbando los nodos. Antes de subir conviene revisar los cambios incompatibles, como la retirada de los constructores JDBC sin argumentos en favor de JdbcClient y la deserialización Avro limitada a clases de confianza.",
+      "source": "Spring Blog",
+      "url": "https://spring.io/blog/2026/11/19/spring-batch-6-1-0-available-now/"
+    },
+    {
+      "slug": "vmware-vcenter-bypass-autenticacion-cvss-98",
+      "tag": "Seguridad",
+      "title": "Broadcom corrige un bypass de autenticación de nivel 9,8 en VMware vCenter",
+      "summary": "CVE-2026-123890 está en el VMware Directory Service y permite a un atacante con acceso de red entrar sin credenciales en vCenter 8.0, 9.0 y 9.1, incluidas las versiones integradas en Cloud Foundation y vSphere Foundation. No hay workaround ni ataques conocidos por ahora, pero Broadcom lo trata como cambio de emergencia y recuerda que un fallo similar parcheado en julio se explotó en agosto.",
+      "take": "vCenter sigue siendo la llave de toda la infraestructura on premise, así que un acceso sin autenticar equivale a controlar las máquinas virtuales. Toca planificar la subida con cuidado, porque los parches no van por Quick Patch y algunas versiones bloquean después el salto a VCF 9.1.1.",
+      "source": "The Hacker News",
+      "url": "https://thehackernews.com/2026/11/critical-vmware-vcenter-flaw-cvss-98.html"
+    },
+    {
+      "slug": "puppet-rce-explotado-cisa-kev",
+      "tag": "Seguridad",
+      "title": "La CISA alerta de ataques activos contra un fallo crítico de ejecución remota en Puppet",
+      "summary": "CVE-2026-115731, con CVSS 9,4, es una deserialización insegura en el procesado de informes: cualquier agente con certificado firmado por la CA puede ejecutar código en el servidor enviando un informe manipulado, y afecta a Puppet Enterprise, Puppet Core y OpenVox. Las versiones corregidas existen desde el 3 de noviembre y la CISA ha incluido el fallo en su catálogo de vulnerabilidades explotadas.",
+      "take": "Un servidor de gestión de configuración comprometido da acceso a toda la flota, y quien controla la CA puede suplantar a cualquier nodo. Además de parchear, conviene revisar que la CA no firme peticiones de certificado sin verificación, porque eso abre la puerta a atacantes sin credenciales.",
+      "source": "The Hacker News",
+      "url": "https://thehackernews.com/2026/11/hackers-exploiting-critical-puppet-rce.html"
+    },
+    {
+      "slug": "aws-interconnect-multicloud-azure-ga",
+      "tag": "Cloud",
+      "title": "AWS Interconnect conecta ya de forma privada con Azure, Google Cloud y OCI",
+      "summary": "AWS ha publicado en disponibilidad general su servicio de conexiones privadas entre nubes con Microsoft Azure, que adoptó la especificación abierta del producto tras lanzarlo en preview en agosto. Con ello los clientes de AWS pueden enlazar cargas con Azure, Google Cloud y Oracle Cloud, y en el caso de Azure está disponible en Virginia del Norte, Sídney y Fráncfort.",
+      "take": "Hasta ahora unir dos nubes suponía montar VPN o circuitos dedicados con un tercero, con su coste operativo. Un enlace gestionado y con especificación abierta simplifica las arquitecturas multicloud reguladas, aunque falta conocer precios, cuotas y ancho de banda antes de diseñar sobre él.",
+      "source": "AWS",
+      "url": "https://aws.amazon.com/about-aws/whats-new/2026/11/aws-announces-AWS-interconnect-multicloud-azure-ga"
+    },
+    {
+      "slug": "github-cli-gh-event-listen-agentes",
+      "tag": "IA",
+      "title": "GitHub CLI estrena gh event listen para que los agentes esperen eventos de un PR sin hacer polling",
+      "summary": "Desde la versión 2.105.0, el comando se suscribe a un pull request y devuelve en JSON eventos como revisiones enviadas, conflictos de merge o check suites terminadas, y puede esperar uno, varios o quedarse escuchando. Está en preview y requiere acceso a Event Streams, que todavía va por lista de espera.",
+      "take": "Los agentes de código que comprueban un PR cada pocos segundos gastan cuota de API y añaden latencia; pasar a eventos es el mismo salto que dimos de polling a mensajería en los microservicios. Vale la pena tenerlo en cuenta al diseñar pipelines donde los agentes reaccionan a revisiones o a la CI.",
+      "source": "GitHub Blog",
+      "url": "https://github.blog/changelog/2026-11-18-wait-for-pull-request-events-with-github-cli/"
+    }
+  ]
+}
