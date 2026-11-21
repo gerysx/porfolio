@@ -1,0 +1,50 @@
+{
+  "date": "2026-11-21",
+  "items": [
+    {
+      "slug": "spring-boot-4-2-depreca-resttemplate-amqp-1",
+      "tag": "Java",
+      "title": "Spring Boot 4.2 da por obsoleto RestTemplate y añade soporte para AMQP 1.0",
+      "summary": "La nueva versión incorpora soporte de AMQP 1.0, tanto genérico como adaptado a RabbitMQ, convenciones semánticas de OpenTelemetry opcionales, SSL bundles para LDAP y arranque más rápido de los jar ejecutables. También marca como obsoletos RestTemplate y TestRestTemplate en favor de RestClient y RestTestClient, y retira el soporte de Apache Pulsar tras su paso a la Apache Software Foundation.",
+      "take": "RestTemplate sigue presente en muchísimos microservicios heredados, así que conviene planificar ya la migración a RestClient en lugar de esperar a que desaparezca. AMQP 1.0 abre la puerta a hablar con brokers distintos sin atarse a un protocolo propietario.",
+      "source": "Spring Blog",
+      "url": "https://spring.io/blog/2026/11/19/spring-boot-4-2-0-available-now/"
+    },
+    {
+      "slug": "spring-cloud-2026-0-paddington",
+      "tag": "Java",
+      "title": "Spring Cloud 2026.0 Paddington integra Bus en Stream y corrige 12 vulnerabilidades",
+      "summary": "El nuevo release train se basa en Spring Boot 4.2 y sube la mayoría de módulos a la versión 5.1.0; Spring Cloud Bus deja de ser un proyecto aparte y pasa a formar parte de Spring Cloud Stream, manteniendo sus coordenadas. Incluye 12 CVE corregidos en Gateway, Config Server, Eureka, Kubernetes, Function y Stream, y novedades como websockets en Gateway MVC o alta disponibilidad en el Configuration Watcher de Kubernetes.",
+      "take": "Varias de las vulnerabilidades tocan piezas centrales como el Config Server o el Gateway, que suelen estar en el camino de todas las peticiones, lo que justifica priorizar la subida. Antes hay que revisar las obsolescencias, como el binder reactivo de Stream o los módulos RSocket y gRPC de Function.",
+      "source": "Spring Blog",
+      "url": "https://spring.io/blog/2026/11/20/spring-cloud-2026-0-0-has-been-released/"
+    },
+    {
+      "slug": "spring-ai-2-1-ga-session-api-mcp-stateless",
+      "tag": "IA",
+      "title": "Spring AI 2.1 llega a GA con una API de sesiones y límites a las llamadas de herramientas",
+      "summary": "La versión, construida sobre Spring Boot 4.2, soporta la revisión sin estado del protocolo MCP, estrena la API DecisionModel y sustituye ChatMemory por una nueva Session API con compactación y repositorio JDBC. Añade confirmación de llamadas a herramientas, límites por turno (40 por herramienta y 150 en total por defecto) y corrige 13 CVE que no están en las versiones milestone ni RC.",
+      "take": "Los límites y la confirmación de herramientas son justo los controles que hacen falta para llevar agentes a producción sin bucles descontrolados ni acciones no autorizadas. Quien use ChatMemory debe ir pensando en migrar, porque se eliminará en la 3.0.",
+      "source": "Spring Blog",
+      "url": "https://spring.io/blog/2026/11/20/spring-ai-2-1-0-GA-available-now/"
+    },
+    {
+      "slug": "google-dona-agent-substrate-gvisor-cncf",
+      "tag": "Cloud",
+      "title": "Google dona Agent Substrate y gVisor a la CNCF para aislar agentes de IA a escala",
+      "summary": "Google cede a la CNCF Agent Substrate, que separa las sesiones de agente con estado de pools de workers precalentados, y gVisor, su kernel en espacio de usuario que intercepta las llamadas al sistema. Según Google, los agentes pasan entre el 90 % y el 95 % del tiempo inactivos conservando estado y con este modelo se reanudan en menos de 500 ms.",
+      "take": "Ejecutar código generado por IA en un clúster compartido exige un aislamiento más fuerte que el de los contenedores normales. Que estas piezas pasen a gobernanza neutral facilita adoptarlas en plataformas Kubernetes propias sin depender de un único proveedor.",
+      "source": "InfoQ",
+      "url": "https://www.infoq.com/news/2026/11/google-substrate-gvisor-cncf/"
+    },
+    {
+      "slug": "vcenter-zero-day-explotado-espionaje",
+      "tag": "Seguridad",
+      "title": "Un grupo de espionaje explotaba desde septiembre el fallo de vCenter que Broadcom acaba de parchear",
+      "summary": "Google y Mandiant atribuyen a un grupo vinculado a China la explotación como zero-day de CVE-2026-123890, el bypass de autenticación de CVSS 9,8 en VMware Directory Service, que daba una sesión de administrator@vsphere.local. Lo combinaron con un zero-day de BeyondTrust Remote Support para el acceso inicial y desplegaron web shells y puertas traseras, una de ellas con Slack como canal de control.",
+      "take": "El parche del 19 de noviembre deja de ser una subida planificada y pasa a ser urgente, además de obligar a buscar indicios de compromiso en entornos expuestos. Es otro recordatorio de que la consola de virtualización no debe ser accesible desde redes de usuario ni de terceros.",
+      "source": "The Hacker News",
+      "url": "https://thehackernews.com/2026/11/china-linked-hackers-exploit-critical.html"
+    }
+  ]
+}
