@@ -1,0 +1,50 @@
+{
+  "date": "2026-11-22",
+  "items": [
+    {
+      "slug": "aws-lambda-timeout-30-minutos",
+      "tag": "Cloud",
+      "title": "AWS Lambda amplía a 30 minutos el tiempo máximo de ejecución de sus funciones",
+      "summary": "Las funciones bajo demanda pasan de 15 a 30 minutos de límite en invocaciones síncronas, asíncronas y a través de event source mappings, en todas las regiones comerciales. Algunas integraciones, como los mappings de Amazon MQ o DocumentDB, se quedan en 14 minutos, y AWS recomienda que la visibilidad de las colas SQS sea al menos seis veces el timeout de la función.",
+      "take": "Muchos procesos batch o de integración que se sacaban a contenedores solo por el límite de 15 minutos pueden quedarse ahora en serverless. Eso sí, duplicar el tiempo de ejecución duplica también la concurrencia consumida al mismo ritmo de peticiones, así que hay que revisar cuotas y reintentos.",
+      "source": "AWS Compute Blog",
+      "url": "https://aws.amazon.com/blogs/compute/announcing-30-minute-timeout-for-on-demand-aws-lambda-event-functions"
+    },
+    {
+      "slug": "kvm-amd-cve-2026-99312-memoria-host",
+      "tag": "Seguridad",
+      "title": "Un fallo en KVM permite a una VM leer la memoria del host en servidores AMD",
+      "summary": "CVE-2026-99312 afecta solo a hosts AMD con virtualización anidada activada y, en las pruebas en DigitalOcean, permitió a un invitado con root leer unos 127 GB de RAM del host. La corrección está en los kernels 7.3.5, 6.18.64 y 6.12.118, exige reiniciar el host y, mientras tanto, se mitiga desactivando la virtualización anidada en kvm_amd.",
+      "take": "Romper el aislamiento entre máquinas virtuales es el peor escenario en infraestructura compartida, ya sea nube pública o un clúster privado. Conviene comprobar si los nodos tienen activada la virtualización anidada sin necesitarla, porque desactivarla corta el riesgo de inmediato.",
+      "source": "The Hacker News",
+      "url": "https://thehackernews.com/2026/11/new-linux-kvm-flaw-cve-2026-99312-lets.html"
+    },
+    {
+      "slug": "cisco-expressway-cve-2026-76466-explotado",
+      "tag": "Seguridad",
+      "title": "Atacantes explotan un fallo crítico de Cisco Expressway y saltan a la red interna",
+      "summary": "CVE-2026-76466, con CVSS 9,8, permite a un atacante sin autenticar ejecutar comandos como root en Cisco Expressway, y Cisco lo parcheó el 21 de octubre. Tras publicarse una prueba de concepto, se comprometieron cuatro equipos, desde los que se exploró la red interna y se robaron credenciales y datos de servicios como SQL Server o GitLab.",
+      "take": "Un equipo perimetral comprometido se convierte en la puerta a todo lo que hay detrás, de ahí la importancia de segmentar la red y limitar qué puede alcanzar cada appliance. Un parche publicado hace un mes ya es explotable en cuanto aparece un exploit público.",
+      "source": "The Hacker News",
+      "url": "https://thehackernews.com/2026/11/hackers-exploit-critical-cisco.html"
+    },
+    {
+      "slug": "github-permisos-security-advisories-ga",
+      "tag": "Seguridad",
+      "title": "GitHub permite gestionar avisos de seguridad sin dar permisos de administrador",
+      "summary": "Los propietarios de una organización pueden incluir en roles de repositorio personalizados cuatro permisos nuevos para ver, crear, aceptar y publicar avisos de seguridad, incluidos los informes privados de vulnerabilidades y la solicitud de CVE. La función ya está disponible de forma general en los planes con roles personalizados, como GitHub Enterprise Cloud.",
+      "take": "Permite que un equipo de seguridad o un responsable técnico gestione vulnerabilidades sin recibir más privilegios de los necesarios, aplicando el principio de mínimo privilegio. Es especialmente útil en organizaciones con muchos repositorios compartidos entre equipos.",
+      "source": "GitHub Changelog",
+      "url": "https://github.blog/changelog/2026-11-20-security-advisory-permissions-are-now-generally-available/"
+    },
+    {
+      "slug": "github-runners-rhel-ga",
+      "tag": "Cloud",
+      "title": "Los runners de GitHub Actions con Red Hat Enterprise Linux ya están disponibles para todos",
+      "summary": "GitHub ofrece de forma general imágenes de RHEL 9 y RHEL 10 para sus runners alojados de mayor tamaño, tras estar en vista previa desde junio en colaboración con Red Hat. Están disponibles en los planes Team y Enterprise Cloud y también pueden servir de base para imágenes personalizadas.",
+      "take": "Compilar y probar sobre el mismo sistema operativo que se usa en producción evita sorpresas con librerías nativas o dependencias del sistema. Para quien despliega en RHEL u OpenShift, reduce la necesidad de mantener runners propios.",
+      "source": "GitHub Changelog",
+      "url": "https://github.blog/changelog/2026-11-19-red-hat-enterprise-linux-runner-images-now-generally-available/"
+    }
+  ]
+}
