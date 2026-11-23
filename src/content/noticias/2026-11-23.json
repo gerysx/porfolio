@@ -1,0 +1,50 @@
+{
+  "date": "2026-11-23",
+  "items": [
+    {
+      "slug": "openrouter-robo-prompts-proveedores-inferencia",
+      "tag": "Seguridad",
+      "title": "OpenRouter expulsa a tres proveedores de inferencia tras meses de robo de prompts",
+      "summary": "Investigadores de Dragos sembraron unos dos millones de prompts con enlaces y credenciales falsas entre julio y noviembre y descubrieron que atacantes llevaban meses robando las peticiones enviadas a tres proveedores de inferencia, sin que estos lo supieran. OpenRouter, que asegura no haber sido vulnerada, ha retirado a esos proveedores, ha quitado 125 endpoints de su modalidad de retención cero y ha avisado a los clientes afectados.",
+      "take": "Todo lo que viaja en un prompt, incluidos secretos o datos de clientes, queda tan expuesto como el eslabón más débil de la cadena de proveedores. Conviene tratar los routers de LLM como un tercero más en el análisis de riesgos y no meter nunca credenciales en el contexto de un modelo.",
+      "source": "The Hacker News",
+      "url": "https://thehackernews.com/2026/11/openrouter-drops-3-providers-after.html"
+    },
+    {
+      "slug": "google-agent-compute-engine-microvm",
+      "tag": "IA",
+      "title": "Google anuncia Agent Compute Engine para ejecutar agentes de IA en microVMs aisladas",
+      "summary": "El nuevo servicio gestionado ejecuta cada agente en una microVM con checkpoint y restauración para suspender entornos inactivos, y mantiene las credenciales fuera del sandbox: un Agent Gateway externo autentica las peticiones e inyecta los secretos. Google dice usarlo ya internamente para Gemini, pero todavía no hay precio ni fecha concreta para la preview.",
+      "take": "Sacar los secretos del entorno donde corre el agente es el patrón correcto, y sirve igual si se monta en casa sobre Kubernetes. Para no atarse a un único proveedor, la alternativa portable es Agent Substrate, el runtime abierto que Google acaba de donar a la CNCF.",
+      "source": "InfoQ",
+      "url": "https://www.infoq.com/news/2026/11/google-agent-compute-engine/"
+    },
+    {
+      "slug": "aws-lambda-gpu-managed-instances",
+      "tag": "Cloud",
+      "title": "AWS Lambda ya ejecuta inferencia en GPU con 48 invocaciones compartiendo un mismo modelo",
+      "summary": "Las Event Functions sobre Lambda Managed Instances pueden usar instancias EC2 de la familia G y hasta 48 invocaciones concurrentes comparten una sola copia del modelo en la memoria de la GPU. Se paga el precio On-Demand de EC2 más un 9,75 % de comisión de gestión y 0,20 dólares por millón de peticiones, con imágenes base para CUDA, PyTorch, vLLM o SGLang.",
+      "take": "Abre la puerta a inferencia dirigida por eventos sin mantener un clúster de GPUs propio. Antes de diseñar sobre ello hay que revisar las cuotas: las cuentas nuevas parten de cero vCPU de GPU y Terraform aún no soporta la configuración del acelerador.",
+      "source": "InfoQ",
+      "url": "https://www.infoq.com/news/2026/11/aws-lambda-gpu-managed-instances/"
+    },
+    {
+      "slug": "gke-timeouts-api-bug-tcp-kernel",
+      "tag": "Cloud",
+      "title": "Google explica cómo unos timeouts en la API de GKE acabaron en un bug TCP del kernel de Linux",
+      "summary": "Tres fallos encadenados, el reordenamiento de paquetes en Private Service Connect, el cierre parcial de conexiones de Envoy y un bug del kernel que descartaba ciertos FIN reordenados, dejaban sockets atascados en FIN_WAIT_2 y bloquearon a unos 800 desarrolladores de un cliente. La corrección del kernel entró en Linux 6.9.7, se llevó a las ramas LTS 6.6 y 6.1 y llega a GKE desde la versión 1.33.5.",
+      "take": "Un buen recordatorio de que los fallos intermitentes en sistemas distribuidos rara vez tienen una sola causa, y de que el kernel también forma parte de la arquitectura. Mantener nodos con kernels al día y saber leer estados TCP ahorra semanas de diagnóstico.",
+      "source": "InfoQ",
+      "url": "https://www.infoq.com/news/2026/11/gke-kernel-network-bug/"
+    },
+    {
+      "slug": "grafana-13-3-variables-compartidas-notebooks",
+      "tag": "Cloud",
+      "title": "Grafana 13.3 añade variables compartidas entre dashboards y Notebooks",
+      "summary": "La versión trae en preview pública variables que se definen una vez con alcance global o de carpeta y se reutilizan en varios dashboards, además de Notebooks que combinan paneles con notas escritas y hallazgos del asistente de IA. En instalaciones propias ambas funciones se activan con feature toggles.",
+      "take": "Las variables compartidas evitan tener que mantener a mano la misma lista de entornos o servicios en decenas de dashboards. Los Notebooks pueden servir para documentar incidencias y postmortems junto a las métricas reales.",
+      "source": "InfoQ",
+      "url": "https://www.infoq.com/news/2026/11/grafana-13-3-shared-variables/"
+    }
+  ]
+}
