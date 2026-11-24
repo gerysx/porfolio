@@ -1,0 +1,50 @@
+{
+  "date": "2026-11-24",
+  "items": [
+    {
+      "slug": "ghostscript-escape-sandbox-subida-ficheros",
+      "tag": "Seguridad",
+      "title": "Un fallo de Ghostscript permite ejecutar código subiendo una imagen a aplicaciones populares",
+      "summary": "La vulnerabilidad CVE-2026-125396, un use-after-free en la carga de fuentes que desactiva el sandbox -dSAFER, ya estaba corregida en Ghostscript 10.08.0 desde septiembre, pero investigadores de pwn.ai han demostrado su explotación a través de librerías como ImageMagick, Pillow o libvips, que entregan contenido PostScript a Ghostscript aunque el fichero se llame .png o .pdf. Lograron ataques sin autenticación mediante colas de impresión, adjuntos de Roundcube y formularios de subida de plugins de WordPress, y varias distribuciones siguen sin parche.",
+      "take": "Cualquier servicio que genere miniaturas o procese documentos subidos por usuarios puede estar arrastrando Ghostscript sin saberlo. Actualizar el sistema operativo no basta si va empaquetado dentro de una imagen de contenedor: hay que revisar las dependencias de cada imagen y limitar los tipos de fichero aceptados.",
+      "source": "The Hacker News",
+      "url": "https://thehackernews.com/2026/11/researchers-demonstrate-ghostscript.html"
+    },
+    {
+      "slug": "cert-in-ataques-ia-pagos-bancos-india",
+      "tag": "Seguridad",
+      "title": "La CERT-In alerta de ataques con IA que provocan pagos no autorizados en bancos y fintech de India",
+      "summary": "Según el aviso del organismo indio, los atacantes abusaron de aplicaciones de negocio y flujos de proveedores para modificar registros o relaciones de aprobación y después usaron los procesos normales de pago, sin que saltara ninguna alerta. El centro I4C habla de transacciones por valor de varios crores desviadas a cuentas mula, y la CERT-In añade que las herramientas agénticas han reducido de días a horas el tiempo entre el acceso inicial y el impacto.",
+      "take": "En banca el riesgo ya no está solo en la intrusión, sino en procesos legítimos que nadie vigila cuando cambian los datos maestros. La trazabilidad y la conciliación de cambios en beneficiarios y aprobaciones deberían diseñarse como controles de seguridad, no como simple auditoría.",
+      "source": "The Hacker News",
+      "url": "https://thehackernews.com/2026/11/ai-assisted-cyberattacks-trigger.html"
+    },
+    {
+      "slug": "aws-strands-decider-v2-strands-box",
+      "tag": "IA",
+      "title": "AWS publica Strands Decider v2, modelos abiertos para decisiones de agentes, y amplía su sandbox Strands Box",
+      "summary": "Strands Decider v2 son cinco modelos de pesos abiertos basados en Gemma 4, de hasta 31.000 millones de parámetros y con licencia Apache 2.0; AWS asegura que al usarlos en su mayor sistema interno de tickets redujo un 98 % el coste de etiquetado y un 78 % el tiempo de respuesta. Strands Box estrena además una CLI para ejecutar Claude Code, Codex o Kiro CLI en un sandbox donde las credenciales solo se inyectan en peticiones salientes aprobadas por política.",
+      "take": "Usar modelos pequeños y especializados para las decisiones repetitivas de un agente, y dejar los grandes para lo difícil, es una de las palancas más claras para controlar costes. Y el patrón de mantener los secretos fuera del sandbox se está consolidando como estándar para agentes de código.",
+      "source": "SiliconANGLE",
+      "url": "https://siliconangle.com/2026/11/23/aws-is-making-ai-agents-more-decisive-and-secure-with-its-latest-strands-updates"
+    },
+    {
+      "slug": "github-estados-issues-tableros-repositorio",
+      "tag": "IA",
+      "title": "GitHub añade estados a las issues y tableros por repositorio que se mueven solos con PRs y agentes",
+      "summary": "En preview pública, las issues tienen siete estados (de Backlog a Duplicate) que cambian automáticamente al enlazar un PR, marcarlo listo para revisión o asignar la tarea a un usuario o a un agente, y se sincronizan con GitHub Projects. Las vistas guardadas del repositorio admiten ahora formato tablero, y los estados están disponibles por GraphQL, REST y el servidor MCP.",
+      "take": "Tener el flujo de trabajo dentro del propio repositorio, accesible por API y MCP, facilita que los agentes de código informen de su avance sin integraciones externas. Para equipos pequeños puede sustituir a un tablero aparte sin perder trazabilidad.",
+      "source": "GitHub Blog",
+      "url": "https://github.blog/changelog/2026-11-23-issue-statuses-and-repository-boards-are-in-public-preview/"
+    },
+    {
+      "slug": "amazon-compra-tecnologia-decart-trainium",
+      "tag": "Industria",
+      "title": "Amazon compra la tecnología de optimización de Decart para sus chips de IA por unos 7.500 millones",
+      "summary": "Amazon ha confirmado la compra del Decart Optimization Stack y la incorporación de sus tres fundadores a Annapurna Labs para mejorar el rendimiento de sus chips Trainium e Inferentia, aunque no ha revelado el importe; Bloomberg lo cifra en unos 7.500 millones de dólares. La operación no incluye los modelos de IA de Decart y está pendiente de aprobación regulatoria.",
+      "take": "La batalla por la inferencia barata se libra tanto en el software de optimización como en el silicio. Si Trainium e Inferentia ganan rendimiento, el coste de ejecutar modelos en AWS frente a las GPUs de Nvidia será un factor más a la hora de elegir dónde desplegar.",
+      "source": "GeekWire",
+      "url": "https://www.geekwire.com/2026/amazon-is-buying-decarts-ai-chip-software-for-a-reported-7-5b-and-bringing-its-founders-aboard/"
+    }
+  ]
+}
