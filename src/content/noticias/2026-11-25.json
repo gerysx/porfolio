@@ -1,0 +1,50 @@
+{
+  "date": "2026-11-25",
+  "items": [
+    {
+      "slug": "spring-ai-confirmacion-tool-calls-park-resume",
+      "tag": "Java",
+      "title": "Spring AI 2.1 permite pausar una llamada a herramienta hasta que una persona la apruebe, aunque la aplicación se reinicie",
+      "summary": "Con la nueva opción requiresConfirmation de @Tool, una propiedad o un bean ToolCallConfirmationPolicy, el bucle de herramientas ejecuta las llamadas inocuas y se detiene solo cuando el modelo pide una marcada, devolviendo una respuesta normal con las llamadas pendientes de decisión. El proyecto comunitario Spring AI Session Extensions 0.11.0 guarda esa pausa en el log de sesión JDBC para que otra instancia la retome con la decisión de aprobar o denegar.",
+      "take": "Es el patrón que necesita cualquier agente que mueva dinero o datos sensibles: el estado de la espera vive en base de datos y no en memoria, así que encaja con despliegues de varias réplicas. Conviene recordar que Session Extensions es un proyecto comunitario en su primera versión y su API aún puede cambiar.",
+      "source": "Spring Blog",
+      "url": "https://spring.io/blog/2026/11/24/spring-ai-tool-call-confirmation-park-resume"
+    },
+    {
+      "slug": "azure-api-management-classic-robo-secretos",
+      "tag": "Cloud",
+      "title": "Microsoft corrige un fallo en Azure API Management Classic que un atacante usó para buscar secretos de clientes",
+      "summary": "La autoridad noruega de seguridad NSM detectó a un actor desconocido buscando tokens de acceso, secretos y named values en Azure API Management, con varias empresas del país afectadas, entre ellas Equinor. Microsoft identificó el problema el 18 de noviembre, cerró la vía de acceso el día 19 y ha publicado una guía de rotación de credenciales; solo afecta al nivel Classic, no a los niveles v2.",
+      "take": "Un API gateway concentra claves de suscripción, secretos de proveedores OIDC y tokens de backend, por lo que su compromiso tiene un radio de impacto enorme. Es buen momento para rotar esos secretos, sacarlos a un almacén como Key Vault y planificar la migración a los niveles v2.",
+      "source": "The Hacker News",
+      "url": "https://thehackernews.com/2026/11/microsoft-fixes-azure-api-management.html"
+    },
+    {
+      "slug": "openai-cisco-shirudo-escudos-ebpf",
+      "tag": "IA",
+      "title": "OpenAI y Cisco presentan Shirudo, agentes de IA que escriben escudos eBPF para bloquear exploits antes de parchear",
+      "summary": "Shirudo es un runtime de código abierto para Linux basado en Tetragon en el que un agente reproduce y valida un exploit y genera un escudo eBPF que se distribuye firmado como paquete .bee desde un registro OCI y se verifica con TPM antes de cargarse. Los escudos pueden observarse antes de pasar a bloquear y se retiran cuando llega el parche real; según OpenAI, uno generado con Codex frenó un ataque Java4Shell contra Elasticsearch sin reiniciar el servicio.",
+      "take": "Ofrece un término medio entre parchear con prisas y quedar expuesto: mitigar en el kernel mientras se prueba la actualización con calma. Habrá que ver cómo encaja con la gobernanza de cambios, porque significa dejar que un agente despliegue reglas en producción.",
+      "source": "The Hacker News",
+      "url": "https://thehackernews.com/2026/11/openai-and-cisco-unveil-ai-assisted.html"
+    },
+    {
+      "slug": "vmware-vcenter-nuevo-bypass-autenticacion-vmdir",
+      "tag": "Seguridad",
+      "title": "VMware vCenter recibe otro fallo crítico de omisión de autenticación con CVSS 9.8",
+      "summary": "Broadcom ha publicado parches para 23 vulnerabilidades en ESX, vCenter, Workstation, Fusion y Avi Load Balancer, entre ellas la CVE-2026-123903, que permite a un atacante en la red adyacente saltarse la autenticación de vCenter a través del servicio de directorio vmdir. Es distinta de la CVE-2026-123890 explotada como día cero, y Broadcom no indica que las nuevas se estén aprovechando todavía.",
+      "take": "vCenter es el plano de control de buena parte de las plataformas on premise, así que dos fallos críticos seguidos en el mismo componente justifican priorizar el parche y aislar su red de gestión. Las versiones corregidas van de vCenter 8.0 U3m a VCF 9.1.2.",
+      "source": "The Hacker News",
+      "url": "https://thehackernews.com/2026/11/vmware-vcenter-hit-by-another-critical.html"
+    },
+    {
+      "slug": "aurora-serverless-mysql-384-acu",
+      "tag": "Cloud",
+      "title": "Aurora Serverless para MySQL escala ya hasta 384 ACU, unos 768 GiB de memoria",
+      "summary": "AWS eleva el máximo de Aurora Serverless para MySQL de 256 a 384 unidades de capacidad, cada una con unos 2 GiB de memoria, manteniendo el escalado a cero cuando no hay carga. Requiere Aurora MySQL 3.14 u 8.4.10 sobre la Platform Version 4; los clústeres que ya la usan pueden ampliarse sin parada y el resto necesita una actualización de mantenimiento.",
+      "take": "Sube el techo para usar serverless en bases de datos con picos fuertes sin sobredimensionar instancias provisionadas. Antes de apoyarse en ello conviene revisar la versión de plataforma de cada clúster, porque la ampliación no es automática.",
+      "source": "AWS",
+      "url": "https://aws.amazon.com/about-aws/whats-new/2026/11/aurora-serverless-mysql-supports-384-acu/"
+    }
+  ]
+}
