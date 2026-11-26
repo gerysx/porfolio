@@ -1,0 +1,50 @@
+{
+  "date": "2026-11-26",
+  "items": [
+    {
+      "slug": "hexpm-rce-cvss-10-registro-paquetes",
+      "tag": "Seguridad",
+      "title": "Atacantes aprovechan un fallo con CVSS 10 en Hex.pm, el registro de paquetes de Elixir y Erlang, y comprometen seis servidores",
+      "summary": "La vulnerabilidad CVE-2026-129514, presente en el código del servidor desde 2016, estaba en un parser de cuerpos en formato Erlang que se ejecutaba antes del enrutado y la autenticación y permitía acabar invocando una función elegida por el atacante. El equipo contabilizó 69 peticiones maliciosas desde dos direcciones, parcheó todos los servidores en unos quince minutos, cerró las sesiones de todos los usuarios y pide cambiar contraseñas y restablecer el segundo factor porque no puede descartar lecturas de la base de datos.",
+      "take": "Es un recordatorio de que el registro de dependencias forma parte de la cadena de suministro y de que deserializar formatos ricos antes de autenticar es una superficie de ataque enorme. Conviene que los pipelines verifiquen firmas y versiones fijadas en lugar de confiar a ciegas en el registro.",
+      "source": "The Hacker News",
+      "url": "https://thehackernews.com/2026/11/hackers-exploited-cvss-100-hexpm-rce.html"
+    },
+    {
+      "slug": "doordash-dispatch-coordinador-workers-10x",
+      "tag": "Cloud",
+      "title": "DoorDash multiplica por diez la capacidad de su sistema de asignación de pedidos separando coordinación y cálculo",
+      "summary": "La compañía ha sustituido un motor de optimización monolítico, cuyo coste crecía de forma casi cuadrática, por un coordinador con estado que gestiona el ciclo de vida de cada asignación y unos workers sin estado que reciben por gRPC solo los datos de su zona geográfica. Tras validarlo con tráfico en sombra y experimentos alternos, reporta diez veces más throughput y más del 99,99 % de disponibilidad en la Super Bowl.",
+      "take": "Es un buen ejemplo de cómo escalar un cálculo pesado: aislar el estado en un único componente y particionar el trabajo para que los nodos de cómputo escalen horizontalmente. El despliegue con shadow testing y fallbacks es la parte más reutilizable para cualquier migración crítica.",
+      "source": "InfoQ",
+      "url": "https://www.infoq.com/news/2026/11/doordash-dispatch-redesign/"
+    },
+    {
+      "slug": "lambda-durable-functions-orquesta-microvms",
+      "tag": "Cloud",
+      "title": "AWS permite orquestar Lambda MicroVMs desde durable functions, en vista previa para desarrolladores",
+      "summary": "La nueva extensión añade operaciones duraderas para lanzar trabajo en MicroVMs con aislamiento de máquina virtual y gestionar su ciclo de vida desde flujos de varios pasos que pueden durar hasta un año, con checkpoints y reintentos automáticos. Una misma función puede coordinar varias MicroVMs en paralelo y dispararse desde SQS o EventBridge; de momento solo está para los SDK de TypeScript y Python y AWS desaconseja usarla en producción.",
+      "take": "Combina orquestación con estado y aislamiento fuerte, justo lo que piden los agentes que ejecutan código no confiable o los trabajos por lotes largos. Mientras siga en preview, sirve para prototipar y comparar con Step Functions o con contenedores efímeros.",
+      "source": "AWS",
+      "url": "https://aws.amazon.com/about-aws/whats-new/2026/11/lambda-durable-microvm/"
+    },
+    {
+      "slug": "cncf-maquinas-virtuales-cargas-ia",
+      "tag": "Industria",
+      "title": "Un estudio de la CNCF indica que las máquinas virtuales siguen alojando más de la mitad de las aplicaciones en producción",
+      "summary": "La encuesta de la CNCF y Linux Foundation Research a 492 profesionales sitúa en el 53 % la media de aplicaciones de producción que corren en máquinas virtuales, cifra que sube al 64 % en organizaciones de más de 10.000 empleados. Quienes amplían su uso citan la seguridad y el aislamiento y las cargas de IA y agentes, y el sandboxing con microVMs pasaría del 20 % al 30 % de adopción prevista.",
+      "take": "Confirma que la mayoría de plataformas reales son híbridas y que la arquitectura debe contemplar VMs y Kubernetes juntos en lugar de dar por hecha una migración total a contenedores. Hay que leerlo con cautela, porque el estudio está patrocinado en parte por Broadcom.",
+      "source": "InfoQ",
+      "url": "https://www.infoq.com/news/2026/11/cncf-vm-ai-workloads/"
+    },
+    {
+      "slug": "vercel-board-coordinacion-agentes-codigo",
+      "tag": "IA",
+      "title": "Vercel lanza Board, un tablero experimental para coordinar tareas entre personas y agentes de programación",
+      "summary": "Board organiza el trabajo en canales e hilos accesibles desde un CLI o un SDK de JavaScript, y cada tarea se reclama con un lease renovable de hasta cinco minutos para que dos agentes no la tomen a la vez, con dependencias entre tareas y sincronización con Slack, GitHub o Linear. Vercel asegura que su factoría de software v0, reconstruida sobre Board, ya fusiona más de la mitad de sus pull requests.",
+      "take": "Lleva a los agentes patrones clásicos de sistemas distribuidos, como leases, bloqueo optimista y dependencias, para evitar trabajo duplicado. Ojo a su advertencia de permisos: un canal privado de Slack sincronizado con un canal abierto queda visible para todo el equipo.",
+      "source": "InfoQ",
+      "url": "https://www.infoq.com/news/2026/11/vercel-board-agents/"
+    }
+  ]
+}
