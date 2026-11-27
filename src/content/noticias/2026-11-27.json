@@ -1,0 +1,50 @@
+{
+  "date": "2026-11-27",
+  "items": [
+    {
+      "slug": "qcon-sf-matar-la-code-review",
+      "tag": "IA",
+      "title": "En QCon San Francisco proponen sustituir la revisión de código línea a línea por invariantes y pruebas automatizadas",
+      "summary": "Ankit Jain, CEO de Aviator, cerró QCon San Francisco 2026 apoyándose en un estudio de Faros sobre más de 4.000 equipos: más del 75 % de los PR se fusionan sin revisión humana y el PR mediano ronda las 640 líneas, aunque la calidad de la revisión cae a partir de 400. Su equipo convirtió 11.000 comentarios de revisión en 64 invariantes automatizadas y dice fusionar cuatro veces más PR con un 40 % menos de reverts, aunque sigue revisando a mano seguridad, autenticación y facturación.",
+      "take": "Con el código generado por IA, la revisión manual deja de escalar y el criterio arquitectónico tiene que vivir en reglas, tests y ADRs que se puedan comprobar en el pipeline. La excepción que mantienen para las zonas críticas es justo la gobernanza que conviene copiar.",
+      "source": "InfoQ",
+      "url": "https://www.infoq.com/news/2026/11/qcon-sf-26-kill-code-review/"
+    },
+    {
+      "slug": "elb-for-envoy-disponible-general",
+      "tag": "Cloud",
+      "title": "AWS lanza en disponibilidad general ELB for Envoy, un balanceador gestionado basado en proxies Envoy",
+      "summary": "El nuevo tipo de Elastic Load Balancing ejecuta Envoy en instancias EC2 dedicadas con aislamiento Nitro, de modo que una vulnerabilidad en el proxy queda contenida en ese balanceador, y AWS aplica automáticamente los parches de Envoy y del sistema operativo. Admite configuraciones, extensiones y planos de control Envoy existentes, se integra con ACM, AWS WAF y Envoy Gateway en Kubernetes, y llega a 14 regiones, entre ellas Irlanda, Fráncfort y España.",
+      "take": "Permite mantener la flexibilidad de Envoy (filtros, Wasm, procesamiento externo) sin cargar con su operación y parcheo, que suele ser el coste oculto de los gateways propios. Es una opción a valorar frente a mantener un ingress o un API gateway autogestionado en el clúster.",
+      "source": "AWS",
+      "url": "https://aws.amazon.com/about-aws/whats-new/2026/11/elastic-load-balancing-for-envoy-generally-available/"
+    },
+    {
+      "slug": "idunno-anticsrf-rce-explotacion-kev",
+      "tag": "Seguridad",
+      "title": "Explotan un fallo crítico de deserialización en una librería anti-CSRF de ASP.NET abandonada desde 2008",
+      "summary": "La vulnerabilidad CVE-2026-131914 (CVSS 9.3) afecta a Idunno.AntiCsrf 0.9.1, que deserializa el token del formulario sin firma ni MAC y permite ejecutar código en el proceso de IIS con una sola petición POST sin autenticar. Mandiant y watchTowr han observado explotación activa, CISA la añadió a su catálogo KEV el 24 de noviembre y, al no existir parche, se recomienda migrar al mecanismo antiforgery nativo de ASP.NET.",
+      "take": "Un componente olvidado de hace casi veinte años puede seguir abriendo la puerta en aplicaciones legacy de producción. Es el caso de uso perfecto para mantener un inventario de dependencias (SBOM) y alertas de software sin mantenimiento, no solo de CVE conocidas.",
+      "source": "The Hacker News",
+      "url": "https://thehackernews.com/2026/11/hackers-exploit-critical-aspnet-anti.html"
+    },
+    {
+      "slug": "copilot-code-review-facturacion-organizacion",
+      "tag": "IA",
+      "title": "GitHub facturará por defecto a la organización las revisiones de código de Copilot a partir del 30 de diciembre",
+      "summary": "Desde esa fecha, las revisiones de Copilot que lancen miembros con licencia se cobrarán a la organización propietaria del repositorio en los planes Business y Enterprise, salvo que se haya guardado otra opción. Para mantener el comportamiento actual hay que elegir «Member» en la política de Copilot antes de esa fecha, y GitHub advierte de que el cambio puede aumentar el gasto.",
+      "take": "Las herramientas de IA en el ciclo de desarrollo ya tienen coste variable por uso, así que necesitan la misma gobernanza FinOps que la infraestructura cloud. Conviene revisar la política y fijar presupuestos antes de que llegue la primera factura.",
+      "source": "GitHub Blog",
+      "url": "https://github.blog/changelog/2026-11-25-copilot-code-review-billing-will-default-to-the-organization/"
+    },
+    {
+      "slug": "microsoft-ignite-2026-resumen-agentes",
+      "tag": "Industria",
+      "title": "Microsoft cierra Ignite 2026 con Copilot como sistema operativo del trabajo y nuevas piezas de gobierno de agentes",
+      "summary": "Entre los anuncios destacan las máquinas virtuales Azure Cobalt 200 con 132 núcleos Arm, la disponibilidad general de Azure HorizonDB y de Azure AI Gateway como producto independiente, con 10.000 peticiones gratuitas al mes por gateway. Entra también asignará identidades de agente automáticamente a agentes locales detectados, empezando por GitHub Copilot CLI y Claude Code.",
+      "take": "Dar identidad, políticas y control de costes a los agentes se está convirtiendo en una capa más de la plataforma, igual que lo fueron los service accounts para los microservicios. Un AI gateway centralizado es la pieza natural para aplicar cuotas, auditoría y enrutado de modelos.",
+      "source": "InfoQ",
+      "url": "https://www.infoq.com/news/2026/11/microsoft-ignite-2026-recap/"
+    }
+  ]
+}
