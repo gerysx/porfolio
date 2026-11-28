@@ -1,0 +1,41 @@
+{
+  "date": "2026-11-28",
+  "items": [
+    {
+      "slug": "pytorch-greenlight-autoaprobacion-revisiones",
+      "tag": "IA",
+      "title": "PyTorch estrena GreenLight, un revisor de IA que puede aprobar PR de sus mantenedores",
+      "summary": "GreenLight, publicado en pytorch/test-infra, es una versión abierta del sistema RADAR de Meta, que filtra los cambios según una puntuación de riesgo y exige al agente revisor una confianza mínima de 8 sobre 10 antes de aprobar. De momento solo actúa sobre PR de personas con permisos de aprobación y en modo sombra para el resto, mientras Meta atribuye a la IA agéntica más del 80 % del aumento de líneas por cambio en el último año.",
+      "take": "La aprobación automática solo es defendible con un modelo de riesgo explícito, umbrales por origen del cambio y una cola donde un humano aún pueda vetar. Es el mismo enfoque de gobierno por capas que conviene aplicar antes de dejar que agentes toquen ramas protegidas.",
+      "source": "InfoQ",
+      "url": "https://www.infoq.com/news/2026/11/uber-agent-spend-steady/"
+    },
+    {
+      "slug": "grafana-13-3-renovacion-interfaz",
+      "tag": "Cloud",
+      "title": "Grafana inicia su mayor renovación visual desde la versión 7",
+      "summary": "La primera fase llega con Grafana 13.3 en vista previa pública, tanto en Grafana Cloud como en instalaciones propias, con nuevos temas claro y oscuro orientados a la accesibilidad, menos variantes de componentes y tipografía y capas visuales revisadas. No cambia la navegación ni rompe plugins, y en despliegues propios se activa con el feature toggle grafana.visualDesignRefresh, con opción de volver atrás.",
+      "take": "Al no haber cambios incompatibles, se puede probar en un entorno de observabilidad no productivo sin riesgo para los dashboards existentes. Que Grafana lo vincule a su asistente y a interacciones con agentes apunta a dónde va la operación de plataformas.",
+      "source": "InfoQ",
+      "url": "https://www.infoq.com/news/2026/11/grfana-ui-refresh/"
+    },
+    {
+      "slug": "drupal-cve-2026-136716-explotacion-activa",
+      "tag": "Seguridad",
+      "title": "Drupal avisa de una nueva vulnerabilidad crítica de toma de control que ya se está explotando",
+      "summary": "CVE-2026-136716 afecta al núcleo de Drupal y cubre estados del instalador que seguían siendo vulnerables tras el parche de Fail2Install, por lo que los sitios con install.php accesible pueden estar comprometidos. Está corregido en 11.4.14, 11.3.23 y 10.6.23, mientras que las ramas sin soporte no recibirán parche; StepSecurity estima que unos 31.500 de los 55.800 sitios Drupal expuestos usan ramas vulnerables.",
+      "take": "Un parche incompleto obliga a revisar no solo la versión, sino también si el sistema ya fue comprometido entre medias. Exponer rutas de instalación o administración en producción es un fallo de arquitectura de despliegue que se evita en el propio pipeline.",
+      "source": "The Hacker News",
+      "url": "https://thehackernews.com/2026/11/drupal-warns-of-new-highly-critical.html"
+    },
+    {
+      "slug": "cisa-kev-mitel-juniper-xen-orchestra-danfoss",
+      "tag": "Seguridad",
+      "title": "CISA añade a su catálogo KEV diez fallos explotados en Mitel, Juniper, Xen Orchestra y Danfoss",
+      "summary": "La lista incluye cinco vulnerabilidades de Mitel MiCollab (una con CVSS 10.0, corregidas en el parche 10.3.0.18), además de fallos con CVSS 9.8 en Vates Xen Orchestra y en HPE Juniper Session Smart Router. También entran tres fallos de controladores Danfoss AK-SM 800A que se relacionan con ataques a supermercados europeos, y la mayoría deben corregirse en organismos federales antes del 28 de noviembre.",
+      "take": "Herramientas de gestión de virtualización y equipos de red rara vez entran en el mismo ciclo de parcheo que las aplicaciones, y son justo las que dan acceso privilegiado. Conviene cruzar el inventario de infraestructura con el catálogo KEV de forma automática, no solo el de dependencias de software.",
+      "source": "The Hacker News",
+      "url": "https://thehackernews.com/2026/11/hackers-exploit-10-vulnerabilities.html"
+    }
+  ]
+}
